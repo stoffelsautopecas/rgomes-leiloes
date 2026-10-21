@@ -6368,8 +6368,10 @@ h1, h2, h3 { letter-spacing: -0.025em; }
 .floating-whatsapp { filter: drop-shadow(0 10px 15px rgba(11, 57, 125,.3)); }
 .floating-whatsapp:hover { transform: translateY(-3px) scale(1.04); }
 .product-card .whatsapp-btn { border-radius: 12px; background: #eef3fa !important; }
-.product-view-lot, .safra-home-link { background: #0b397d; color: #fff; }
-.product-view-lot:hover, .safra-home-link:hover { background: #0b397d; color: #fff; }
+.product-view-lot { background: var(--brand-green); color: #fff; }
+.product-view-lot:hover { background: #b4151b; color: #fff; }
+.safra-home-link { background: #0b397d; color: #fff; }
+.safra-home-link:hover { background: #0b397d; color: #fff; }
 
 body .site-footer { margin-top: 52px; padding: 34px 0 22px; }
 body .site-footer .footer-grid { grid-template-columns: 1.25fr repeat(4, minmax(120px, .72fr)); gap: 22px; }
