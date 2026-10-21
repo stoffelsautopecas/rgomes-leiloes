@@ -6377,10 +6377,10 @@ body .site-footer { margin-top: 52px; padding: 34px 0 22px; }
 body .site-footer .footer-grid { grid-template-columns: 1.25fr repeat(4, minmax(120px, .72fr)); gap: 22px; }
 body .site-footer .footer-logo { width: min(100%, 190px); }
 body .site-footer .footer-brand { margin-bottom: 12px; }
-body .site-footer h3 { margin-bottom: 11px; color: #fff !important; font-size: .92rem; }
+body .site-footer h3 { margin-bottom: 11px; color: var(--brand-navy) !important; font-size: .92rem; }
 body .site-footer ul { gap: 7px; }
-body .site-footer p, body .site-footer li, body .site-footer a, body .site-footer .footer-bottom p { color: #fff !important; font-size: .78rem; line-height: 1.55; }
-body .site-footer .footer-bottom { margin-top: 22px; padding-top: 14px; border-top-color: rgba(255,255,255,.18); }
+body .site-footer p, body .site-footer li, body .site-footer a, body .site-footer .footer-bottom p { color: var(--brand-navy) !important; font-size: .78rem; line-height: 1.55; }
+body .site-footer .footer-bottom { margin-top: 22px; padding-top: 14px; border-top-color: rgba(11,57,125,.18); }
 body .site-footer a:hover { color: var(--brand-lime); }
 @media (max-width: 640px) {
   .home-page .hero { min-height: auto; }
@@ -6396,4 +6396,41 @@ body .site-footer a:hover { color: var(--brand-lime); }
   body .site-footer { padding: 28px 0 22px; }
   body .site-footer .footer-grid { grid-template-columns: 1fr; gap: 20px; }
   body .site-footer .footer-logo { width: 170px; }
+}
+
+/* Padroniza os botões de ação com o vermelho do logotipo. */
+.site-header .header-button,
+.home-page .button-primary,
+.home-page .hero-actions .button.button-primary,
+.button-primary,
+.button-secondary,
+.home-page .more-button,
+.more-button,
+.home-search__submit,
+.home-search--wide .home-search__submit,
+.product-view-lot,
+.safra-home-link,
+.detail-page .detail-actions .button-secondary {
+  background: var(--brand-green);
+  background-image: none;
+  border-color: var(--brand-green);
+  color: #fff;
+}
+
+.site-header .header-button:hover,
+.home-page .button-primary:hover,
+.home-page .hero-actions .button.button-primary:hover,
+.button-primary:hover,
+.button-secondary:hover,
+.home-page .more-button:hover,
+.more-button:hover,
+.home-search__submit:hover,
+.home-search--wide .home-search__submit:hover,
+.product-view-lot:hover,
+.safra-home-link:hover,
+.detail-page .detail-actions .button-secondary:hover {
+  background: #b4151b;
+  background-image: none;
+  border-color: #b4151b;
+  color: #fff;
 }
