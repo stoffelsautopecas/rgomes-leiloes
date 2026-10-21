@@ -6317,19 +6317,19 @@ h1, h2, h3 { letter-spacing: -0.025em; }
 /* Paleta da RGOMES LEILÕES baseada no azul-marinho e vermelho do logotipo. */
 :root { --brand-navy: #0b397d; --brand-blue: #1252a0; --brand-green: #d71920; --brand-lime: #ed1c24; }
 .home-page .site-header, .catalog-page .site-header, .about-page .site-header, .tracking-page .site-header, .site-header {
-  background: rgba(6, 30, 67, .98); border-bottom: 2px solid var(--brand-lime);
+  background: rgba(255, 255, 255, .98); border-bottom: 2px solid var(--brand-lime);
 }
 .home-page .desktop-nav a, .catalog-page .desktop-nav a, .about-page .desktop-nav a,
 .tracking-page .desktop-nav a, .home-page .header-link, .catalog-page .header-link,
-.about-page .header-link, .tracking-page .header-link { color: #e5f2ff; }
+.about-page .header-link, .tracking-page .header-link { color: var(--brand-navy); }
 .home-page .desktop-nav a.active, .home-page .desktop-nav a:hover,
 .catalog-page .desktop-nav a.active, .catalog-page .desktop-nav a:hover,
 .about-page .desktop-nav a.active, .about-page .desktop-nav a:hover,
 .tracking-page .desktop-nav a.active, .tracking-page .desktop-nav a:hover { color: var(--brand-lime); border-bottom-color: var(--brand-lime); }
 .home-page .header-button, .catalog-page .header-button, .about-page .header-button,
-.tracking-page .header-button { color: #fff; border-color: #ed1c24; }
+.tracking-page .header-button { color: #fff; background: var(--brand-navy); border-color: #ed1c24; }
 .home-page .header-button:hover, .catalog-page .header-button:hover,
-.about-page .header-button:hover, .tracking-page .header-button:hover { background: #77df3d24; }
+.about-page .header-button:hover, .tracking-page .header-button:hover { background: var(--brand-blue); }
 .brand-logo, .footer-logo { background: transparent; border-radius: 0; }
 .brand-logo { height: 78px; max-width: min(34vw, 250px); }
 .site-footer, .home-page .site-footer, .catalog-page .site-footer,
@@ -6337,6 +6337,9 @@ h1, h2, h3 { letter-spacing: -0.025em; }
 .site-footer h3, .site-footer p, .site-footer li, .site-footer a { color: inherit; }
 .site-footer a:hover { color: var(--brand-lime); }
 .footer-logo { width: min(100%, 290px); }
+.site-header .desktop-nav a, .site-header .header-link { color: var(--brand-navy); }
+.site-header .desktop-nav a:hover, .site-header .desktop-nav a.active,
+.site-header .header-link:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
 .admin-login__brand img { height: 78px; padding: 6px; border-radius: 10px; background: var(--brand-navy); }
 .admin-sidebar__brand img { width: min(100%, 180px); height: auto; margin-bottom: 16px; }
 .contract-document__brand { padding: 14px 18px; border-radius: 12px; background: var(--brand-navy); }
