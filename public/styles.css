@@ -6435,26 +6435,40 @@ body .site-footer a:hover { color: var(--brand-lime); }
   color: #fff;
 }
 
-/* Destaque da página inicial em vermelho suave. */
+/* Restaura o visual original da área de destaque da página inicial. */
 .home-page .hero-overlay {
-  background: linear-gradient(100deg, rgba(249, 227, 228, .92) 5%, rgba(249, 227, 228, .78) 50%, rgba(249, 227, 228, .34) 100%);
+  background: linear-gradient(90deg, rgba(4, 20, 48, .94) 0%, rgba(6, 42, 82, .72) 46%, rgba(6, 30, 67, .12) 100%);
 }
 
 .home-page .hero-copy {
-  background: rgba(249, 227, 228, .94);
-  border-color: rgba(215, 25, 32, .24);
-  box-shadow: 0 24px 70px rgba(215, 25, 32, .14);
-  color: var(--brand-navy);
+  background: rgba(4, 24, 53, .28);
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+  color: #fff;
 }
 
-.home-page .hero h1 { color: var(--brand-navy); }
-.home-page .hero h1 span { color: var(--brand-green); }
-.home-page .hero-copy > p { color: #526176; }
-.home-page .safra-home-link {
-  background: #f9e3e4;
-  border: 1px solid rgba(215, 25, 32, .24);
-  color: #8f151b;
+.home-page .hero h1 { color: #fff; }
+.home-page .hero h1 span { color: #f9e3e4; }
+.home-page .hero-copy > p { color: #c0cedd; }
+.home-page .hero-actions .button.button-primary {
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  color: #fff;
 }
-.home-page .safra-home-link:hover { background: #f5c6c9; color: #8f151b; }
-.home-page .edital-home-link { background: rgba(255, 255, 255, .76); color: var(--brand-navy); }
-.home-page .edital-home-link:hover { background: #fff; color: var(--brand-navy); }
+.home-page .hero-actions .button.button-primary:hover {
+  background: transparent;
+  background-image: none;
+  color: #fff;
+}
+.home-page .safra-home-link {
+  background: var(--brand-navy);
+  border: 0;
+  color: #fff;
+}
+.home-page .safra-home-link:hover { background: var(--brand-blue); color: #fff; }
+.home-page .edital-home-link { background: #ffffff0d; color: #fff; }
+.home-page .edital-home-link:hover { background: #ffffff1c; color: #fff; }
