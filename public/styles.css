@@ -6340,6 +6340,7 @@ h1, h2, h3 { letter-spacing: -0.025em; }
 .site-header .desktop-nav a, .site-header .header-link { color: var(--brand-navy); }
 .site-header .desktop-nav a:hover, .site-header .desktop-nav a.active,
 .site-header .header-link:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
+.product-tag, .home-page .product-tag { background: var(--brand-green); color: #fff; }
 .admin-login__brand img { height: 78px; padding: 6px; border-radius: 10px; background: var(--brand-navy); }
 .admin-sidebar__brand img { width: min(100%, 180px); height: auto; margin-bottom: 16px; }
 .contract-document__brand { padding: 14px 18px; border-radius: 12px; background: var(--brand-navy); }
