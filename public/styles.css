@@ -6333,7 +6333,7 @@ h1, h2, h3 { letter-spacing: -0.025em; }
 .brand-logo, .footer-logo { background: transparent; border-radius: 0; }
 .brand-logo { height: 78px; max-width: min(34vw, 250px); }
 .site-footer, .home-page .site-footer, .catalog-page .site-footer,
-.about-page .site-footer, .tracking-page .site-footer { background: #061e43; color: #ecf4ff; border-top: 3px solid var(--brand-lime); }
+.about-page .site-footer, .tracking-page .site-footer { background: #fff; color: var(--brand-navy); border-top: 3px solid var(--brand-lime); }
 .site-footer h3, .site-footer p, .site-footer li, .site-footer a { color: inherit; }
 .site-footer a:hover { color: var(--brand-lime); }
 .footer-logo { width: min(100%, 290px); }
