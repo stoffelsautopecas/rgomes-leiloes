@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Contrato</title>
+    <meta name="description" content="Contrato de aquisição da RGOMES LEILÕES com assinatura digital do cliente." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="contract-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html">Catálogo</a>
+          <a href="./rastreio.html">Rastreio</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./login.html">Minha conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="contract-main">
+      <section class="contract-hero">
+        <div class="container contract-shell">
+          <div class="contract-status-card" id="contractIntro">
+            <span class="invoice-eyebrow">CONTRATO</span>
+            <h1>Contrato de Aquisição</h1>
+            <p>Assine o contrato com a opção de assinatura desejada e, após concluído, faça o download da via assinada pelas duas partes.</p>
+          </div>
+
+          <div class="contract-layout" id="contractRoot">
+            <div class="invoice-loading">Carregando contrato...</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="#contato" aria-label="Facebook">FB</a>
+            <a href="#contato" aria-label="Instagram">IG</a>
+            <a href="#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./catalogo.html">Catálogo</a></li>
+            <li><a href="./rastreio.html">Rastreio</a></li>
+            <li><a href="./login.html">Perfil</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação principal no celular">
+<a class="mobile-nav-item" href="./index.html">Início</a><a class="mobile-nav-item" href="./catalogo.html">Catálogo</a><a class="mobile-nav-item" href="./sobre.html">Sobre</a><a class="mobile-nav-item" href="./rastreio.html">Rastreio</a><a class="mobile-nav-item" href="./login.html">Perfil</a>
+</nav>
+<script src="./mobile-access.js"></script>
+    <script>
+      const contractRoot = document.getElementById("contractRoot");
+
+      const buildSignatureText = (fullName, style = "cursive") => {
+        const name = String(fullName || "").trim();
+        const parts = name.split(/\s+/).filter(Boolean);
+
+        if (style === "abbrev-cursive") {
+          if (parts.length <= 1) {
+            return name;
+          }
+
+          const [firstName, ...rest] = parts;
+          const initials = rest.map((part) => `${part[0].toUpperCase()}.`).join(" ");
+          return `${firstName} ${initials}`.trim();
+        }
+
+        return name;
+      };
+
+      const formatLocalDate = (value) => {
+        if (!value) {
+          return "-";
+        }
+
+        const stringValue = String(value).trim();
+        const normalized = /^\d{4}-\d{2}-\d{2}/.test(stringValue)
+          ? `${stringValue.slice(0, 10)}T12:00:00`
+          : value;
+        const date = new Date(normalized);
+
+        if (Number.isNaN(date.getTime())) {
+          return String(value);
+        }
+
+        return date.toLocaleDateString("pt-BR");
+      };
+
+      const getSignatureClass = (style = "cursive") => {
+        if (style === "hand") {
+          return "signature-style-hand";
+        }
+
+        if (style === "abbrev-cursive") {
+          return "signature-style-abbrev-cursive";
+        }
+
+        return "signature-style-cursive";
+      };
+
+      const renderSignaturePreview = (name, style) => `
+        <div class="contract-sign-preview__sample ${getSignatureClass(style)}">
+          ${buildSignatureText(name, style)}
+        </div>
+      `;
+
+      const getToken = () => {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("token") || params.get("id");
+      };
+
+      const renderLoading = () => {
+        contractRoot.innerHTML = '<div class="invoice-loading">Carregando contrato...</div>';
+      };
+
+      const renderError = (message) => {
+        contractRoot.innerHTML = `
+          <article class="contract-panel contract-panel--error">
+            <h2>Contrato indisponível</h2>
+            <p>${message}</p>
+          </article>
+        `;
+      };
+
+      const renderContract = (contract) => {
+        const signed = Boolean(contract.clientSignedAt);
+        const signatureName = contract.clientName || "CLIENTE";
+
+        contractRoot.innerHTML = `
+          <div class="contract-grid">
+            <section class="contract-paper">
+              ${contract.documentHtml || ""}
+            </section>
+
+            <aside class="contract-panel contract-panel--side">
+              <div class="contract-panel__head">
+                <h2>${signed ? "Contrato assinado" : "Assinatura do cliente"}</h2>
+                <span class="contract-badge ${signed ? "is-signed" : "is-pending"}">${signed ? "Assinado" : "Pendente"}</span>
+              </div>
+
+              <dl class="contract-details">
+                <div><dt>Cliente</dt><dd>${contract.clientName || "-"}</dd></div>
+                <div><dt>CPF</dt><dd>${contract.clientCpf || "-"}</dd></div>
+                <div><dt>Veículo</dt><dd>${[contract.vehicleName, contract.vehicleModel, contract.vehicleYear].filter(Boolean).join(" • ") || "-"}</dd></div>
+                <div><dt>Valor</dt><dd>${Number(contract.amountValue || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</dd></div>
+                <div><dt>Entrega</dt><dd>${formatLocalDate(contract.deliveryDate)}</dd></div>
+              </dl>
+
+              ${
+                signed
+                  ? `
+                    <div class="contract-actions">
+                      <button class="button button-primary" type="button" id="printContractButton">Baixar contrato assinado</button>
+                      <p class="contract-note">Use o botão acima para imprimir e salvar em PDF a via assinada pelas duas partes.</p>
+                    </div>
+                  `
+                  : `
+                    <form class="contract-sign-form" id="contractSignForm">
+                      <div class="contract-sign-preview" aria-live="polite">
+                        <span class="contract-sign-preview__eyebrow">Prévia da assinatura</span>
+                        <div class="contract-sign-preview__frame" id="signaturePreviewFrame">
+                          ${renderSignaturePreview(signatureName, "cursive")}
+                        </div>
+                        <small>O nome da pessoa aparece no estilo escolhido abaixo.</small>
+                      </div>
+                      <fieldset class="contract-sign-options">
+                        <legend>Escolha sua assinatura</legend>
+                        <label><input type="radio" name="signatureStyle" value="cursive" checked /> <span>1 - Nome Completo</span></label>
+                        <label><input type="radio" name="signatureStyle" value="abbrev-cursive" /> <span>2 - Sobrenome Abreviado</span></label>
+                      </fieldset>
+                      <button class="button button-primary" type="submit">Assinar contrato</button>
+                      <p class="contract-note">Ao assinar, o contrato fica disponível para download na via assinada.</p>
+                    </form>
+                  `
+              }
+            </aside>
+          </div>
+        `;
+
+        const printButton = document.getElementById("printContractButton");
+        const signForm = document.getElementById("contractSignForm");
+        const signaturePreviewFrame = document.getElementById("signaturePreviewFrame");
+
+        printButton?.addEventListener("click", () => window.print());
+
+        const updateSignaturePreview = () => {
+          if (!signaturePreviewFrame || !signForm) {
+            return;
+          }
+
+          const selectedStyle = new FormData(signForm).get("signatureStyle") || "cursive";
+          signaturePreviewFrame.innerHTML = renderSignaturePreview(signatureName, selectedStyle);
+        };
+
+        signForm?.querySelectorAll('input[name="signatureStyle"]').forEach((input) => {
+          input.addEventListener("change", updateSignaturePreview);
+        });
+
+        updateSignaturePreview();
+
+        signForm?.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const formData = new FormData(signForm);
+          try {
+            const response = await fetch(`/api/contracts?action=sign&token=${encodeURIComponent(contract.publicToken)}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                signatureStyle: formData.get("signatureStyle")
+              })
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+              throw new Error(data.message || "Não foi possível assinar o contrato.");
+            }
+
+            renderContract(data.contract);
+          } catch (error) {
+            renderError(error.message);
+          }
+        });
+      };
+
+      const loadContract = async () => {
+        const token = getToken();
+
+        if (!token) {
+          renderError("Nenhum token de contrato foi informado na URL.");
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/contracts/public/${encodeURIComponent(token)}`);
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Não foi possível carregar o contrato.");
+          }
+
+          renderContract(data.contract);
+        } catch (error) {
+          renderError(error.message);
+        }
+      };
+
+      loadContract();
+    </script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Cadastro</title>
+    <meta
+      name="description"
+      content="Crie sua conta na RGOMES LEILÕES para acompanhar veículos e máquinas."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="register-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html">Catálogo</a>
+          <a href="./sobre.html">Sobre Nós</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./rastreio.html">Rastrear</a>
+          <a class="header-button" href="./cadastro.html">Criar Conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="register-section">
+        <div class="container register-layout">
+          <div class="register-copy">
+            <span class="register-eyebrow">Cadastro</span>
+            <h1>Crie sua conta para acompanhar veículos e máquinas</h1>
+            <p>
+              Preencha seus dados abaixo. O endereço é carregado automaticamente pelo CEP para
+              agilizar o cadastro.
+            </p>
+          </div>
+
+          <div class="register-card">
+            <form class="register-form" id="register-form">
+              <div class="form-field form-field--full">
+                <label for="full-name">Nome Completo:*</label>
+                <input id="full-name" name="full_name" type="text" required />
+              </div>
+
+              <div class="form-field">
+                <label for="email">E-mail:*</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+
+              <div class="form-field">
+                <label for="whatsapp">Telefone WhatsApp:*</label>
+                <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" required />
+              </div>
+
+              <fieldset class="register-attendant form-field--full">
+                <legend>Você já foi ou está sendo atendido por alguém?</legend>
+                <div class="register-attendant__answer">
+                  <label><input type="radio" name="has_attendant" value="no" required checked /> Não</label>
+                  <label><input type="radio" name="has_attendant" value="yes" required /> Sim</label>
+                </div>
+                <div class="register-attendant__selection" id="attendantSelection" hidden>
+                  <p>Selecione quem está atendendo você:</p>
+                  <div class="register-attendant__list" id="attendantList" aria-live="polite">
+                    <span>Carregando funcionários...</span>
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="form-field">
+                <label for="cpf">CPF:*</label>
+                <input id="cpf" name="cpf" type="text" inputmode="numeric" maxlength="14" required />
+              </div>
+
+              <div class="form-field">
+                <label for="cep">CEP:*</label>
+                <input id="cep" name="cep" type="text" inputmode="numeric" maxlength="9" required />
+              </div>
+
+              <div class="form-field form-field--full">
+                <label for="address">Endereço:*</label>
+                <input id="address" name="address" type="text" required />
+              </div>
+
+              <div class="form-field">
+                <label for="number">Número:*</label>
+                <input id="number" name="number" type="text" required />
+              </div>
+
+              <div class="form-field">
+                <label for="district">Bairro:*</label>
+                <input id="district" name="district" type="text" required />
+              </div>
+
+              <div class="form-field form-field--full">
+                <label for="complement">Complemento:</label>
+                <input id="complement" name="complement" type="text" />
+              </div>
+
+              <input id="city" name="city" type="hidden" />
+              <input id="state" name="state" type="hidden" />
+
+              <div class="form-field">
+                <label for="password">Senha:*</label>
+                <input id="password" name="password" type="password" required />
+              </div>
+
+              <div class="form-field">
+                <label for="password-confirm">Confirmar Senha:*</label>
+                <input id="password-confirm" name="password_confirm" type="password" required />
+              </div>
+
+              <p class="form-status" id="form-status" aria-live="polite"></p>
+
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">Finalizar Cadastro</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+            <a href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+            <a href="./sobre.html#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Categorias</h3>
+          <ul>
+            <li><a href="./catalogo.html">Tratores</a></li>
+            <li><a href="./catalogo.html">Semeadoras</a></li>
+            <li><a href="./catalogo.html">Pulverizadores</a></li>
+            <li><a href="./catalogo.html">Colheitadeiras</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./catalogo.html">Como funciona</a></li>
+            <li><a href="./catalogo.html">Política de privacidade</a></li>
+            <li><a href="./catalogo.html">Termos de uso</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav-item" href="./index.html">Início</a>
+      <a class="mobile-nav-item" href="./catalogo.html">Catálogo</a>
+      <a class="mobile-nav-item" href="./sobre.html">Sobre</a>
+      <a class="mobile-nav-item" href="./rastreio.html">Rastreio</a>
+      <a class="mobile-nav-item active" href="./login.html">Perfil</a>
+    </nav>
+
+    <script src="./mobile-access.js"></script>
+    <script>
+      const cepInput = document.querySelector("#cep");
+      const addressInput = document.querySelector("#address");
+      const districtInput = document.querySelector("#district");
+      const cityInput = document.querySelector("#city");
+      const stateInput = document.querySelector("#state");
+      const statusElement = document.querySelector("#form-status");
+      const whatsappInput = document.querySelector("#whatsapp");
+      const cpfInput = document.querySelector("#cpf");
+      const form = document.querySelector("#register-form");
+      const attendantSelection = document.querySelector("#attendantSelection");
+      const attendantList = document.querySelector("#attendantList");
+      let availableAttendants = [];
+
+      const onlyDigits = (value) => value.replace(/\D/g, "");
+
+      const formatCep = (value) => {
+        const digits = onlyDigits(value).slice(0, 8);
+        return digits.replace(/(\d{5})(\d{0,3})/, "$1-$2").replace(/-$/, "");
+      };
+
+      const formatCpf = (value) => {
+        const digits = onlyDigits(value).slice(0, 11);
+        return digits
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      };
+
+      const formatPhone = (value) => {
+        const digits = onlyDigits(value).slice(0, 11);
+        if (digits.length <= 10) {
+          return digits
+            .replace(/(\d{2})(\d)/, "($1) $2")
+            .replace(/(\d{4})(\d)/, "$1-$2");
+        }
+        return digits
+          .replace(/(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{5})(\d)/, "$1-$2");
+      };
+
+      const loadAddressByCep = async () => {
+        const cep = onlyDigits(cepInput.value);
+        if (cep.length !== 8) {
+          return;
+        }
+
+        statusElement.textContent = "Buscando endereço pelo CEP...";
+
+        try {
+          const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await response.json();
+
+          if (data.erro) {
+            statusElement.textContent = "CEP não encontrado.";
+            return;
+          }
+
+          addressInput.value = data.logradouro || "";
+          districtInput.value = data.bairro || "";
+          cityInput.value = data.localidade || "";
+          stateInput.value = data.uf || "";
+          statusElement.textContent = "Endereço preenchido automaticamente.";
+        } catch (error) {
+          statusElement.textContent = "Não foi possível consultar o CEP agora.";
+        }
+      };
+
+      cepInput.addEventListener("input", () => {
+        cepInput.value = formatCep(cepInput.value);
+      });
+
+      cepInput.addEventListener("blur", loadAddressByCep);
+
+      cpfInput.addEventListener("input", () => {
+        cpfInput.value = formatCpf(cpfInput.value);
+      });
+
+      whatsappInput.addEventListener("input", () => {
+        whatsappInput.value = formatPhone(whatsappInput.value);
+      });
+
+      const renderAttendants = () => {
+        attendantList.replaceChildren();
+        if (!availableAttendants.length) {
+          const empty = document.createElement("span");
+          empty.textContent = "Nenhum funcionário está disponível neste momento.";
+          attendantList.append(empty);
+          return;
+        }
+        availableAttendants.forEach(attendant => {
+          const label = document.createElement("label");
+          label.className = "register-attendant-card";
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = "staff_id";
+          input.value = attendant.id;
+          const photo = attendant.photo_url ? document.createElement("img") : document.createElement("span");
+          photo.className = `register-attendant-card__photo${attendant.photo_url ? "" : " register-attendant-card__photo--placeholder"}`;
+          if (attendant.photo_url) { photo.src = attendant.photo_url; photo.alt = `Foto de ${attendant.full_name}`; }
+          else photo.textContent = String(attendant.full_name || "V").trim().slice(0, 1).toUpperCase();
+          const name = document.createElement("strong");
+          name.textContent = attendant.full_name;
+          label.append(input, photo, name);
+          attendantList.append(label);
+        });
+      };
+
+      fetch("/api/catalog/contacts")
+        .then(async response => { const data = await response.json(); if (!response.ok) throw new Error(); return data; })
+        .then(data => { availableAttendants = Array.isArray(data.contacts) ? data.contacts : []; renderAttendants(); })
+        .catch(() => { availableAttendants = []; renderAttendants(); });
+
+      form.querySelectorAll('[name="has_attendant"]').forEach(input => input.addEventListener("change", () => {
+        const hasAttendant = form.has_attendant.value === "yes";
+        attendantSelection.hidden = !hasAttendant;
+        form.querySelectorAll('[name="staff_id"]').forEach(option => { option.required = hasAttendant; if (!hasAttendant) option.checked = false; });
+      }));
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (form.password.value !== form.password_confirm.value) {
+          statusElement.textContent = "As senhas não conferem.";
+          return;
+        }
+
+        if (form.has_attendant.value === "yes" && !form.querySelector('[name="staff_id"]:checked')) {
+          statusElement.textContent = "Selecione o funcionário que está atendendo você.";
+          return;
+        }
+
+        statusElement.textContent = "Criando conta...";
+
+        fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fullName: form.full_name.value.trim(),
+            email: form.email.value.trim(),
+            whatsapp: form.whatsapp.value.trim(),
+            cpf: form.cpf.value.trim(),
+            cep: form.cep.value.trim(),
+            address: form.address.value.trim(),
+            number: form.number.value.trim(),
+            district: form.district.value.trim(),
+            complement: form.complement.value.trim(),
+            city: cityInput.value.trim(),
+            state: stateInput.value.trim(),
+            password: form.password.value,
+            staffId: form.querySelector('[name="staff_id"]:checked')?.value || null
+          })
+        })
+          .then(async (response) => {
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.message || "Erro ao criar conta.");
+            }
+
+            localStorage.setItem("agro_access_token", data.accessToken);
+            localStorage.setItem("agro_refresh_token", data.refreshToken);
+            localStorage.setItem("agro_current_user", JSON.stringify(data.user));
+            statusElement.textContent = "Cadastro salvo com sucesso. Redirecionando para o login...";
+
+            setTimeout(() => {
+              window.location.href = "./login.html?registered=1";
+            }, 900);
+          })
+          .catch((error) => {
+            statusElement.textContent = error.message;
+          });
+      });
+    </script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

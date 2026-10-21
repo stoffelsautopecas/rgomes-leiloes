@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Fatura</title>
+    <meta
+      name="description"
+      content="Fatura de pagamento com Pix copia e cola e QR Code da RGOMES LEILÕES."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="invoice-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html">Catálogo</a>
+          <a href="./rastreio.html">Rastreio</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./login.html">Minha conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="invoice-hero">
+        <div class="container invoice-shell" id="invoiceRoot">
+          <div class="invoice-loading">Carregando fatura...</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="#contato" aria-label="Facebook">FB</a>
+            <a href="#contato" aria-label="Instagram">IG</a>
+            <a href="#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./catalogo.html">Catálogo</a></li>
+            <li><a href="./rastreio.html">Rastreio</a></li>
+            <li><a href="./login.html">Perfil</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação principal no celular">
+<a class="mobile-nav-item" href="./index.html">Início</a><a class="mobile-nav-item" href="./catalogo.html">Catálogo</a><a class="mobile-nav-item" href="./sobre.html">Sobre</a><a class="mobile-nav-item" href="./rastreio.html">Rastreio</a><a class="mobile-nav-item" href="./login.html">Perfil</a>
+</nav>
+<script src="./mobile-access.js"></script>
+    <script type="module">
+      import { pixReceiverName } from "./shared/pix.js";
+      const invoiceRoot = document.getElementById("invoiceRoot");
+
+      const formatCurrency = (value) =>
+        Number(value || 0).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL"
+        });
+
+      const formatDate = (value) => {
+        if (!value) return "-";
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return value;
+        return date.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+      };
+
+      const statusMap = {
+        pending: { label: "Aguardando pagamento", className: "is-pending" },
+        waiting_payment: { label: "Aguardando pagamento", className: "is-pending" },
+        paid: { label: "Pago", className: "is-paid" },
+        refunded: { label: "Estornada", className: "is-refunded" },
+        charged_back: { label: "Chargeback", className: "is-refunded" },
+        failed: { label: "Falhada", className: "is-failed" },
+        canceled: { label: "Cancelada", className: "is-failed" }
+      };
+
+      const getStatusInfo = (status) => statusMap[String(status || "").toLowerCase()] || statusMap.pending;
+
+      const copyToClipboard = async (text) => {
+        await navigator.clipboard.writeText(text);
+      };
+
+      const renderInvoice = (invoice) => {
+          const receiverName = pixReceiverName(invoice.ironPixCode || invoice.pixCode);
+          const statusInfo = getStatusInfo(invoice.paidAt ? "paid" : invoice.status);
+          const qrImage =
+          invoice.ironPixImage ||
+          invoice.pixImage ||
+          (invoice.ironPixCode || invoice.pixCode
+            ? `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(invoice.ironPixCode || invoice.pixCode)}`
+            : "");
+
+        invoiceRoot.innerHTML = `
+          <article class="invoice-card">
+            <div class="invoice-card__head">
+              <div>
+                <span class="invoice-eyebrow">Fatura</span>
+                <h1>${invoice.title || "Fatura RGOMES LEILÕES"}</h1>
+                <p>${invoice.clientName || "Cliente"} • ${invoice.publicToken || "-"}</p>
+              </div>
+              <div class="invoice-status ${statusInfo.className}">${statusInfo.label}</div>
+            </div>
+
+            <div class="invoice-summary-grid">
+              <div class="invoice-summary-item">
+                <span>Valor</span>
+                <strong>${formatCurrency(invoice.amount)}</strong>
+              </div>
+              <div class="invoice-summary-item">
+                <span>Vencimento</span>
+                <strong>${invoice.dueDate ? formatDate(invoice.dueDate) : "Sem vencimento"}</strong>
+              </div>
+              <div class="invoice-summary-item">
+                <span>Status</span>
+                <strong>${statusInfo.label}</strong>
+              </div>
+              <div class="invoice-summary-item">
+                <span>Atualização</span>
+                <strong>${formatDate(invoice.updatedAt || invoice.createdAt)}</strong>
+              </div>
+            </div>
+
+            <div class="invoice-layout">
+              <section class="invoice-panel">
+                <div class="invoice-panel__head">
+                  <h2>Pix QR Code</h2>
+                  <button class="invoice-refresh" type="button" id="refreshInvoiceButton">Atualizar status</button>
+                </div>
+
+                ${qrImage ? `<div class="invoice-qr"><img src="${qrImage}" alt="QR Code Pix" /></div>` : '<div class="invoice-empty">QR Code indisponível no momento.</div>'}
+
+                <div class="invoice-receiver">
+                  <span>Recebedor informado no código Pix</span>
+                  <strong id="pixReceiverName"></strong>
+                </div>
+                <div class="invoice-copy-group">
+                  <label for="pixCopyField">Pix copia e cola</label>
+                  <textarea id="pixCopyField" readonly>${invoice.ironPixCode || invoice.pixCode || ""}</textarea>
+                  <div class="invoice-actions">
+                    <button class="button button-primary" type="button" id="copyPixButton">Copiar código</button>
+                    <a class="button button-secondary" href="${invoice.paymentUrl || "#"}" target="_blank" rel="noreferrer">Abrir link</a>
+                  </div>
+                </div>
+              </section>
+
+              <aside class="invoice-panel invoice-panel--side">
+                <div class="invoice-panel__head">
+                  <h2>Dados da fatura</h2>
+                </div>
+                <dl class="invoice-details">
+                  <div>
+                    <dt>Cliente</dt>
+                    <dd>${invoice.clientName || "-"}</dd>
+                  </div>
+                  <div>
+                    <dt>E-mail</dt>
+                    <dd>${invoice.clientEmail || "-"}</dd>
+                  </div>
+                  <div>
+                    <dt>Telefone</dt>
+                    <dd>${invoice.clientPhone || "-"}</dd>
+                  </div>
+                  <div>
+                    <dt>Documento</dt>
+                    <dd>${invoice.clientDocument || "-"}</dd>
+                  </div>
+                  <div>
+                    <dt>Transação NowBank</dt>
+                    <dd>${invoice.ironTransactionHash || invoice.sigiloTransactionId || "-"}</dd>
+                  </div>
+                  <div>
+                    <dt>Criada em</dt>
+                    <dd>${formatDate(invoice.createdAt)}</dd>
+                  </div>
+                  <div>
+                    <dt>Pago em</dt>
+                    <dd>${formatDate(invoice.paidAt)}</dd>
+                  </div>
+                </dl>
+                <p class="invoice-note">
+                  Use o botão de copiar para pagar no app do seu banco ou escaneie o QR Code com a câmera.
+                </p>
+              </aside>
+            </div>
+          </article>
+        `;
+
+        const refreshButton = document.getElementById("refreshInvoiceButton");
+        document.getElementById("pixReceiverName").textContent = receiverName || "Não informado no código Pix";
+        const copyPixButton = document.getElementById("copyPixButton");
+        const pixCopyField = document.getElementById("pixCopyField");
+
+        refreshButton?.addEventListener("click", () => loadInvoice(true));
+        copyPixButton?.addEventListener("click", async () => {
+          try {
+            await copyToClipboard(pixCopyField.value);
+            copyPixButton.textContent = "Copiado";
+            setTimeout(() => {
+              copyPixButton.textContent = "Copiar código";
+            }, 1800);
+          } catch (_error) {
+            copyPixButton.textContent = "Falha ao copiar";
+          }
+        });
+      };
+
+      const renderError = (message) => {
+        invoiceRoot.innerHTML = `
+          <article class="invoice-card">
+            <div class="invoice-card__head">
+              <div>
+                <span class="invoice-eyebrow">Fatura</span>
+                <h1>Fatura indisponível</h1>
+                <p>${message}</p>
+              </div>
+            </div>
+            <div class="invoice-empty">Verifique o link enviado ou entre em contato com a RGOMES LEILÕES.</div>
+          </article>
+        `;
+      };
+
+      const loadInvoice = async (sync = false) => {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token") || params.get("id");
+
+        if (!token) {
+          renderError("Nenhum token de fatura foi informado na URL.");
+          return;
+        }
+
+        const endpoint = sync
+          ? `/api/invoices/public/${encodeURIComponent(token)}/sync`
+          : `/api/invoices/public/${encodeURIComponent(token)}`;
+
+        try {
+          const response = await fetch(endpoint, { method: sync ? "POST" : "GET" });
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Não foi possível carregar a fatura.");
+          }
+
+          renderInvoice(data.invoice);
+        } catch (error) {
+          if (sync) {
+            try {
+              const fallbackResponse = await fetch(`/api/invoices/public/${encodeURIComponent(token)}`);
+              const fallbackData = await fallbackResponse.json();
+
+              if (fallbackResponse.ok) {
+                renderInvoice(fallbackData.invoice);
+                return;
+              }
+            } catch (_fallbackError) {
+              // Mantém o erro original abaixo.
+            }
+          }
+
+          renderError(error.message);
+        }
+      };
+
+      loadInvoice(false);
+      setInterval(() => loadInvoice(true), 30000);
+    </script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Detalhe do Veículo</title>
+    <meta
+      name="description"
+      content="Detalhes completos do veículo anunciado na RGOMES LEILÕES."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="detail-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html" class="active">Catálogo</a>
+          <a href="./sobre.html">Sobre Nós</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./rastreio.html">Rastrear</a>
+          <a class="header-button" href="./cadastro.html">Criar Conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section detail-section">
+        <div class="container">
+          <nav class="detail-breadcrumb" aria-label="Breadcrumb" id="detailBreadcrumb">
+            <a href="./index.html">Início</a>
+            <span>/</span>
+            <a href="./catalogo.html">Catálogo</a>
+            <span>/</span>
+            <strong id="detailBreadcrumbTitle">Carregando item</strong>
+          </nav>
+
+          <div class="detail-shell">
+            <div class="detail-hero">
+              <div class="detail-gallery">
+                <div class="detail-main-image">
+                  <div class="detail-media-actions">
+                    <button class="detail-media-btn" type="button" aria-label="Compartilhar">
+                      <span>↗</span>
+                    </button>
+                    <button class="detail-media-btn" type="button" aria-label="Favoritar">
+                      <span>♡</span>
+                    </button>
+                  </div>
+                <div class="detail-main-image__placeholder" id="detailMainImagePlaceholder">Carregando foto</div>
+                <img id="detailMainImage" src="" alt="" hidden />
+              </div>
+                <div class="detail-thumbs" id="detailThumbs"></div>
+              </div>
+
+              <aside class="detail-summary">
+                <div class="detail-summary__top">
+                  <span class="detail-badge" id="detailBadge">Catálogo</span>
+                  <span class="detail-rating">★ 5.0 <small>(12)</small></span>
+                </div>
+
+                <h1 id="detailTitle">Carregando item</h1>
+                <p class="detail-location">Localizado em: <strong id="detailLocation">Aguarde</strong></p>
+
+                <div class="detail-price-card">
+                  <strong id="detailPrice">R$ 0,00</strong>
+                  <small>Preço à vista. Consulte condições de financiamento e consórcio.</small>
+                </div>
+
+                <div class="detail-benefit-grid">
+                  <div class="detail-benefit-card">
+                    <span class="detail-benefit-icon">🛡</span>
+                    <div>
+                      <strong>Compra Segura</strong>
+                      <small>Garantia Verificada</small>
+                    </div>
+                  </div>
+                  <div class="detail-benefit-card">
+                    <span class="detail-benefit-icon">🚚</span>
+                    <div>
+                      <strong>Frete</strong>
+                      <small>A combinar</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-actions">
+                  <button class="button button-primary" id="detailBuyButton" type="button" data-staff-contact>Consultar disponibilidade</button>
+                  <a class="button button-secondary" id="detailWhatsappButton" href="./sobre.html#contato">Ver dados da empresa</a>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <div class="detail-content-grid">
+            <section class="detail-panel">
+              <div class="detail-panel__head">
+                <h2>Descrição do Produto</h2>
+              </div>
+              <ul class="detail-description-list" id="detailDescriptionList">
+                <li><span>Status:</span> Carregando informações do produto.</li>
+              </ul>
+            </section>
+
+            <aside class="detail-panel detail-seller">
+              <div class="detail-panel__head">
+                <h2>Sobre o Vendedor</h2>
+              </div>
+              <div class="seller-card">
+                <div class="seller-avatar">A</div>
+                <div class="seller-headline">
+                  <strong>Vendedor Certificado</strong>
+                  <p>Plataforma Segura</p>
+                </div>
+              </div>
+              <div class="seller-stats">
+                <div class="seller-stat">
+                  <span>Vendas concluídas</span>
+                  <strong>142</strong>
+                </div>
+                <div class="seller-stat">
+                  <span>Tempo de resposta</span>
+                  <strong>~ 2 horas</strong>
+                </div>
+              </div>
+              <a class="seller-profile-btn" href="./sobre.html#contato">Ver perfil completo</a>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section detail-related">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Itens <span>Relacionados</span></h2>
+              <p>Outras oportunidades disponíveis no mesmo padrão visual do catálogo.</p>
+            </div>
+            <a class="section-link" href="./catalogo.html">Ver mais itens →</a>
+          </div>
+
+          <div class="catalog-grid" id="detailRelatedGrid">
+            <div class="catalog-loading">Carregando itens relacionados...</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+            <a href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+            <a href="./sobre.html#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./catalogo.html">Catálogo</a></li>
+            <li><a href="./sobre.html#contato">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Atendimento</h3>
+          <ul>
+            <li>Segunda a sexta</li>
+            <li>08h às 18h</li>
+            <li>Atendimento comercial e pós-venda</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav-item" href="./index.html">Início</a>
+      <a class="mobile-nav-item active" href="./catalogo.html">Catálogo</a>
+      <a class="mobile-nav-item" href="./sobre.html">Sobre</a>
+      <a class="mobile-nav-item" href="./rastreio.html">Rastreio</a>
+      <a class="mobile-nav-item" href="./login.html">Perfil</a>
+    </nav>
+
+    <script src="./mobile-access.js"></script>
+    <script>
+      const slug = new URLSearchParams(window.location.search).get("slug");
+      const detailMainImage = document.getElementById("detailMainImage");
+      const detailMainImagePlaceholder = document.getElementById("detailMainImagePlaceholder");
+      const detailThumbs = document.getElementById("detailThumbs");
+      const detailTitle = document.getElementById("detailTitle");
+      const detailBreadcrumbTitle = document.getElementById("detailBreadcrumbTitle");
+      const detailBadge = document.getElementById("detailBadge");
+      const detailLocation = document.getElementById("detailLocation");
+      const detailPrice = document.getElementById("detailPrice");
+      const detailDescriptionList = document.getElementById("detailDescriptionList");
+      const detailWhatsappButton = document.getElementById("detailWhatsappButton");
+      const detailBuyButton = document.getElementById("detailBuyButton");
+      const detailRelatedGrid = document.getElementById("detailRelatedGrid");
+
+      const formatCurrency = (value) =>
+        Number(value || 0) > 0
+          ? Number(value).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            })
+          : "Sob consulta";
+
+      const getGallery = (item) => {
+        const galleryImages = Array.isArray(item.gallery_images) ? item.gallery_images : [];
+        return galleryImages.length ? galleryImages : [item.image_url].filter(Boolean);
+      };
+
+      const showDetailImagePlaceholder = (message = "Sem foto disponível") => {
+        detailMainImage.removeAttribute("src");
+        detailMainImage.alt = "";
+        detailMainImage.hidden = true;
+        if (detailMainImagePlaceholder) {
+          detailMainImagePlaceholder.hidden = false;
+          detailMainImagePlaceholder.textContent = message;
+        }
+      };
+
+      const loadDetailMainImage = (gallery, itemTitle, preferredIndex = 0) => {
+        if (!Array.isArray(gallery) || !gallery.length) {
+          showDetailImagePlaceholder("Sem foto disponível");
+          return;
+        }
+
+        const tryLoad = (index) => {
+          const currentImage = gallery[index];
+          if (!currentImage) {
+            showDetailImagePlaceholder("Sem foto disponível");
+            return;
+          }
+
+          const probe = new Image();
+          probe.onload = () => {
+            detailMainImage.src = currentImage;
+            detailMainImage.alt = `${itemTitle} - foto ${index + 1}`;
+            detailMainImage.hidden = false;
+            if (detailMainImagePlaceholder) {
+              detailMainImagePlaceholder.hidden = true;
+            }
+
+            document.querySelectorAll(".detail-thumb").forEach((item, thumbIndex) => {
+              item.classList.toggle("detail-thumb--active", thumbIndex === index);
+            });
+          };
+          probe.onerror = () => {
+            tryLoad(index + 1);
+          };
+          probe.src = currentImage;
+        };
+
+        tryLoad(preferredIndex);
+      };
+
+      const bindThumbs = () => {
+        document.querySelectorAll(".detail-thumb").forEach((thumb) => {
+          thumb.addEventListener("click", () => {
+            const nextIndex = Number(thumb.dataset.index || 0);
+            const title = thumb.dataset.title || detailTitle.textContent || "Foto do produto";
+            const gallery = Array.from(document.querySelectorAll(".detail-thumb img")).map((image) => image.src);
+            loadDetailMainImage(gallery, title, nextIndex);
+          });
+        });
+      };
+
+      const bindProductCards = () => {
+        document.querySelectorAll(".product-card[data-detail]").forEach((card) => {
+          card.tabIndex = 0;
+          card.addEventListener("click", (event) => {
+            if (event.target.closest("a, button")) {
+              return;
+            }
+            window.location.href = card.dataset.detail;
+          });
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              window.location.href = card.dataset.detail;
+            }
+          });
+        });
+      };
+
+      const createRelatedCard = (item) => {
+        const gallery = getGallery(item);
+        return `
+          <article class="product-card" data-detail="./detalhe.html?slug=${item.slug}">
+            <div class="product-media">
+              ${gallery[0] ? `<img src="${gallery[0]}" alt="${item.title}" loading="lazy" />` : '<div class="product-media__placeholder">Sem foto</div>'}
+              <div class="product-tag">${item.badge || item.category || "Catálogo"}</div>
+              <button class="favorite-btn" type="button" aria-label="Favoritar">♡</button>
+              <span class="photo-count">1/${gallery.length || 1}</span>
+            </div>
+            <div class="product-body">
+              <h3>${item.title}</h3>
+              <div class="product-divider"></div>
+              <div class="product-footer">
+                <div class="price-block">
+                  <strong>${formatCurrency(item.price)}</strong>
+                </div>
+                <div class="product-card-actions">
+                <a class="product-view-lot" href="./detalhe.html?slug=${encodeURIComponent(item.slug)}">VER LOTE</a>
+                <button class="whatsapp-btn" type="button" data-staff-contact data-vehicle="${encodeURIComponent(item.title || "")}" data-price="${encodeURIComponent(formatCurrency(item.price))}" data-description="${encodeURIComponent(item.description || "")}" data-image="${encodeURIComponent(gallery[0] || "")}" aria-label="Escolher funcionário para conversar pelo WhatsApp"><img src="./whatsapp1.png" alt="" width="36" height="36" loading="lazy" /></button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      };
+
+      const loadDynamicDetail = async () => {
+        if (!slug) {
+          bindThumbs();
+          bindProductCards();
+          return;
+        }
+
+        try {
+          const detailResponse = await fetch(`/api/catalog/detail?slug=${encodeURIComponent(slug)}`);
+          const detailData = await detailResponse.json();
+
+          if (!detailResponse.ok || !detailData.item) {
+            bindThumbs();
+            bindProductCards();
+            return;
+          }
+
+          const item = detailData.item;
+          const gallery = getGallery(item);
+
+          document.title = `RGOMES LEILÕES | ${item.title}`;
+          detailTitle.textContent = item.title;
+          detailBreadcrumbTitle.textContent = item.title;
+          detailBadge.textContent = item.badge || item.category || "Catálogo";
+          detailLocation.textContent = item.location || "Local sob consulta";
+          detailPrice.textContent = formatCurrency(item.price);
+          detailBuyButton.dataset.vehicle = encodeURIComponent(item.title || "");
+          detailBuyButton.dataset.price = encodeURIComponent(formatCurrency(item.price));
+          detailBuyButton.dataset.description = encodeURIComponent(item.description || "");
+          detailBuyButton.dataset.image = encodeURIComponent(gallery[0] || "");
+
+          detailThumbs.innerHTML = gallery
+            .map(
+              (image, index) => `
+                <button class="detail-thumb ${index === 0 ? "detail-thumb--active" : ""}" type="button" data-index="${index}" data-title="${item.title}">
+                  <img src="${image}" alt="${item.title} - foto ${index + 1}" loading="lazy" />
+                </button>
+              `
+            )
+            .join("");
+
+          loadDetailMainImage(gallery, item.title);
+          detailDescriptionList.innerHTML = [
+            ["Título", item.title],
+            ["Categoria", item.category || "-"],
+            ["Local", item.location || "-"],
+            ["Referência", item.year_label || "-"],
+            ["Seções", Array.isArray(item.sections) ? item.sections.join(", ") : "-"],
+            ["Preço", formatCurrency(item.price)],
+            ["Descrição", item.description || "-"]
+          ]
+            .map(([label, value]) => `<li><span>${label}:</span> ${value}</li>`)
+            .join("");
+
+          bindThumbs();
+
+          const relatedResponse = await fetch(`/api/catalog/items?section=relacionados&excludeSlug=${encodeURIComponent(slug)}&limit=4`);
+          const relatedData = await relatedResponse.json();
+          if (relatedResponse.ok && Array.isArray(relatedData.items) && relatedData.items.length) {
+            detailRelatedGrid.innerHTML = relatedData.items.map(createRelatedCard).join("");
+            bindProductCards();
+          }
+        } catch (error) {
+          bindThumbs();
+          bindProductCards();
+        }
+      };
+
+      loadDynamicDetail();
+    </script>
+  <script src="./staff-contact.js" defer></script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

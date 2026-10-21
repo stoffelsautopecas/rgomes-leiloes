@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Admin</title>
+    <meta
+      name="description"
+      content="Painel administrativo da RGOMES LEILÕES para gerenciar clientes, catálogo, motoristas, pátios e rastreios."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="admin-page">
+    <main class="admin-shell">
+      <section class="admin-login" id="adminLogin">
+        <div class="admin-login__brand">
+          <img src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          <span>Painel Administrativo</span>
+        </div>
+        <div class="admin-login__card">
+          <div class="admin-login__copy">
+            <span class="admin-eyebrow">Acesso Restrito</span>
+            <h1>Entrar no painel admin</h1>
+            <p>
+              Este ambiente é visível somente para o administrador e agora está separado
+              em abas para clientes, veículos, motoristas, pátios e rastreios.
+            </p>
+          </div>
+          <form class="admin-form" id="adminLoginForm">
+            <label>
+              <span>E-mail do admin</span>
+              <input type="email" name="email" placeholder="Seu e-mail de administrador" autocomplete="username" required />
+            </label>
+            <label>
+              <span>Senha</span>
+              <input type="password" name="password" placeholder="Sua senha de administrador" autocomplete="current-password" required />
+            </label>
+            <button class="button button-primary" type="submit">Entrar no painel</button>
+            <p class="admin-status" id="adminLoginStatus"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="admin-dashboard hidden" id="adminDashboard">
+        <section class="admin-layout">
+          <aside class="admin-sidebar" id="adminSidebar">
+            <div class="admin-sidebar__brand">
+              <img src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+              <h2>Painel Admin</h2>
+            </div>
+
+            <nav class="admin-sidebar__nav">
+              <button class="admin-tab is-active" type="button" data-tab-target="overview">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="currentColor"/></svg>
+                </span>
+                <span>Painel</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="clients">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5Z" fill="currentColor"/></svg>
+                </span>
+                <span>Gerenciar Clientes</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="vehicles">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 16h14l-1.1-5.12A2 2 0 0 0 15.95 9H8.05a2 2 0 0 0-1.95 1.88L5 16Zm2 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm10 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM4 7h2l1.1-2.45A2 2 0 0 1 8.92 3h6.16a2 2 0 0 1 1.82 1.55L18 7h2v2h-1l1 7H4l1-7H4V7Z" fill="currentColor"/></svg>
+                </span>
+                <span>Gerenciar Vitrine</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="drivers">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7 17h10l1-4-2-2-2-4h-4l-2 4-2 2 1 4Zm5-14a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 3Zm-7 16c0-2.21 3.134-4 7-4s7 1.79 7 4v1H5Z" fill="currentColor"/></svg>
+                </span>
+                <span>Gerenciar Motoristas</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="yards">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.033 7-12a7 7 0 1 0-14 0c0 5.967 7 12 7 12Zm0-9a3 3 0 1 1 3-3 3 3 0 0 1-3 3Z" fill="currentColor"/></svg>
+                </span>
+                <span>Localização do Pátio</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="trackings">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2Zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2ZM3 4h3l2.4 9.59A2 2 0 0 0 10.34 15H18a2 2 0 0 0 1.94-1.5L21 8H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Rastreios</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="invoices">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10a2 2 0 0 1 2 2v14l-3-2-2 2-2-2-2 2-2-2-2 2V6a2 2 0 0 1 2-2Zm2 5h6m-6 4h6m-6 4h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Faturas</span>
+              </button>
+              <button class="admin-tab" type="button" data-tab-target="contracts">
+                <span class="admin-tab__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v16H7z" stroke="currentColor" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span>Contratos</span>
+              </button>
+              <button class="admin-tab hidden" type="button" data-tab-target="staff" id="staffTab"><span class="admin-tab__icon" aria-hidden="true">👥</span><span>Usuários</span></button>
+            </nav>
+
+            <button class="admin-sidebar__logout" type="button" id="adminLogoutButton">Sair</button>
+          </aside>
+
+          <div class="admin-content">
+            <header class="admin-topbar">
+              <button class="admin-topbar__menu" type="button" id="adminMenuToggle" aria-label="Abrir menu do painel">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+              <div>
+                <p class="admin-topbar__eyebrow" id="adminCurrentTabLabel">Painel</p>
+                <h1>Painel de Controle</h1>
+                <p id="adminAccountLabel"></p>
+              </div>
+            </header>
+
+            <div class="admin-tab-panel" data-tab-panel="staff">
+              <section class="admin-section"><article class="admin-card">
+                <span class="eyebrow">Equipe</span><h2>Usuários</h2>
+                <p>Funcionários gerenciam seus próprios clientes, contratos, rastreios e faturas. Veículos, motoristas e pátios são compartilhados.</p>
+                <form id="staffForm" class="admin-form admin-form--grid">
+                  <label><span>Nome do funcionário</span><input name="fullName" required maxlength="150" autocomplete="name" /></label>
+                  <label><span>E-mail de acesso</span><input name="email" type="email" required autocomplete="off" /></label>
+                  <label><span>WhatsApp</span><input name="whatsapp" type="tel" required maxlength="30" autocomplete="tel" placeholder="(11) 99999-9999" /></label>
+                  <label><span>Senha inicial (mínimo 8 caracteres)</span><input name="password" type="password" minlength="8" required autocomplete="new-password" /></label>
+                  <label><span>Foto do funcionário</span><input id="staffPhotoInput" type="file" accept="image/jpeg,image/png,image/webp" /></label>
+                  <div><span>Pré-visualização</span><div class="admin-driver-preview" id="staffPhotoPreview">Sem foto</div></div>
+                  <div class="admin-form__full admin-form__actions"><button type="submit" class="button button-primary">Criar funcionário</button></div>
+                  <p class="admin-status" id="staffStatus" role="status"></p>
+                </form>
+                <h3>Funcionários cadastrados</h3><div id="staffList" class="admin-list"></div>
+              </article></section>
+            </div>
+            <div class="admin-tab-panel is-active" data-tab-panel="overview">
+              <article class="admin-card admin-card--welcome">
+                <div class="admin-card__head">
+                  <div>
+                    <h2>Bem-vindo!</h2>
+                    <p>Selecione uma opção de navegação para começar.</p>
+                  </div>
+                </div>
+              </article>
+
+              <section class="admin-grid admin-grid--stats" id="adminStats"></section>
+
+              <section class="admin-grid">
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Resumo</span>
+                      <h2>Últimos clientes</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list" id="overviewUsers"></div>
+                </article>
+
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Resumo</span>
+                      <h2>Últimos veículos</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list" id="overviewCatalog"></div>
+                </article>
+
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Resumo</span>
+                      <h2>Últimos motoristas</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list" id="overviewDrivers"></div>
+                </article>
+
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Resumo</span>
+                      <h2>Últimos rastreios</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list" id="overviewTrackings"></div>
+                </article>
+              </section>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="clients">
+              <article class="admin-card admin-card--wide">
+                <div class="admin-card__head">
+                  <div>
+                    <span class="admin-eyebrow">Usuários</span>
+                    <h2>Clientes cadastrados</h2>
+                  </div>
+                  <button class="button button-primary" type="button" id="clientOpenCreateButton">Cadastrar cliente</button>
+                </div>
+                <div class="admin-table-wrap">
+                  <table class="admin-table" id="usersTable">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>WhatsApp</th>
+                        <th>Cidade</th>
+                        <th>Perfil</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="vehicles">
+              <section class="admin-grid">
+                <article class="admin-card admin-card--wide">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Vitrine</span>
+                      <h2>Veículos cadastrados</h2>
+                    </div>
+                    <button class="button button-primary" type="button" id="catalogOpenCreateButton">Cadastrar veículo</button>
+                  </div>
+                  <p class="admin-panel-copy">
+                    Esta vitrine mostra somente os veículos atuais do site. Para cadastrar ou editar,
+                    use o pop-up e arraste as fotos para escolher a imagem principal do card.
+                  </p>
+                  <div class="admin-catalog-list" id="catalogCards"></div>
+                </article>
+              </section>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="drivers">
+              <section class="admin-grid">
+                <article class="admin-card admin-card--wide">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Cadastro</span>
+                      <h2>Motoristas</h2>
+                    </div>
+                    <button class="button button-primary" type="button" id="driverOpenCreateButton">Cadastrar motorista</button>
+                  </div>
+                  <p class="admin-panel-copy">
+                    Cadastre motoristas com endereço comercial, habilitação, status e foto real.
+                  </p>
+                  <div class="admin-list" id="driversList"></div>
+                </article>
+              </section>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="yards">
+              <section class="admin-grid">
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Cadastro</span>
+                      <h2>Pátios</h2>
+                    </div>
+                  </div>
+                  <form class="admin-form" id="yardForm">
+                    <label><span>Nome do pátio</span><input type="text" name="name" required /></label>
+                    <label><span>CEP</span><input type="text" name="cep" maxlength="9" inputmode="numeric" /></label>
+                    <label><span>Endereço</span><input type="text" name="address" /></label>
+                    <label><span>Número</span><input type="text" name="number" /></label>
+                    <label><span>Bairro</span><input type="text" name="district" /></label>
+                    <label><span>Cidade</span><input type="text" name="city" /></label>
+                    <label><span>Estado</span><input type="text" name="state" /></label>
+                    <label><span>Responsável</span><input type="text" name="contactName" /></label>
+                    <label><span>Telefone</span><input type="text" name="contactPhone" /></label>
+                    <label><span>Capacidade</span><input type="text" name="capacityInfo" /></label>
+                    <label><span>Observações</span><textarea name="notes" rows="3"></textarea></label>
+                    <button class="button button-primary" type="submit">Salvar pátio</button>
+                    <button class="button button-secondary hidden" type="button" id="cancelYardEdit">Cancelar edição</button>
+                    <p class="admin-status" id="yardStatus"></p>
+                  </form>
+                </article>
+
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Lista</span>
+                      <h2>Pátios cadastrados</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list" id="yardsList"></div>
+                </article>
+              </section>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="trackings">
+              <section class="admin-grid">
+                <article class="admin-card admin-card--wide">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Cadastro</span>
+                      <h2>Rastreio de Clientes</h2>
+                    </div>
+                  </div>
+                  <form class="admin-form admin-form--grid" id="trackingForm">
+                    <label>
+                      <span>Cliente cadastrado</span>
+                      <select name="clientUserId" id="trackingClientSelect" required></select>
+                    </label>
+                    <label><span>Como informar o veículo</span>
+                      <select id="trackingVehicleMode" name="vehicleMode"><option value="catalog">Selecionar do catálogo</option><option value="manual">Informar manualmente</option></select>
+                    </label>
+                    <label id="trackingCatalogField">
+                      <span>Veículo cadastrado</span>
+                      <select name="catalogItemId" id="trackingCatalogSelect" required></select>
+                    </label>
+                    <div id="trackingManualFields" class="hidden">
+                      <label><span>Marca e modelo do veículo</span><input name="manualVehicleName" type="text" maxlength="200" /></label>
+                      <label><span>Ano</span><input name="manualVehicleYear" type="text" placeholder="2024/2025" maxlength="30" /></label>
+                      <label><span>Dados do veículo</span><textarea name="manualVehicleDescription" placeholder="Versão, cor, placa e outras informações"></textarea></label>
+                      <label><span>Foto do veículo</span><input name="manualVehiclePhoto" type="file" accept="image/jpeg,image/png,image/webp" /></label>
+                      <img id="trackingManualPreview" alt="Prévia da foto do veículo" class="hidden" style="max-width:220px;max-height:160px;object-fit:contain;border-radius:12px" />
+                    </div>
+                    <label>
+                      <span>Motorista cadastrado</span>
+                      <select name="driverId" id="trackingDriverSelect"></select>
+                    </label>
+                    <label>
+                      <span>Pátio cadastrado</span>
+                      <select name="yardId" id="trackingYardSelect"></select>
+                    </label>
+                    <label>
+                      <span>Código de rastreio</span>
+                      <input type="text" name="trackingCode" required />
+                    </label>
+                    <label>
+                      <span>Status</span>
+                      <input name="status" list="trackingStatusSuggestions" maxlength="120" value="Aguardando nota fiscal" required />
+                      <datalist id="trackingStatusSuggestions">
+                        <option value="Aguardando nota fiscal"></option><option value="Em separação"></option><option value="Em andamento"></option><option value="Em rota de entrega"></option><option value="Entregue"></option>
+                      </datalist>
+                    </label>
+                    <label>
+                      <span>Alerta</span>
+                      <input type="text" name="alertMessage" value="Aguardando nota fiscal" />
+                    </label>
+                    <label>
+                      <span>Local atual (pátio)</span>
+                      <select name="currentLocationYardId" id="trackingLocationYardSelect"></select>
+                    </label>
+                    <label>
+                      <span>Endereço do local atual</span>
+                      <input type="text" name="currentLocationPreview" id="trackingCurrentLocationPreview" readonly />
+                    </label>
+                    <label class="admin-form__full">
+                      <span>Destino final do cliente</span>
+                      <input type="text" name="destinationPreview" id="trackingDestinationPreview" readonly />
+                    </label>
+                    <label>
+                      <span>Previsão de entrega</span>
+                      <input type="date" name="expectedDeliveryDate" />
+                    </label>
+                    <div class="admin-form__full admin-select-note">
+                      O painel usa os cadastros já existentes do site para alimentar o que aparece em `/rastreio`.
+                    </div>
+                    <label class="admin-form__full">
+                      <span>Observações</span>
+                      <textarea name="notes" rows="4"></textarea>
+                    </label>
+                    <div class="admin-form__full admin-form__actions">
+                      <button class="button button-primary" type="submit">Salvar rastreio</button>
+                      <p class="admin-status" id="trackingStatus"></p>
+                    </div>
+                  </form>
+                </article>
+
+                <article class="admin-card admin-card--wide">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Lista</span>
+                      <h2>Movimentações de rastreio</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list admin-list--tracking" id="trackingsList"></div>
+                </article>
+              </section>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="invoices">
+              <section class="admin-grid">
+                <article class="admin-card">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Cobrança</span>
+                      <h2>Gerar fatura Pix</h2>
+                    </div>
+                  </div>
+                  <p class="admin-panel-copy">
+                    Crie a cobrança, gere o Pix copia e cola e envie o link público para o cliente pagar dentro do próprio site.
+                  </p>
+                  <form class="admin-form admin-form--grid" id="invoiceForm">
+                    <label class="admin-form__full">
+                      <span>Cliente cadastrado</span>
+                      <select name="clientUserId" id="invoiceClientSelect" required></select>
+                    </label>
+                    <label class="admin-form__full">
+                      <span>Título da fatura</span>
+                      <input type="text" name="title" id="invoiceTitle" placeholder="Ex.: Frete da máquina" required />
+                    </label>
+                    <label>
+                      <span>Valor</span>
+                      <input type="number" name="amount" id="invoiceAmount" step="0.01" min="0.01" placeholder="0,00" required />
+                    </label>
+                    <label>
+                      <span>Vencimento</span>
+                      <input type="date" name="dueDate" id="invoiceDueDate" />
+                    </label>
+                    <label class="admin-form__full">
+                      <span>Descrição</span>
+                      <textarea name="description" id="invoiceDescription" rows="4" placeholder="Observações da cobrança"></textarea>
+                    </label>
+                    <div class="admin-form__full admin-form__actions">
+                      <button class="button button-primary" type="submit" id="invoiceSubmitButton">Gerar fatura</button>
+                      <p class="admin-status" id="invoiceStatus"></p>
+                    </div>
+                  </form>
+                </article>
+
+                <article class="admin-card admin-card--wide">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Lista</span>
+                      <h2>Faturas criadas</h2>
+                    </div>
+                  </div>
+                  <div class="admin-list" id="invoicesList"></div>
+                </article>
+              </section>
+            </div>
+
+            <div class="admin-tab-panel" data-tab-panel="contracts">
+              <section class="admin-grid">
+                <article class="admin-card admin-card--wide">
+                  <div class="admin-card__head">
+                    <div>
+                      <span class="admin-eyebrow">Contratos</span>
+                      <h2>Gerar contrato</h2>
+                    </div>
+                  </div>
+                  <p class="admin-panel-copy">
+                    Gere o contrato de aquisição, envie o link para assinatura e acompanhe o status em tempo real.
+                  </p>
+
+                  <div class="admin-subtabs" role="tablist" aria-label="Sub abas de contratos">
+                    <button class="admin-subtab is-active" type="button" data-contract-tab-target="acquisition">Contrato de Aquisição</button>
+                    <button class="admin-subtab" type="button" data-contract-tab-target="status">Status dos Contratos</button>
+                  </div>
+
+                  <div class="admin-contract-panel is-active" data-contract-panel="acquisition">
+                    <form class="admin-form admin-form--grid" id="contractForm">
+                      <input type="hidden" name="clientUserId" id="contractClientUserId" />
+                      <label class="admin-form__full">
+                        <span>NOME COMPLETO DO CLIENTE</span>
+                        <input type="text" name="clientName" id="contractClientSearch" list="contractClientOptions" placeholder="Pesquisar ou digitar o nome do cliente" autocomplete="off" required />
+                        <datalist id="contractClientOptions"></datalist>
+                      </label>
+                      <label>
+                        <span>CPF DO CLIENTE</span>
+                        <input type="text" name="clientCpf" id="contractClientCpf" required />
+                      </label>
+                      <label class="admin-form__full">
+                        <span>ENDEREÇO DO CLIENTE</span>
+                        <textarea name="clientAddress" id="contractClientAddress" rows="3" required></textarea>
+                      </label>
+                      <label class="admin-form__full"><span>SELECIONAR VEÍCULO DO CATÁLOGO</span><select id="contractCatalogSelect"><option value="">Preencher manualmente ou selecionar veículo</option></select></label>
+                      <label>
+                        <span>NOME DO VEÍCULO / MÁQUINA</span>
+                        <input type="text" name="vehicleName" id="contractVehicleName" required />
+                      </label>
+                      <label>
+                        <span>MARCA / MODELO</span>
+                        <input type="text" name="vehicleModel" id="contractVehicleModel" required />
+                      </label>
+                      <label>
+                        <span>ANO DE FABRICAÇÃO</span>
+                        <input type="text" name="vehicleYear" id="contractVehicleYear" required />
+                      </label>
+                      <label class="admin-form__full"><span>DADOS ADICIONAIS DO VEÍCULO</span><textarea name="vehicleDescription" id="contractVehicleDescription" rows="3"></textarea></label>
+                      <label>
+                        <span>VALOR DO VEÍCULO</span>
+                        <input type="text" inputmode="decimal" name="amountValue" id="contractAmountValue" placeholder="R$ 0,00" required />
+                      </label>
+                      <label class="admin-form__full">
+                        <span>VALOR POR EXTENSO</span>
+                        <input type="text" name="amountText" id="contractAmountText" required />
+                      </label>
+                      <label>
+                        <span>FORMA DE PAGAMENTO</span>
+                        <input type="text" name="paymentMethod" id="contractPaymentMethod" required />
+                      </label>
+                      <label>
+                        <span>OBSERVAÇÃO DO PAGAMENTO</span>
+                        <select name="paymentNotes" id="contractPaymentNotes"><option value="cash">À vista</option><option value="installments">Parcelado com entrada</option><option value="annual">Plano Safra - Parcelamento Anual</option></select>
+                      </label>
+                      <div id="contractInstallments" class="admin-form__full admin-form--grid hidden">
+                        <label><span>VALOR DA ENTRADA</span><input id="contractDownPayment" type="text" inputmode="decimal" placeholder="R$ 0,00" /></label>
+                        <label><span>DATA DO PAGAMENTO DA ENTRADA</span><input id="contractDownPaymentDate" type="date" /></label>
+                        <label><span id="contractInstallmentCountLabel">QUANTIDADE DE PARCELAS</span><input id="contractInstallmentCount" type="number" min="1" max="600" step="1" /></label>
+                        <label><span id="contractInstallmentValueLabel">VALOR DE CADA PARCELA</span><input id="contractInstallmentValue" type="text" inputmode="decimal" placeholder="R$ 0,00" /></label>
+                        <label><span>DIA DE VENCIMENTO DAS PARCELAS</span><input id="contractInstallmentDay" type="number" min="1" max="31" step="1" placeholder="Ex.: 10" /></label>
+                      </div>
+                      <label>
+                        <span>DATA DE ENTREGA</span>
+                        <input type="date" name="deliveryDate" id="contractDeliveryDate" required />
+                      </label>
+                      <label class="admin-form__full">
+                        <span>ENDEREÇO DE ENTREGA</span>
+                        <textarea name="deliveryAddress" id="contractDeliveryAddress" rows="3" required></textarea>
+                      </label>
+                      <div class="admin-form__full admin-form__actions">
+                        <button class="button button-primary" type="submit" id="contractSubmitButton">Gerar contrato</button>
+                        <p class="admin-status" id="contractStatus"></p>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="admin-contract-panel hidden" data-contract-panel="status">
+                    <div class="admin-list" id="contractsList"></div>
+                  </div>
+                </article>
+              </section>
+            </div>
+          </div>
+        </section>
+        <div class="admin-sidebar-backdrop hidden" id="adminSidebarBackdrop" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <div class="admin-modal hidden" id="catalogModal">
+      <div class="admin-modal__backdrop" data-close-catalog-modal></div>
+      <div class="admin-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="catalogModalTitle">
+        <div class="admin-modal__head">
+          <div>
+            <span class="admin-eyebrow">Cadastro</span>
+            <h2 id="catalogModalTitle">Cadastrar veículo</h2>
+          </div>
+          <button class="admin-modal__close" type="button" data-close-catalog-modal aria-label="Fechar">×</button>
+        </div>
+
+        <form class="admin-form admin-form--grid" id="catalogForm">
+          <input type="hidden" name="id" />
+          <label>
+            <span>Título</span>
+            <input type="text" name="title" required />
+          </label>
+          <label>
+            <span>Slug</span>
+            <input type="text" name="slug" placeholder="saveiro-cd-cross-1-6-16v" required />
+          </label>
+          <label>
+            <span>Categoria</span>
+            <input type="text" name="category" placeholder="Automóveis" required />
+          </label>
+          <label>
+            <span>Preço</span>
+            <input type="number" name="price" step="0.01" required />
+          </label>
+          <label>
+            <span>Local</span>
+            <input type="text" name="location" />
+          </label>
+          <label>
+            <span>Ano / referência</span>
+            <input type="text" name="yearLabel" />
+          </label>
+          <label>
+            <span>WhatsApp</span>
+            <input type="text" name="whatsapp" />
+          </label>
+          <label>
+            <span>Selo</span>
+            <input type="text" name="badge" placeholder="Máquinas / Picapes" />
+          </label>
+          <label>
+            <span>Qtd. da galeria</span>
+            <input type="number" name="galleryCount" min="1" value="1" />
+          </label>
+          <fieldset class="admin-checkboxes">
+            <legend>Seções</legend>
+            <label><input type="checkbox" name="sections" value="destaques" /> Máquinas em destaque</label>
+            <label><input type="checkbox" name="sections" value="relacionados" /> Produtos relacionados</label>
+            <label><input type="checkbox" name="sections" value="catalogo" checked /> Catálogo</label>
+          </fieldset>
+          <label class="admin-form__full">
+            <span>Fotos do computador</span>
+            <input type="file" id="catalogImagesInput" accept="image/*" multiple />
+          </label>
+          <div class="admin-form__full">
+            <div class="admin-upload-note">
+              Arraste as imagens para reorganizar. A primeira imagem será a capa do card no site.
+            </div>
+            <div class="admin-gallery-preview" id="catalogImagePreview"></div>
+          </div>
+          <label class="admin-form__full">
+            <span>Descrição</span>
+            <textarea name="description" rows="4"></textarea>
+          </label>
+          <div class="admin-form__full admin-form__actions">
+            <button class="button button-primary" type="submit" id="catalogSubmitButton">Salvar veículo</button>
+            <button class="button button-secondary hidden" type="button" id="catalogCancelButton">Cancelar edição</button>
+            <p class="admin-status" id="catalogStatus"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-modal hidden" id="clientModal">
+      <div class="admin-modal__backdrop" data-close-client-modal></div>
+      <div class="admin-modal__dialog admin-modal__dialog--compact" role="dialog" aria-modal="true" aria-labelledby="clientModalTitle">
+        <div class="admin-modal__head">
+          <div>
+            <span class="admin-eyebrow">Cadastro</span>
+            <h2 id="clientModalTitle">Cadastrar cliente</h2>
+          </div>
+          <button class="admin-modal__close" type="button" data-close-client-modal aria-label="Fechar">×</button>
+        </div>
+
+        <form class="admin-form admin-form--grid" id="clientForm">
+          <input type="hidden" name="id" />
+          <label><span>Nome completo</span><input type="text" name="fullName" required /></label>
+          <label><span>E-mail</span><input type="email" name="email" required /></label>
+          <label><span>Telefone WhatsApp</span><input type="text" name="whatsapp" required /></label>
+          <label><span>CPF</span><input type="text" name="cpf" required /></label>
+          <label><span>CEP</span><input type="text" name="cep" required /></label>
+          <label><span>Endereço</span><input type="text" name="address" required /></label>
+          <label><span>Número</span><input type="text" name="number" required /></label>
+          <label><span>Bairro</span><input type="text" name="district" required /></label>
+          <label><span>Complemento</span><input type="text" name="complement" /></label>
+          <label><span>Cidade</span><input type="text" name="city" /></label>
+          <label><span>Estado</span><input type="text" name="state" /></label>
+          <label><span>Senha</span><input type="password" name="password" /></label>
+          <div class="admin-form__full admin-form__actions">
+            <button class="button button-primary" type="submit" id="clientSubmitButton">Salvar cliente</button>
+            <p class="admin-status" id="clientStatus"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-modal hidden" id="driverModal">
+      <div class="admin-modal__backdrop" data-close-driver-modal></div>
+      <div class="admin-modal__dialog admin-modal__dialog--compact" role="dialog" aria-modal="true" aria-labelledby="driverModalTitle">
+        <div class="admin-modal__head">
+          <div>
+            <span class="admin-eyebrow">Cadastro</span>
+            <h2 id="driverModalTitle">Cadastrar motorista</h2>
+          </div>
+          <button class="admin-modal__close" type="button" data-close-driver-modal aria-label="Fechar">×</button>
+        </div>
+
+        <form class="admin-form admin-form--grid" id="driverForm">
+          <input type="hidden" name="id" />
+          <label><span>Nome completo</span><input type="text" name="fullName" required /></label>
+          <label><span>Telefone</span><input type="text" name="phone" /></label>
+          <label><span>E-mail</span><input type="email" name="email" /></label>
+          <label><span>CPF</span><input type="text" name="cpf" /></label>
+          <label><span>Habilitação</span><input type="text" name="cnh" /></label>
+          <label>
+            <span>Status</span>
+            <select name="status">
+              <option value="Situação regular">Situação regular</option>
+              <option value="Em rota">Em rota</option>
+              <option value="Aguardando liberação">Aguardando liberação</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+          </label>
+          <label class="admin-form__full"><span>Endereço comercial</span><input type="text" name="commercialAddress" /></label>
+          <label><span>Foto do computador</span><input type="file" id="driverPhotoInput" accept="image/*" /></label>
+          <div>
+            <span>Pré-visualização</span>
+            <div class="admin-driver-preview" id="driverPhotoPreview">Sem foto</div>
+          </div>
+          <label class="admin-form__full"><span>Observações</span><textarea name="notes" rows="3"></textarea></label>
+          <div class="admin-form__full admin-form__actions">
+            <button class="button button-primary" type="submit" id="driverSubmitButton">Salvar motorista</button>
+            <p class="admin-status" id="driverStatus"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-modal hidden" id="recordViewModal">
+      <div class="admin-modal__backdrop" data-close-record-view-modal></div>
+      <div class="admin-modal__dialog admin-modal__dialog--compact" role="dialog" aria-modal="true" aria-labelledby="recordViewTitle">
+        <div class="admin-modal__head">
+          <div>
+            <span class="admin-eyebrow" id="recordViewEyebrow">Ficha</span>
+            <h2 id="recordViewTitle">Detalhes</h2>
+          </div>
+          <button class="admin-modal__close" type="button" data-close-record-view-modal aria-label="Fechar">×</button>
+        </div>
+        <div class="admin-record-view" id="recordViewBody"></div>
+        <div class="admin-form__full admin-form__actions">
+          <button class="button button-secondary hidden" type="button" id="recordViewEditButton">Editar</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import {clientLink} from "./shared/public-links.js";
+      const invoiceLink = invoice => clientLink("fatura", invoice.publicToken, window.location.origin);
+      import {parseBRL, formatBRL, fullAddress, amountWords, buildPaymentSummary} from "./shared/contract-utils.js";
+      const storageKey = "agro_admin_auth";
+      const loginSection = document.getElementById("adminLogin");
+      const dashboardSection = document.getElementById("adminDashboard");
+      const adminLoginForm = document.getElementById("adminLoginForm");
+      const adminLoginStatus = document.getElementById("adminLoginStatus");
+      const adminLogoutButton = document.getElementById("adminLogoutButton");
+      const adminSidebar = document.getElementById("adminSidebar");
+      const adminMenuToggle = document.getElementById("adminMenuToggle");
+      const adminSidebarBackdrop = document.getElementById("adminSidebarBackdrop");
+      const adminCurrentTabLabel = document.getElementById("adminCurrentTabLabel");
+      const tabButtons = Array.from(document.querySelectorAll("[data-tab-target]"));
+      const tabPanels = Array.from(document.querySelectorAll("[data-tab-panel]"));
+
+      const catalogImagesInput = document.getElementById("catalogImagesInput");
+      const catalogImagePreview = document.getElementById("catalogImagePreview");
+      const catalogForm = document.getElementById("catalogForm");
+      const catalogStatus = document.getElementById("catalogStatus");
+      const catalogSubmitButton = document.getElementById("catalogSubmitButton");
+      const catalogCancelButton = document.getElementById("catalogCancelButton");
+      const catalogOpenCreateButton = document.getElementById("catalogOpenCreateButton");
+      const catalogModal = document.getElementById("catalogModal");
+      const catalogModalTitle = document.getElementById("catalogModalTitle");
+      const catalogModalClosers = Array.from(document.querySelectorAll("[data-close-catalog-modal]"));
+
+      const clientForm = document.getElementById("clientForm");
+      const clientStatus = document.getElementById("clientStatus");
+      const clientModal = document.getElementById("clientModal");
+      const clientOpenCreateButton = document.getElementById("clientOpenCreateButton");
+      const clientModalClosers = Array.from(document.querySelectorAll("[data-close-client-modal]"));
+      const clientSubmitButton = document.getElementById("clientSubmitButton");
+      const clientModalTitle = document.getElementById("clientModalTitle");
+
+      const driverForm = document.getElementById("driverForm");
+      const driverStatus = document.getElementById("driverStatus");
+      const driverModal = document.getElementById("driverModal");
+      const driverOpenCreateButton = document.getElementById("driverOpenCreateButton");
+      const driverModalClosers = Array.from(document.querySelectorAll("[data-close-driver-modal]"));
+      const driverPhotoInput = document.getElementById("driverPhotoInput");
+      const driverPhotoPreview = document.getElementById("driverPhotoPreview");
+      const driverSubmitButton = document.getElementById("driverSubmitButton");
+      const driverModalTitle = document.getElementById("driverModalTitle");
+
+      const recordViewModal = document.getElementById("recordViewModal");
+      const recordViewModalClosers = Array.from(document.querySelectorAll("[data-close-record-view-modal]"));
+      const recordViewEyebrow = document.getElementById("recordViewEyebrow");
+      const recordViewTitle = document.getElementById("recordViewTitle");
+      const recordViewBody = document.getElementById("recordViewBody");
+      const recordViewEditButton = document.getElementById("recordViewEditButton");
+
+      const trackingForm = document.getElementById("trackingForm");
+      const trackingStatus = document.getElementById("trackingStatus");
+      const trackingClientSelect = document.getElementById("trackingClientSelect");
+      const trackingCatalogSelect = document.getElementById("trackingCatalogSelect");
+      const trackingDriverSelect = document.getElementById("trackingDriverSelect");
+      const trackingYardSelect = document.getElementById("trackingYardSelect");
+      const trackingLocationYardSelect = document.getElementById("trackingLocationYardSelect");
+      const trackingCurrentLocationPreview = document.getElementById("trackingCurrentLocationPreview");
+      const trackingDestinationPreview = document.getElementById("trackingDestinationPreview");
+      const yardForm = document.getElementById("yardForm");
+      const invoiceForm = document.getElementById("invoiceForm");
+      const invoiceDueDate = document.getElementById("invoiceDueDate");
+      const invoiceStatus = document.getElementById("invoiceStatus");
+      const invoiceClientSelect = document.getElementById("invoiceClientSelect");
+      const invoiceSubmitButton = document.getElementById("invoiceSubmitButton");
+      const invoicesList = document.getElementById("invoicesList");
+      const contractForm = document.getElementById("contractForm");
+      const contractStatus = document.getElementById("contractStatus");
+      const contractSubmitButton = document.getElementById("contractSubmitButton");
+      const contractClientSearch = document.getElementById("contractClientSearch");
+      const contractClientOptions = document.getElementById("contractClientOptions");
+      const contractClientUserId = document.getElementById("contractClientUserId");
+      const contractClientCpf = document.getElementById("contractClientCpf");
+      const contractClientAddress = document.getElementById("contractClientAddress");
+      const contractVehicleName = document.getElementById("contractVehicleName");
+      const contractVehicleModel = document.getElementById("contractVehicleModel");
+      const contractVehicleYear = document.getElementById("contractVehicleYear");
+      const contractAmountValue = document.getElementById("contractAmountValue");
+      const contractAmountText = document.getElementById("contractAmountText");
+      const contractPaymentMethod = document.getElementById("contractPaymentMethod");
+      const contractPaymentNotes = document.getElementById("contractPaymentNotes");
+      const contractDeliveryDate = document.getElementById("contractDeliveryDate");
+      const contractDeliveryAddress = document.getElementById("contractDeliveryAddress");
+      const contractTabButtons = Array.from(document.querySelectorAll("[data-contract-tab-target]"));
+      const contractTabPanels = Array.from(document.querySelectorAll("[data-contract-panel]"));
+      const contractsList = document.getElementById("contractsList");
+
+      const adminStats = document.getElementById("adminStats");
+      const usersTableBody = document.querySelector("#usersTable tbody");
+      const overviewUsers = document.getElementById("overviewUsers");
+      const overviewCatalog = document.getElementById("overviewCatalog");
+      const overviewDrivers = document.getElementById("overviewDrivers");
+      const overviewTrackings = document.getElementById("overviewTrackings");
+      const catalogCards = document.getElementById("catalogCards");
+      const driversList = document.getElementById("driversList");
+      const yardsList = document.getElementById("yardsList");
+      const trackingsList = document.getElementById("trackingsList");
+
+      let currentAdminData = {
+        users: [],
+        catalogItems: [],
+        drivers: [],
+        yards: [],
+        trackings: [],
+        invoices: [],
+        contracts: []
+      };
+      let selectedGalleryImages = [];
+      let editingClientId = null;
+      let editingDriverId = null;
+      let editingCatalogId = null;
+      let draggedImageIndex = null;
+      let driverPhotoBase64 = "";
+      let staffPhotoBase64 = "";
+
+      const getAuth = () => {
+        try {
+          return JSON.parse(localStorage.getItem(storageKey) || "null");
+        } catch (_error) {
+          return null;
+        }
+      };
+
+      const setAuth = (payload) => localStorage.setItem(storageKey, JSON.stringify(payload));
+      const clearAuth = () => localStorage.removeItem(storageKey);
+
+      const setStatus = (element, message, error = false) => {
+        element.textContent = message;
+        element.classList.toggle("is-error", error);
+      };
+
+      const tabLabels = {
+        staff: "Usuários",
+        overview: "Painel",
+        clients: "Clientes",
+        vehicles: "Vitrine",
+        drivers: "Motoristas",
+        yards: "Pátios",
+        trackings: "Rastreios",
+        invoices: "Faturas",
+        contracts: "Contratos"
+      };
+
+      const formatInputDate = (date) => date.toISOString().slice(0, 10);
+      const getTomorrowDateValue = () => formatInputDate(new Date(Date.now() + 24 * 60 * 60 * 1000));
+      const formatContractDate = (value) => {
+        if (!value) {
+          return "-";
+        }
+
+        const stringValue = String(value).trim();
+        const normalized = /^\d{4}-\d{2}-\d{2}/.test(stringValue)
+          ? `${stringValue.slice(0, 10)}T12:00:00`
+          : value;
+        const date = new Date(normalized);
+        if (Number.isNaN(date.getTime())) {
+          return String(value);
+        }
+
+        return date.toLocaleDateString("pt-BR");
+      };
+
+      const slugify = (value) =>
+        String(value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+      const onlyDigits = (value) => String(value || "").replace(/\D/g, "");
+      const formatCep = (value) => {
+        const digits = onlyDigits(value).slice(0, 8);
+        return digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits;
+      };
+
+      const lookupCep = async (cep) => {
+        const normalizedCep = onlyDigits(cep);
+        if (normalizedCep.length !== 8) {
+          throw new Error("Informe um CEP válido com 8 números.");
+        }
+
+        const response = await fetch(`https://viacep.com.br/ws/${normalizedCep}/json/`);
+        if (!response.ok) {
+          throw new Error("Não foi possível consultar o CEP agora.");
+        }
+
+        const data = await response.json();
+        if (data.erro) {
+          throw new Error("CEP não encontrado.");
+        }
+
+        return data;
+      };
+
+      const resizeImage = (file) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const image = new Image();
+            image.onload = () => {
+              const maxWidth = 1400;
+              const scale = Math.min(1, maxWidth / image.width);
+              const canvas = document.createElement("canvas");
+              canvas.width = Math.round(image.width * scale);
+              canvas.height = Math.round(image.height * scale);
+              const context = canvas.getContext("2d");
+              context.drawImage(image, 0, 0, canvas.width, canvas.height);
+              resolve(canvas.toDataURL("image/jpeg", 0.78));
+            };
+            image.onerror = () => reject(new Error("Não foi possível ler a imagem."));
+            image.src = reader.result;
+          };
+          reader.onerror = () => reject(new Error("Não foi possível ler o arquivo."));
+          reader.readAsDataURL(file);
+        });
+
+      const showDashboard = () => {
+        loginSection.classList.add("hidden");
+        dashboardSection.classList.remove("hidden");
+      };
+
+      const showLogin = () => {
+        dashboardSection.classList.add("hidden");
+        loginSection.classList.remove("hidden");
+        closeAdminMenu();
+      };
+
+      const activateTab = (target) => {
+        if (target === "staff" && currentAdminData.actor?.role !== "admin") return;
+        tabButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.tabTarget === target);
+        });
+        tabPanels.forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.tabPanel === target);
+        });
+        if (adminCurrentTabLabel) {
+          adminCurrentTabLabel.textContent = tabLabels[target] || "Painel";
+        }
+        closeAdminMenu();
+      };
+
+      const openAdminMenu = () => {
+        dashboardSection.classList.add("is-menu-open");
+        document.body.classList.add("admin-menu-open");
+        adminMenuToggle?.setAttribute("aria-expanded", "true");
+        adminSidebarBackdrop?.classList.remove("hidden");
+      };
+
+      const closeAdminMenu = () => {
+        dashboardSection.classList.remove("is-menu-open");
+        document.body.classList.remove("admin-menu-open");
+        adminMenuToggle?.setAttribute("aria-expanded", "false");
+        if (adminSidebarBackdrop) {
+          adminSidebarBackdrop.classList.add("hidden");
+        }
+      };
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activateTab(button.dataset.tabTarget);
+          if (button.dataset.tabTarget === "contracts") {
+            setContractTab("acquisition");
+          }
+        });
+      });
+
+      adminMenuToggle?.addEventListener("click", () => {
+        if (dashboardSection.classList.contains("is-menu-open")) {
+          closeAdminMenu();
+          return;
+        }
+
+        openAdminMenu();
+      });
+
+      adminSidebarBackdrop?.addEventListener("click", () => {
+        closeAdminMenu();
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeAdminMenu();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 920) {
+          closeAdminMenu();
+        }
+      });
+
+      const openModal = (modal) => {
+        modal.classList.remove("hidden");
+        document.body.classList.add("admin-modal-open");
+      };
+
+      const closeModal = (modal) => {
+        modal.classList.add("hidden");
+        if (!document.querySelector(".admin-modal:not(.hidden)")) {
+          document.body.classList.remove("admin-modal-open");
+        }
+      };
+
+      const adminFetch = async (url, options = {}) => {
+        const auth = getAuth();
+        const headers = {
+          "Content-Type": "application/json",
+          ...(options.headers || {})
+        };
+
+        if (auth && auth.accessToken) {
+          headers.Authorization = `Bearer ${auth.accessToken}`;
+        }
+
+        const response = await fetch(url, { ...options, headers });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(data.message || "Erro ao processar a solicitação.");
+        }
+
+        return data;
+      };
+
+      const renderSimpleList = (target, items, renderer) => {
+        target.innerHTML = items.length
+          ? items.map(renderer).join("")
+          : '<div class="admin-empty">Nenhum registro encontrado.</div>';
+      };
+
+      const customerUsers = () => currentAdminData.users.filter((user) => (user.role || "customer") === "customer");
+
+      const buildYardAddress = (yard) => {
+        if (!yard) {
+          return "";
+        }
+
+        const address = String(yard.address || "").trim();
+        const city = String(yard.city || "").trim();
+        const state = String(yard.state || "").trim();
+        return [address, [city, state].filter(Boolean).join(" - ")].filter(Boolean).join(", ");
+      };
+
+      const buildClientAddress = fullAddress;
+
+      const syncTrackingDestination = () => {
+        const selectedClient = currentAdminData.users.find((user) => user.id === trackingClientSelect.value);
+        trackingDestinationPreview.value = buildClientAddress(selectedClient) || "Destino não disponível";
+      };
+
+      const renderTrackingSelects = () => {
+        const users = customerUsers();
+
+        trackingClientSelect.innerHTML = users.length
+          ? `<option value="">Selecione um cliente</option>${users
+              .map(
+                (user) =>
+                  `<option value="${user.id}">${user.full_name} • ${user.email || user.cpf || "Sem contato"}</option>`
+              )
+              .join("")}`
+          : '<option value="">Nenhum cliente cadastrado</option>';
+
+        trackingCatalogSelect.innerHTML = currentAdminData.catalogItems.length
+          ? `<option value="">Selecione um veículo</option>${currentAdminData.catalogItems
+              .map((item) => `<option value="${item.id}">${item.title} • ${item.category || "-"}</option>`)
+              .join("")}`
+          : '<option value="">Nenhum veículo cadastrado</option>';
+
+        trackingDriverSelect.innerHTML = `<option value="">Selecione um motorista</option>${currentAdminData.drivers
+          .map((driver) => `<option value="${driver.id}">${driver.full_name} • ${driver.status || "-"}</option>`)
+          .join("")}`;
+
+        trackingYardSelect.innerHTML = `<option value="">Selecione um pátio</option>${currentAdminData.yards
+          .map((yard) => `<option value="${yard.id}">${yard.name} • ${buildYardAddress(yard) || "-"}</option>`)
+          .join("")}`;
+
+        trackingLocationYardSelect.innerHTML = `<option value="">Selecione o local atual</option>${currentAdminData.yards
+          .map((yard) => `<option value="${yard.id}">${yard.name} • ${buildYardAddress(yard) || "-"}</option>`)
+          .join("")}`;
+
+        syncTrackingDestination();
+      };
+
+      const invoiceStatusInfo = (status) => {
+        const value = String(status || "").toLowerCase();
+
+        if (["paid", "completed", "approved", "authorized", "success"].includes(value)) {
+          return { label: "Pago", className: "is-paid" };
+        }
+
+        if (["refunded", "charged_back"].includes(value)) {
+          return { label: "Estornada", className: "is-refunded" };
+        }
+
+        if (["failed", "rejected", "canceled"].includes(value)) {
+          return { label: "Cancelada", className: "is-failed" };
+        }
+
+        return { label: "Pendente", className: "is-pending" };
+      };
+
+      const renderStats = (data) => {
+        const stats = [
+          ["Clientes cadastrados", customerUsers().length],
+          ["Itens no catálogo", data.catalogItems.length],
+          ["Motoristas", data.drivers.length],
+          ["Pátios", data.yards.length],
+          ["Rastreios", data.trackings.length],
+          ["Faturas", data.invoicesTotal || data.invoices?.length || 0],
+          ["Contratos", data.contractsTotal || data.contracts?.length || 0]
+        ];
+
+        adminStats.innerHTML = stats
+          .map(
+            ([label, value]) => `
+              <article class="admin-stat">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </article>
+            `
+          )
+          .join("");
+      };
+
+      const renderUsers = (users) => {
+        const clients = customerUsers();
+
+        usersTableBody.innerHTML = clients
+          .map(
+            (user) => `
+              <tr>
+                <td>${user.full_name || "-"}${ownerLabel(user)}</td>
+                <td>${user.email || "-"}</td>
+                <td>${user.whatsapp || "-"}</td>
+                <td>${[user.city, user.state].filter(Boolean).join(" / ") || "-"}</td>
+                <td>${user.role || "customer"}</td>
+                <td class="admin-table__actions">
+                  <button class="button button-secondary admin-card-action" type="button" data-view-client="${user.id}">Abrir ficha</button>
+                  <button class="button button-secondary admin-card-action" type="button" data-edit-client="${user.id}">Editar</button>
+                  <button class="button admin-card-action admin-card-action--danger" type="button" data-delete-client="${user.id}">Excluir</button>
+                </td>
+              </tr>
+            `
+          )
+          .join("");
+
+        clients.forEach((user) => {
+          const viewButton = document.querySelector(`[data-view-client="${user.id}"]`);
+          const editButton = document.querySelector(`[data-edit-client="${user.id}"]`);
+          const deleteButton = document.querySelector(`[data-delete-client="${user.id}"]`);
+
+          if (viewButton) {
+            viewButton.addEventListener("click", () =>
+              openRecordView({
+                eyebrow: "Ficha do cliente",
+                title: user.full_name || "Cliente",
+                fields: [
+                  ["Nome completo", user.full_name],
+                  ["E-mail", user.email],
+                  ["WhatsApp", user.whatsapp],
+                  ["CPF", user.cpf],
+                  ["CEP", user.cep],
+                  ["Endereço", buildClientAddress(user)],
+                  ["Complemento", user.complement],
+                  ["Perfil", user.role || "customer"]
+                ],
+                onEdit: () => fillClientForm(user)
+              })
+            );
+          }
+
+          if (editButton) {
+            editButton.addEventListener("click", () => fillClientForm(user));
+          }
+
+          if (deleteButton) {
+            deleteButton.addEventListener("click", async () => {
+              const confirmed = window.confirm(`Excluir o cliente "${user.full_name}"?`);
+              if (!confirmed) {
+                return;
+              }
+
+              try {
+                await adminFetch("/api/admin/customers", {
+                  method: "DELETE",
+                  body: JSON.stringify({ id: user.id })
+                });
+
+                if (editingClientId === user.id) {
+                  resetClientForm();
+                }
+
+                setStatus(clientStatus, "Cliente excluído com sucesso.");
+                closeModal(clientModal);
+                await loadDashboard();
+              } catch (error) {
+                setStatus(clientStatus, error.message, true);
+              }
+            });
+          }
+        });
+
+        renderSimpleList(
+          overviewUsers,
+          clients.slice(0, 5),
+          (user) => `
+            <article class="admin-list-item">
+              <strong>${user.full_name}</strong>
+              <span>${user.email || user.cpf || "-"}</span>
+              <p>${user.whatsapp || "Sem WhatsApp"} • ${[user.city, user.state].filter(Boolean).join(" / ") || "Sem cidade"}</p>
+            </article>
+          `
+        );
+      };
+
+      const renderCatalog = (items) => {
+        renderSimpleList(
+          overviewCatalog,
+          items.slice(0, 4),
+          (item) => `
+            <article class="admin-list-item">
+              <strong>${item.title}</strong>
+              <span>${item.category || "-"}</span>
+              <p>R$ ${Number(item.price || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</p>
+            </article>
+          `
+        );
+
+        catalogCards.innerHTML = items.length
+          ? items
+              .map((item) => {
+                const galleryImages = Array.isArray(item.gallery_images) ? item.gallery_images : [];
+                const thumb = galleryImages[0] || item.image_url || "";
+
+                return `
+                  <article class="admin-catalog-card">
+                    <div class="admin-catalog-card__image">
+                      ${thumb ? `<img src="${thumb}" alt="${item.title}" />` : '<div class="admin-catalog-card__placeholder">Sem foto</div>'}
+                    </div>
+                    <div class="admin-catalog-card__body">
+                      <span>${item.category || "-"}</span>
+                      <strong>${item.title || "-"}</strong>
+                      <p>${Array.isArray(item.sections) ? item.sections.join(", ") : "-"} • capa definida pela 1ª foto</p>
+                      <div class="admin-catalog-card__meta">
+                        <em>R$ ${Number(item.price || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</em>
+                        <small>${galleryImages.length || item.gallery_count || 0} foto(s)</small>
+                      </div>
+                      <div class="admin-catalog-card__actions">
+                        <button class="button button-secondary admin-card-action" type="button" data-edit-catalog="${item.id}">Editar</button>
+                        <button class="button admin-card-action admin-card-action--danger" type="button" data-delete-catalog="${item.id}">Excluir</button>
+                      </div>
+                    </div>
+                  </article>
+                `;
+              })
+              .join("")
+          : '<div class="admin-empty">Nenhum item cadastrado ainda.</div>';
+
+        items.forEach((item) => {
+          const editButton = document.querySelector(`[data-edit-catalog="${item.id}"]`);
+          const deleteButton = document.querySelector(`[data-delete-catalog="${item.id}"]`);
+
+          if (editButton) {
+            editButton.addEventListener("click", () => fillCatalogForm(item));
+          }
+
+          if (deleteButton) {
+            deleteButton.addEventListener("click", async () => {
+              const confirmed = window.confirm(`Excluir o item "${item.title}"?`);
+              if (!confirmed) {
+                return;
+              }
+
+              try {
+                await adminFetch("/api/admin/catalog-items", {
+                  method: "DELETE",
+                  body: JSON.stringify({ id: item.id })
+                });
+
+                if (editingCatalogId === item.id) {
+                  resetCatalogForm();
+                }
+
+                setStatus(catalogStatus, "Item excluído com sucesso.");
+                closeModal(catalogModal);
+                await loadDashboard();
+              } catch (error) {
+                setStatus(catalogStatus, error.message, true);
+              }
+            });
+          }
+        });
+      };
+
+      const driverAvatar = (driver) => {
+        if (driver.photo_url) {
+          return `<img class="admin-list-item__avatar" src="${driver.photo_url}" alt="${driver.full_name}" />`;
+        }
+
+        const initials = String(driver.full_name || "MT")
+          .split(" ")
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((part) => part[0])
+          .join("")
+          .toUpperCase();
+
+        return `<div class="admin-list-item__avatar admin-list-item__avatar--placeholder">${initials}</div>`;
+      };
+
+      const openRecordView = ({ eyebrow, title, fields, onEdit = null }) => {
+        recordViewEyebrow.textContent = eyebrow;
+        recordViewTitle.textContent = title;
+        recordViewBody.innerHTML = fields
+          .map(
+            ([label, value]) => `
+              <div class="admin-record-view__line">
+                <span>${label}</span>
+                <strong>${value || "-"}</strong>
+              </div>
+            `
+          )
+          .join("");
+
+        if (onEdit) {
+          recordViewEditButton.classList.remove("hidden");
+          recordViewEditButton.onclick = () => {
+            closeModal(recordViewModal);
+            onEdit();
+          };
+        } else {
+          recordViewEditButton.classList.add("hidden");
+          recordViewEditButton.onclick = null;
+        }
+
+        openModal(recordViewModal);
+      };
+
+      const renderDrivers = (drivers) => {
+        renderSimpleList(
+          overviewDrivers,
+          drivers.slice(0, 4),
+          (driver) => `
+            <article class="admin-list-item">
+              <div class="admin-list-item__inline">
+                ${driverAvatar(driver)}
+                <div>
+                  <strong>${driver.full_name}</strong>
+                  <span>${driver.status || "ativo"}</span>
+                  <p>${driver.commercial_address || [driver.phone, driver.email].filter(Boolean).join(" • ") || "Sem contato informado"}</p>
+                </div>
+              </div>
+            </article>
+          `
+        );
+
+        renderSimpleList(
+          driversList,
+          drivers,
+          (driver) => `
+            <article class="admin-list-item">
+              <div class="admin-list-item__inline">
+                ${driverAvatar(driver)}
+                <div>
+                  <strong>${driver.full_name}</strong>
+                  <span>${driver.status || "ativo"}</span>
+                  <p>${driver.commercial_address || "Endereço comercial não informado"}</p>
+                  <p>${[driver.cnh, driver.phone, driver.email].filter(Boolean).join(" • ") || "Sem contato informado"}</p>
+                </div>
+              </div>
+              <div class="admin-list-item__actions">
+                <button class="button button-secondary admin-card-action" type="button" data-view-driver="${driver.id}">Abrir ficha</button>
+                <button class="button button-primary admin-card-action" type="button" data-edit-driver="${driver.id}">Editar</button>
+              </div>
+            </article>
+          `
+        );
+
+        drivers.forEach((driver) => {
+          const viewButton = document.querySelector(`[data-view-driver="${driver.id}"]`);
+          const editButton = document.querySelector(`[data-edit-driver="${driver.id}"]`);
+
+          if (viewButton) {
+            viewButton.addEventListener("click", () =>
+              openRecordView({
+                eyebrow: "Ficha do motorista",
+                title: driver.full_name || "Motorista",
+                fields: [
+                  ["Nome completo", driver.full_name],
+                  ["Status", driver.status],
+                  ["Telefone", driver.phone],
+                  ["E-mail", driver.email],
+                  ["CPF", driver.cpf],
+                  ["Habilitação", driver.cnh],
+                  ["Endereço comercial", driver.commercial_address],
+                  ["Observações", driver.notes]
+                ],
+                onEdit: () => fillDriverForm(driver)
+              })
+            );
+          }
+
+          if (editButton) {
+            editButton.addEventListener("click", () => fillDriverForm(driver));
+          }
+        });
+      };
+
+      const resetYardEdit = () => {
+        yardForm.reset(); delete yardForm.dataset.editId;
+        ["cep","number","district"].forEach(name=>yardForm.elements[name].closest("label").classList.remove("hidden"));
+        yardForm.elements.address.closest("label").querySelector("span").textContent="Endereço";
+        document.getElementById("cancelYardEdit").classList.add("hidden");
+      };
+      document.getElementById("cancelYardEdit").addEventListener("click",resetYardEdit);
+      const renderYards = (yards) => {
+        renderSimpleList(
+          yardsList,
+          yards,
+          (yard) => `
+            <article class="admin-list-item">
+              <strong>${yard.name}</strong>
+              <span>${[yard.city, yard.state].filter(Boolean).join(" / ") || "Sem local"}</span>
+              <p>${buildYardAddress(yard) || "Sem endereço"} • ${yard.contact_phone || "Sem telefone"}</p>
+              <button type="button" class="button button-secondary" data-edit-yard="${yard.id}">Editar pátio</button>
+            </article>
+          `
+        );
+        yardsList.querySelectorAll("[data-edit-yard]").forEach(button=>button.addEventListener("click",()=>{
+          const yard=yards.find(item=>item.id===button.dataset.editYard);resetYardEdit();yardForm.dataset.editId=yard.id;
+          for(const [name,column] of Object.entries({name:"name",city:"city",state:"state",address:"address",contactName:"contact_name",contactPhone:"contact_phone",capacityInfo:"capacity_info",notes:"notes"})) yardForm.elements[name].value=yard[column] || "";
+          ["cep","number","district"].forEach(name=>yardForm.elements[name].closest("label").classList.add("hidden"));
+          yardForm.elements.address.closest("label").querySelector("span").textContent="Endereço completo (incluindo número e CEP)";
+          document.getElementById("cancelYardEdit").classList.remove("hidden");yardForm.scrollIntoView({behavior:"smooth",block:"start"});
+        }));
+      };
+
+      const escapeTrackingText = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+      const renderTrackings = (trackings) => {
+        renderSimpleList(
+          overviewTrackings,
+          trackings.slice(0, 4),
+          (tracking) => `
+            <article class="admin-list-item">
+              <strong>${tracking.tracking_code} • ${tracking.client_name}</strong>${ownerLabel(tracking)}
+              <span>${escapeTrackingText(tracking.status || "-")}</span>
+              <p>${tracking.item_name || "-"} • ${tracking.current_location || "Sem local atual"}</p>
+            </article>
+          `
+        );
+
+        renderSimpleList(
+          trackingsList,
+          trackings,
+          (tracking) => `
+            <article class="admin-list-item">
+              <strong>${tracking.tracking_code} • ${tracking.client_name}</strong>${ownerLabel(tracking)}
+              <span>${escapeTrackingText(tracking.status || "-")}</span>
+              <p>${tracking.item_name || "-"} • ${tracking.current_location || "Sem local atual"}</p>
+              <p>Alerta: ${escapeTrackingText(tracking.alert_message || tracking.status || "-")}</p>
+              <p>${tracking.driver_name || "Sem motorista"} • ${tracking.yard_name || "Sem pátio"}</p>
+              <a class="button button-secondary" href="./rastreio.html?preview=${encodeURIComponent(tracking.id)}" target="_blank" rel="noopener">Ver como cliente</a>
+              <form class="admin-tracking-status-form" data-update-tracking="${tracking.id}">
+                <label><span>Alterar status</span><input name="status" list="trackingStatusSuggestions" maxlength="120" required aria-label="Novo status do rastreio" placeholder="Selecione ou escreva um status" /></label>
+                <label><span>Localização informada (endereço ou cidade)</span><input name="currentLocation" type="text" maxlength="500" placeholder="Informe o local atual" /></label>
+                <button class="button button-primary" type="submit">Salvar rastreio</button>
+                <button class="button button-secondary" type="button" data-motion="${tracking.animation_paused === true ? "resume" : "pause"}">${tracking.animation_paused === true ? "Continuar andando" : "Pausar motorista"}</button>
+                <button class="button button-secondary" type="button" data-reset-motion>Voltar para o início</button>
+                <p class="admin-status" role="status"></p>
+              </form>
+            </article>
+          `
+        );
+        trackingsList.querySelectorAll("[data-update-tracking]").forEach(form => {
+          const tracking = trackings.find(item => item.id === form.dataset.updateTracking);
+          form.elements.currentLocation.value = tracking?.current_location || "";
+          form.elements.status.value = tracking?.status || "";
+          form.querySelectorAll("[data-motion]").forEach(button => button.addEventListener("click", async () => {
+            const controls = [...form.querySelectorAll("button")];
+            controls.forEach(control => control.disabled = true);
+            try {
+              const result = await adminFetch("/api/admin?action=trackings", {method:"PUT", body:JSON.stringify({id:tracking.id, status:tracking.status, animationPaused:button.dataset.motion === "pause"})});
+              Object.assign(tracking, result.tracking);
+              button.dataset.motion = result.tracking.animation_paused === true ? "resume" : "pause";
+              button.textContent = result.tracking.animation_paused === true ? "Continuar andando" : "Pausar motorista";
+              controls.forEach(control => control.disabled = false);
+            } catch(error) { setStatus(form.querySelector(".admin-status"), error.message, true); controls.forEach(control => control.disabled = false); }
+          }));
+          form.querySelector("[data-reset-motion]")?.addEventListener("click", async () => {
+            const controls = [...form.querySelectorAll("button")];
+            const message = form.querySelector(".admin-status");
+            controls.forEach(control => control.disabled = true);
+            setStatus(message, "Reiniciando a posição do motorista...");
+            try {
+              const currentStatus = String(tracking.status || "").trim().toLowerCase() === "entregue" ? "Em andamento" : tracking.status;
+              const result = await adminFetch("/api/admin?action=trackings", {method:"PUT", body:JSON.stringify({id:tracking.id, status:currentStatus, animationReset:true})});
+              const index = currentAdminData.trackings.findIndex(item => item.id === result.tracking.id);
+              if (index >= 0) currentAdminData.trackings[index] = {...currentAdminData.trackings[index], ...result.tracking};
+              renderTrackings(currentAdminData.trackings);
+              const updatedForm = [...trackingsList.querySelectorAll("[data-update-tracking]")].find(item => item.dataset.updateTracking === result.tracking.id);
+              if (updatedForm) setStatus(updatedForm.querySelector(".admin-status"), "Motorista voltou ao início e ficou pausado.");
+            } catch(error) {
+              setStatus(message, error.message, true);
+              controls.forEach(control => control.disabled = false);
+            }
+          });
+          form.addEventListener("submit", async event => {
+            event.preventDefault();
+            const button = form.querySelector("button"), message = form.querySelector(".admin-status");
+            button.disabled = true;
+            setStatus(message, "Salvando status...");
+            try {
+              const result = await adminFetch("/api/admin?action=trackings", {method: "PUT", body: JSON.stringify({id: form.dataset.updateTracking, status: form.elements.status.value, currentLocation: form.elements.currentLocation.value})});
+              const index = currentAdminData.trackings.findIndex(item => item.id === result.tracking.id);
+              if (index >= 0) currentAdminData.trackings[index] = {...currentAdminData.trackings[index], ...result.tracking};
+              renderTrackings(currentAdminData.trackings);
+              const updatedForm = [...trackingsList.querySelectorAll("[data-update-tracking]")].find(item => item.dataset.updateTracking === result.tracking.id);
+              if (updatedForm) setStatus(updatedForm.querySelector(".admin-status"), "Status atualizado com sucesso.");
+            } catch (error) { setStatus(message, error.message, true); }
+            finally { button.disabled = false; }
+          });
+        });
+      };
+
+      const renderInvoices = (invoices) => {
+        const users = customerUsers();
+
+        invoiceClientSelect.innerHTML = users.length
+          ? `<option value="">Selecione um cliente</option>${users
+              .map(
+                (user) =>
+                  `<option value="${user.id}">${user.full_name || "-"} • ${user.email || user.cpf || "Sem contato"}</option>`
+              )
+              .join("")}`
+          : '<option value="">Nenhum cliente cadastrado</option>';
+
+        invoicesList.innerHTML = invoices.length
+          ? invoices
+              .map((invoice) => {
+                const statusInfo = invoiceStatusInfo(invoice.paidAt ? "paid" : invoice.status);
+                const dueDate = invoice.dueDate ? new Date(invoice.dueDate).toLocaleDateString("pt-BR") : "Sem vencimento";
+                const createdAt = invoice.createdAt ? new Date(invoice.createdAt).toLocaleString("pt-BR") : "-";
+
+                return `
+                  <article class="admin-list-item">
+                    <strong>${invoice.title || "Fatura"}</strong>
+                    <span>${invoice.clientName || "Cliente"} • ${statusInfo.label}</span>${ownerLabel(invoice)}
+                    <p>R$ ${Number(invoice.amount || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2 })} • ${dueDate}</p>
+                    <p>${invoice.publicToken || "-"} • ${createdAt}</p>
+                    <div class="admin-list-item__actions">
+                      <a class="button button-secondary admin-card-action" href="${invoiceLink(invoice)}" target="_blank" rel="noreferrer">Abrir link</a>
+                      <button class="button button-secondary admin-card-action" type="button" data-copy-invoice-link="${invoice.id}">Copiar link</button>
+                      <button class="button button-primary admin-card-action" type="button" data-sync-invoice="${invoice.id}">Sincronizar</button>
+                    </div>
+                  </article>
+                `;
+              })
+              .join("")
+          : '<div class="admin-empty">Nenhuma fatura criada ainda.</div>';
+
+        invoices.forEach((invoice) => {
+          const copyButton = document.querySelector(`[data-copy-invoice-link="${invoice.id}"]`);
+          const syncButton = document.querySelector(`[data-sync-invoice="${invoice.id}"]`);
+
+          if (copyButton) {
+            copyButton.addEventListener("click", async () => {
+              try {
+                await navigator.clipboard.writeText(invoiceLink(invoice));
+                copyButton.textContent = "Copiado";
+                setTimeout(() => {
+                  copyButton.textContent = "Copiar link";
+                }, 1600);
+              } catch (_error) {
+                copyButton.textContent = "Falha";
+              }
+            });
+          }
+
+          if (syncButton) {
+            syncButton.addEventListener("click", async () => {
+              try {
+                setStatus(invoiceStatus, "Sincronizando...");
+                await adminFetch(`/api/admin/invoices/${invoice.id}/sync`, { method: "POST" });
+                setStatus(invoiceStatus, "Fatura sincronizada com sucesso.");
+                await loadDashboard();
+                await loadInvoices();
+              } catch (error) {
+                setStatus(invoiceStatus, error.message, true);
+              }
+            });
+          }
+        });
+      };
+
+      const contractStatusInfo = (status) => {
+        const value = String(status || "").toLowerCase();
+
+        if (value === "signed") {
+          return { label: "Assinado", className: "is-paid" };
+        }
+
+        if (value === "canceled") {
+          return { label: "Cancelado", className: "is-failed" };
+        }
+
+        return { label: "Aguardando assinatura", className: "is-pending" };
+      };
+
+      const renderContractClientOptions = () => {
+        const users = customerUsers();
+        contractClientOptions.innerHTML = users
+          .map(
+            (user) =>
+              `<option value="${user.full_name || ""}">${user.full_name || ""} • ${user.email || user.cpf || "Sem contato"}</option>`
+          )
+          .join("");
+      };
+
+      const findContractClient = (value) => {
+        const normalized = String(value || "").trim().toLowerCase();
+        if (!normalized) {
+          return null;
+        }
+
+        return customerUsers().find((user) => {
+          const candidates = [user.full_name, user.email, user.cpf, user.whatsapp]
+            .map((item) => String(item || "").trim().toLowerCase())
+            .filter(Boolean);
+
+          return candidates.includes(normalized) || candidates.some((item) => item.includes(normalized));
+        });
+      };
+
+      const fillContractClient = (user) => {
+        if (!user) {
+          return;
+        }
+
+        contractClientUserId.value = user.id || "";
+        contractClientSearch.value = user.full_name || "";
+        contractClientCpf.value = user.cpf || "";
+        contractClientAddress.value = buildClientAddress(user) || "";
+        contractDeliveryAddress.value = buildClientAddress(user) || "";
+      };
+
+      const catalogSelect = document.getElementById("contractCatalogSelect");
+      const vehicleDescription = document.getElementById("contractVehicleDescription");
+      const installmentFields = document.getElementById("contractInstallments");
+      const downPayment = document.getElementById("contractDownPayment");
+      const installmentCount = document.getElementById("contractInstallmentCount");
+      const installmentValue = document.getElementById("contractInstallmentValue");
+      const downPaymentDate = document.getElementById("contractDownPaymentDate");
+      const installmentDay = document.getElementById("contractInstallmentDay");
+      const syncPaymentFields = () => {
+        const annual = contractPaymentNotes.value === "annual";
+        const enabled = annual || contractPaymentNotes.value === "installments";
+        installmentFields.classList.toggle("hidden", !enabled);
+        [downPayment, installmentCount, installmentValue, downPaymentDate].forEach(input => { input.required = enabled; input.disabled = !enabled; });
+        installmentDay.required = enabled && !annual;
+        installmentDay.disabled = !enabled || annual;
+        installmentDay.closest("label").classList.toggle("hidden", annual);
+        document.getElementById("contractInstallmentCountLabel").textContent = annual ? "QUANTIDADE DE PARCELAS ANUAIS (1 POR ANO)" : "QUANTIDADE DE PARCELAS";
+        document.getElementById("contractInstallmentValueLabel").textContent = annual ? "VALOR DE CADA PARCELA ANUAL" : "VALOR DE CADA PARCELA";
+      };
+      contractPaymentNotes.addEventListener("change", syncPaymentFields);
+      syncPaymentFields();
+      const paymentSummary = () => {
+        return buildPaymentSummary({
+          mode: contractPaymentNotes.value,
+          downPayment: downPayment.value,
+          downPaymentDate: downPaymentDate.value,
+          installmentCount: installmentCount.value,
+          installmentValue: installmentValue.value,
+          installmentDay: installmentDay.value
+        });
+      };
+      [contractAmountValue, downPayment, installmentValue].forEach(input => {
+        input.addEventListener("blur", () => {
+          const value = parseBRL(input.value);
+          if (input.value.trim() && Number.isFinite(value) && value >= 0) input.value = formatBRL(value);
+        });
+      });
+      contractAmountValue.addEventListener("input", () => { contractAmountText.value = amountWords(contractAmountValue.value); });
+      const renderContractCatalog = () => {
+        const previous = catalogSelect.value;
+        catalogSelect.replaceChildren(new Option("Preencher manualmente ou selecionar veículo", ""));
+        currentAdminData.catalogItems.forEach(item => catalogSelect.add(new Option(item.title, item.id)));
+        catalogSelect.value = previous;
+      };
+      catalogSelect.addEventListener("change", () => {
+        const item = currentAdminData.catalogItems.find(item => item.id === catalogSelect.value);
+        if (!item) return;
+        contractVehicleName.value = item.title || "";
+        contractVehicleModel.value = (item.title || "").replace(/\s*\d{4}(?:\/\d{4})?\s*$/, "").trim();
+        contractVehicleYear.value = item.year_label || item.yearLabel || "";
+        vehicleDescription.value = item.description || "";
+        contractAmountValue.value = Number(item.price) > 0 ? formatBRL(item.price) : "";
+        contractAmountText.value = Number(item.price) > 0 ? amountWords(item.price) : "";
+      });
+
+      const resetContractForm = () => {
+        contractForm.reset();
+        syncPaymentFields();
+        renderContractCatalog();
+        contractClientUserId.value = "";
+        contractStatus.textContent = "";
+        contractSubmitButton.textContent = "Gerar contrato";
+        contractDeliveryDate.value = getTomorrowDateValue();
+        renderContractClientOptions();
+      };
+
+      const setContractTab = (target) => {
+        contractTabButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.contractTabTarget === target);
+        });
+
+        contractTabPanels.forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.contractPanel === target);
+          panel.classList.toggle("hidden", panel.dataset.contractPanel !== target);
+        });
+      };
+
+      const renderContracts = (contracts) => {
+        contractsList.innerHTML = contracts.length
+          ? contracts
+              .map((contract) => {
+                const statusInfo = contractStatusInfo(contract.status);
+                const deliveryDate = contract.deliveryDate ? formatContractDate(contract.deliveryDate) : "Sem data";
+                const createdAt = contract.createdAt ? new Date(contract.createdAt).toLocaleString("pt-BR") : "-";
+                const publicUrl = clientLink("contrato", contract.publicToken, window.location.origin);
+
+                return `
+                  <article class="admin-list-item">
+                    <strong>${contract.clientName || "Contrato"}</strong>${ownerLabel(contract)}
+                    <span>${contract.vehicleName || "-"} • ${statusInfo.label}</span>
+                    <p>${contract.vehicleModel || "-"} • ${contract.vehicleYear || "-"} • ${deliveryDate}</p>
+                    <p>${contract.publicToken || "-"} • ${createdAt}</p>
+                    <div class="admin-list-item__actions">
+                      <a class="button button-secondary admin-card-action" href="${publicUrl}" target="_blank" rel="noreferrer">Abrir contrato</a>
+                      <button class="button button-secondary admin-card-action" type="button" data-copy-contract-link="${contract.id}">Copiar link</button>
+                    </div>
+                  </article>
+                `;
+              })
+              .join("")
+          : '<div class="admin-empty">Nenhum contrato gerado ainda.</div>';
+
+        contracts.forEach((contract) => {
+          const copyButton = document.querySelector(`[data-copy-contract-link="${contract.id}"]`);
+
+          if (copyButton) {
+            copyButton.addEventListener("click", async () => {
+              try {
+                await navigator.clipboard.writeText(clientLink("contrato", contract.publicToken, window.location.origin));
+                copyButton.textContent = "Copiado";
+                setTimeout(() => {
+                  copyButton.textContent = "Copiar link";
+                }, 1600);
+              } catch (_error) {
+                copyButton.textContent = "Falha";
+              }
+            });
+          }
+        });
+      };
+
+      let staffUsers = [];
+      const ownerLabel = record => {
+        if (currentAdminData.actor?.role !== "admin") return "";
+        const id = record.owner_id || record.ownerId;
+        const name = record.owner_name || staffUsers.find(user => user.id === id)?.full_name || "Administrador principal";
+        return `<small>Responsável: ${escapeTrackingText(name)}</small>`;
+      };
+      const renderStaff = () => {
+        const target = document.getElementById("staffList");
+        target.replaceChildren();
+        if (!staffUsers.length) { target.textContent = "Nenhum funcionário cadastrado."; return; }
+        for (const user of staffUsers) {
+          const card = document.createElement("article"); card.className = "admin-list-item";
+          const header = document.createElement("div"); header.className = "admin-list-item__inline";
+          const avatar = user.photo_url ? document.createElement("img") : document.createElement("div");
+          avatar.className = `admin-list-item__avatar${user.photo_url ? "" : " admin-list-item__avatar--placeholder"}`;
+          if (user.photo_url) { avatar.src = user.photo_url; avatar.alt = `Foto de ${user.full_name}`; }
+          else avatar.textContent = String(user.full_name || "F").trim().slice(0, 1).toUpperCase();
+          const identity = document.createElement("div");
+          const title = document.createElement("strong"); title.textContent = user.full_name;
+          const info = document.createElement("p"); info.textContent = `${user.email} • ${user.whatsapp || "Sem WhatsApp"} • ${user.is_active ? "Ativo" : "Desativado"}`;
+          identity.append(title,info); header.append(avatar,identity);
+          const toggle = document.createElement("button"); toggle.type = "button"; toggle.className = "button button-secondary"; toggle.textContent = user.is_active ? "Desativar acesso" : "Ativar acesso";
+          const password = document.createElement("input"); password.type = "password"; password.minLength=8; password.autocomplete="new-password"; password.placeholder="Nova senha (mínimo 8 caracteres)"; password.setAttribute("aria-label",`Nova senha de ${user.full_name}`);
+          const reset = document.createElement("button"); reset.type="button"; reset.className="button button-secondary"; reset.textContent="Alterar senha";
+          const message=document.createElement("p"); message.className="admin-status";message.setAttribute("role","status");
+          const save = async changes => {
+            toggle.disabled=reset.disabled=true;
+            try { const result=await adminFetch("/api/admin?action=staff",{method:"PUT",body:JSON.stringify({id:user.id,...changes})}); Object.assign(user,result.staff); renderStaff(); }
+            catch(error){setStatus(message,error.message,true);toggle.disabled=reset.disabled=false;}
+          };
+          toggle.addEventListener("click",()=>save({isActive:!user.is_active}));
+          reset.addEventListener("click",()=>{if(password.value.length<8){setStatus(message,"Use pelo menos 8 caracteres.",true);return;}save({password:password.value});});
+          card.append(header,toggle,password,reset,message);target.append(card);
+        }
+      };
+      const staffPhotoInput = document.getElementById("staffPhotoInput");
+      const staffPhotoPreview = document.getElementById("staffPhotoPreview");
+      const renderStaffPhotoPreview = () => {
+        staffPhotoPreview.innerHTML = staffPhotoBase64 ? `<img src="${staffPhotoBase64}" alt="Pré-visualização do funcionário" />` : "Sem foto";
+      };
+      staffPhotoInput.addEventListener("change", async event => {
+        const file = event.target.files?.[0];
+        if (!file) { staffPhotoBase64 = ""; renderStaffPhotoPreview(); return; }
+        try { staffPhotoBase64 = await resizeImage(file); renderStaffPhotoPreview(); }
+        catch(error) { staffPhotoBase64 = ""; renderStaffPhotoPreview(); setStatus(document.getElementById("staffStatus"),error.message,true); }
+      });
+      document.getElementById("staffForm").addEventListener("submit",async event=>{
+        event.preventDefault();const form=event.currentTarget,button=form.querySelector("button"),message=document.getElementById("staffStatus");button.disabled=true;
+        try{const payload=Object.fromEntries(new FormData(form));payload.photoUrl=staffPhotoBase64 || null;await adminFetch("/api/admin?action=staff",{method:"POST",body:JSON.stringify(payload)});form.reset();staffPhotoBase64="";renderStaffPhotoPreview();await loadDashboard();setStatus(message,"Funcionário criado. Ele já pode acessar /admin com seu e-mail e senha.");}
+        catch(error){setStatus(message,error.message,true);}finally{button.disabled=false;}
+      });
+
+      const renderDashboard = (data) => {
+        currentAdminData = {
+          ...data,
+          invoices: Array.isArray(data.invoices)
+            ? data.invoices
+            : [],
+          contracts: Array.isArray(data.contracts)
+            ? data.contracts
+            : []
+        };
+        document.getElementById("adminAccountLabel").textContent = data.actor ? `${data.actor.fullName} • ${data.actor.role === "admin" ? "Administrador" : "Funcionário"}` : "";
+        document.getElementById("staffTab").classList.toggle("hidden", data.actor?.role !== "admin");
+        if (data.actor?.role !== "admin" && document.querySelector('[data-tab-panel="staff"]').classList.contains("is-active")) activateTab("overview");
+        renderStats(data);
+        renderUsers(data.users);
+        renderCatalog(data.catalogItems);
+        renderContractCatalog();
+        renderDrivers(data.drivers);
+        renderYards(data.yards);
+        renderTrackings(data.trackings);
+        renderTrackingSelects();
+        renderInvoices(currentAdminData.invoices || []);
+        renderContractClientOptions();
+        renderContracts(currentAdminData.contracts || []);
+      };
+
+      const loadDashboard = async () => {
+        const data = await adminFetch("/api/admin/dashboard");
+        staffUsers = data.actor?.role === "admin" ? (await adminFetch("/api/admin?action=staff")).staff : [];
+        renderStaff();
+        renderDashboard(data);
+      };
+
+      const loadInvoices = async () => {
+        const data = await adminFetch("/api/admin/invoices");
+        currentAdminData.invoices = data.invoices || [];
+        renderInvoices(currentAdminData.invoices);
+      };
+
+      const loadContracts = async () => {
+        const data = await adminFetch("/api/admin?action=contracts");
+        currentAdminData.contracts = data.contracts || [];
+        renderContracts(currentAdminData.contracts);
+      };
+
+      invoiceDueDate.min = getTomorrowDateValue();
+      invoiceDueDate.value = getTomorrowDateValue();
+      contractDeliveryDate.min = getTomorrowDateValue();
+      contractDeliveryDate.value = getTomorrowDateValue();
+
+      const renderDriverPhotoPreview = () => {
+        driverPhotoPreview.innerHTML = driverPhotoBase64 ? `<img src="${driverPhotoBase64}" alt="Pré-visualização do motorista" />` : "Sem foto";
+      };
+
+      const resetDriverForm = () => {
+        editingDriverId = null;
+        driverForm.reset();
+        driverForm.elements.id.value = "";
+        driverPhotoBase64 = "";
+        driverPhotoInput.value = "";
+        driverSubmitButton.textContent = "Salvar motorista";
+        driverModalTitle.textContent = "Cadastrar motorista";
+        setStatus(driverStatus, "");
+        renderDriverPhotoPreview();
+      };
+
+      const fillDriverForm = (driver) => {
+        editingDriverId = driver.id;
+        driverForm.elements.id.value = driver.id || "";
+        driverForm.elements.fullName.value = driver.full_name || "";
+        driverForm.elements.phone.value = driver.phone || "";
+        driverForm.elements.email.value = driver.email || "";
+        driverForm.elements.cpf.value = driver.cpf || "";
+        driverForm.elements.cnh.value = driver.cnh || "";
+        driverForm.elements.status.value = driver.status || "Situação regular";
+        driverForm.elements.commercialAddress.value = driver.commercial_address || "";
+        driverForm.elements.notes.value = driver.notes || "";
+        driverPhotoBase64 = driver.photo_url || "";
+        driverPhotoInput.value = "";
+        driverSubmitButton.textContent = "Salvar alterações";
+        driverModalTitle.textContent = "Editar motorista";
+        setStatus(driverStatus, "");
+        renderDriverPhotoPreview();
+        activateTab("drivers");
+        openModal(driverModal);
+      };
+
+      const resetClientForm = () => {
+        editingClientId = null;
+        clientForm.reset();
+        clientForm.elements.id.value = "";
+        clientForm.elements.password.required = true;
+        clientForm.elements.password.placeholder = "";
+        clientSubmitButton.textContent = "Salvar cliente";
+        clientModalTitle.textContent = "Cadastrar cliente";
+        setStatus(clientStatus, "");
+      };
+
+      const fillClientForm = (user) => {
+        editingClientId = user.id;
+        clientForm.elements.id.value = user.id || "";
+        clientForm.elements.fullName.value = user.full_name || "";
+        clientForm.elements.email.value = user.email || "";
+        clientForm.elements.whatsapp.value = user.whatsapp || "";
+        clientForm.elements.cpf.value = user.cpf || "";
+        clientForm.elements.cep.value = user.cep || "";
+        clientForm.elements.address.value = user.address || "";
+        clientForm.elements.number.value = user.number || "";
+        clientForm.elements.district.value = user.district || "";
+        clientForm.elements.complement.value = user.complement || "";
+        clientForm.elements.city.value = user.city || "";
+        clientForm.elements.state.value = user.state || "";
+        clientForm.elements.password.value = "";
+        clientForm.elements.password.required = false;
+        clientForm.elements.password.placeholder = "Preencha somente se quiser trocar a senha";
+        clientSubmitButton.textContent = "Salvar alterações";
+        clientModalTitle.textContent = "Editar cliente";
+        setStatus(clientStatus, "");
+        activateTab("clients");
+        openModal(clientModal);
+      };
+
+      const resetCatalogForm = ({ keepStatus = false } = {}) => {
+        editingCatalogId = null;
+        catalogForm.reset();
+        catalogForm.elements.id.value = "";
+        selectedGalleryImages = [];
+        catalogImagesInput.value = "";
+        catalogSubmitButton.textContent = "Salvar veículo";
+        catalogCancelButton.classList.add("hidden");
+        catalogModalTitle.textContent = "Cadastrar veículo";
+        if (!keepStatus) {
+          setStatus(catalogStatus, "");
+        }
+        renderImagePreview();
+      };
+
+      const resetInvoiceForm = () => {
+        invoiceForm.reset();
+        invoiceDueDate.min = getTomorrowDateValue();
+        invoiceDueDate.value = getTomorrowDateValue();
+        invoiceSubmitButton.textContent = "Gerar fatura";
+        setStatus(invoiceStatus, "");
+      };
+
+      const fillCatalogForm = (item) => {
+        editingCatalogId = item.id;
+        catalogForm.elements.id.value = item.id || "";
+        catalogForm.elements.title.value = item.title || "";
+        catalogForm.elements.slug.value = item.slug || "";
+        catalogForm.elements.category.value = item.category || "";
+        catalogForm.elements.price.value = item.price || "";
+        catalogForm.elements.location.value = item.location || "";
+        catalogForm.elements.yearLabel.value = item.year_label || "";
+        catalogForm.elements.whatsapp.value = item.whatsapp || "";
+        catalogForm.elements.badge.value = item.badge || "";
+        catalogForm.elements.galleryCount.value = item.gallery_count || 1;
+        catalogForm.elements.description.value = item.description || "";
+
+        Array.from(catalogForm.querySelectorAll('input[name="sections"]')).forEach((checkbox) => {
+          checkbox.checked = Array.isArray(item.sections) && item.sections.includes(checkbox.value);
+        });
+
+        selectedGalleryImages = Array.isArray(item.gallery_images)
+          ? [...item.gallery_images]
+          : item.image_url
+            ? [item.image_url]
+            : [];
+
+        catalogSubmitButton.textContent = "Salvar alterações";
+        catalogCancelButton.classList.remove("hidden");
+        catalogModalTitle.textContent = "Editar veículo";
+        renderImagePreview();
+        activateTab("vehicles");
+        openModal(catalogModal);
+      };
+
+      const moveGalleryImage = (fromIndex, toIndex) => {
+        if (fromIndex === toIndex || fromIndex == null || toIndex == null) {
+          return;
+        }
+        const [moved] = selectedGalleryImages.splice(fromIndex, 1);
+        selectedGalleryImages.splice(toIndex, 0, moved);
+      };
+
+      const removeGalleryImage = (index) => {
+        selectedGalleryImages.splice(index, 1);
+        catalogForm.elements.galleryCount.value = selectedGalleryImages.length || 1;
+        renderImagePreview();
+      };
+
+      const renderImagePreview = () => {
+        catalogImagePreview.innerHTML = selectedGalleryImages.length
+          ? selectedGalleryImages
+              .map(
+                (image, index) => `
+                  <figure class="admin-gallery-preview__item" draggable="true" data-gallery-index="${index}">
+                    <img src="${image}" alt="Foto ${index + 1}" />
+                    <figcaption>
+                      <span>${index === 0 ? "Capa do card" : `Foto ${index + 1}`}</span>
+                      <button class="admin-gallery-preview__remove" type="button" data-remove-gallery="${index}">Remover</button>
+                    </figcaption>
+                  </figure>
+                `
+              )
+              .join("")
+          : '<div class="admin-empty">Nenhuma foto selecionada.</div>';
+
+        catalogImagePreview.querySelectorAll("[data-remove-gallery]").forEach((button) => {
+          button.addEventListener("click", () => removeGalleryImage(Number(button.dataset.removeGallery)));
+        });
+
+        catalogImagePreview.querySelectorAll("[data-gallery-index]").forEach((item) => {
+          const index = Number(item.dataset.galleryIndex);
+
+          item.addEventListener("dragstart", () => {
+            draggedImageIndex = index;
+            item.classList.add("is-dragging");
+          });
+
+          item.addEventListener("dragend", () => {
+            draggedImageIndex = null;
+            item.classList.remove("is-dragging");
+          });
+
+          item.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            item.classList.add("is-drop-target");
+          });
+
+          item.addEventListener("dragleave", () => {
+            item.classList.remove("is-drop-target");
+          });
+
+          item.addEventListener("drop", (event) => {
+            event.preventDefault();
+            item.classList.remove("is-drop-target");
+            moveGalleryImage(draggedImageIndex, index);
+            catalogForm.elements.galleryCount.value = selectedGalleryImages.length || 1;
+            renderImagePreview();
+          });
+        });
+      };
+
+      catalogForm.elements.title.addEventListener("input", (event) => {
+        catalogForm.elements.slug.value = slugify(event.target.value);
+      });
+
+      catalogOpenCreateButton.addEventListener("click", () => {
+        resetCatalogForm();
+        openModal(catalogModal);
+      });
+
+      clientOpenCreateButton.addEventListener("click", () => {
+        resetClientForm();
+        openModal(clientModal);
+      });
+
+      driverOpenCreateButton.addEventListener("click", () => {
+        resetDriverForm();
+        openModal(driverModal);
+      });
+
+      catalogModalClosers.forEach((button) => {
+        button.addEventListener("click", () => {
+          closeModal(catalogModal);
+        });
+      });
+
+      clientModalClosers.forEach((button) => {
+        button.addEventListener("click", () => {
+          closeModal(clientModal);
+        });
+      });
+
+      driverModalClosers.forEach((button) => {
+        button.addEventListener("click", () => {
+          closeModal(driverModal);
+        });
+      });
+
+      recordViewModalClosers.forEach((button) => {
+        button.addEventListener("click", () => {
+          closeModal(recordViewModal);
+        });
+      });
+
+      catalogCancelButton.addEventListener("click", () => {
+        resetCatalogForm();
+        closeModal(catalogModal);
+      });
+
+      catalogImagesInput.addEventListener("change", async (event) => {
+        const files = Array.from(event.target.files || []).slice(0, 8);
+        if (!files.length) return;
+
+        catalogImagePreview.innerHTML = '<div class="admin-empty">Processando fotos...</div>';
+
+        try {
+          for (const file of files) {
+            const base64 = await resizeImage(file);
+            selectedGalleryImages.push(base64);
+          }
+          catalogForm.elements.galleryCount.value = selectedGalleryImages.length || 1;
+          renderImagePreview();
+        } catch (error) {
+          selectedGalleryImages = [];
+          renderImagePreview();
+          alert(error.message);
+        }
+      });
+
+      driverPhotoInput.addEventListener("change", async (event) => {
+        const file = event.target.files?.[0];
+        if (!file) {
+          driverPhotoBase64 = "";
+          renderDriverPhotoPreview();
+          return;
+        }
+
+        try {
+          driverPhotoBase64 = await resizeImage(file);
+          renderDriverPhotoPreview();
+        } catch (error) {
+          driverPhotoBase64 = "";
+          renderDriverPhotoPreview();
+          alert(error.message);
+        }
+      });
+
+      clientForm.elements.cep.addEventListener("input", () => {
+        clientForm.elements.cep.value = formatCep(clientForm.elements.cep.value);
+      });
+
+      clientForm.elements.cep.addEventListener("blur", async () => {
+        const cep = clientForm.elements.cep.value;
+        if (onlyDigits(cep).length !== 8) {
+          return;
+        }
+
+        try {
+          const data = await lookupCep(cep);
+          clientForm.elements.address.value = data.logradouro || "";
+          clientForm.elements.district.value = data.bairro || "";
+          clientForm.elements.city.value = data.localidade || "";
+          clientForm.elements.state.value = data.uf || "";
+        } catch (error) {
+          setStatus(clientStatus, error.message, true);
+        }
+      });
+
+      yardForm.elements.cep.addEventListener("input", () => {
+        yardForm.elements.cep.value = formatCep(yardForm.elements.cep.value);
+      });
+
+      yardForm.elements.cep.addEventListener("blur", async () => {
+        const cep = yardForm.elements.cep.value;
+        if (onlyDigits(cep).length !== 8) {
+          return;
+        }
+
+        try {
+          const data = await lookupCep(cep);
+          yardForm.elements.address.value = data.logradouro || "";
+          yardForm.elements.district.value = data.bairro || "";
+          yardForm.elements.city.value = data.localidade || "";
+          yardForm.elements.state.value = data.uf || "";
+        } catch (error) {
+          const yardStatus = document.getElementById("yardStatus");
+          setStatus(yardStatus, error.message, true);
+        }
+      });
+
+      trackingLocationYardSelect.addEventListener("change", () => {
+        const selectedYard = currentAdminData.yards.find((yard) => yard.id === trackingLocationYardSelect.value);
+        trackingCurrentLocationPreview.value = buildYardAddress(selectedYard);
+      });
+
+      trackingClientSelect.addEventListener("change", syncTrackingDestination);
+
+      contractTabButtons.forEach((button) => {
+        button.addEventListener("click", () => setContractTab(button.dataset.contractTabTarget));
+      });
+
+      contractClientSearch.addEventListener("input", () => {
+        const matchedClient = findContractClient(contractClientSearch.value);
+
+        if (matchedClient) {
+          fillContractClient(matchedClient);
+          return;
+        }
+
+        contractClientUserId.value = "";
+      });
+
+      contractClientSearch.addEventListener("change", () => {
+        const matchedClient = findContractClient(contractClientSearch.value);
+        if (matchedClient) {
+          fillContractClient(matchedClient);
+        }
+      });
+
+      contractClientCpf.addEventListener("input", () => {
+        contractClientCpf.value = contractClientCpf.value.replace(/[^0-9.\-\/]/g, "");
+      });
+
+      adminLoginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(adminLoginStatus, "Entrando...");
+
+        try {
+          const formData = new FormData(adminLoginForm);
+          const response = await fetch("/api/admin/session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: formData.get("email"),
+              password: formData.get("password")
+            })
+          });
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Não foi possível entrar no painel.");
+          }
+
+          setAuth(data);
+          setStatus(adminLoginStatus, "Acesso liberado.");
+          showDashboard();
+          await loadDashboard();
+          await loadInvoices();
+          await loadContracts();
+        } catch (error) {
+          setStatus(adminLoginStatus, error.message, true);
+        }
+      });
+
+      adminLogoutButton.addEventListener("click", () => {
+        clearAuth();
+        showLogin();
+      });
+
+      clientForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(clientStatus, "Salvando...");
+
+        try {
+          const formData = new FormData(clientForm);
+          await adminFetch("/api/admin/customers", {
+            method: editingClientId ? "PUT" : "POST",
+            body: JSON.stringify({
+              id: editingClientId,
+              fullName: formData.get("fullName"),
+              email: formData.get("email"),
+              whatsapp: formData.get("whatsapp"),
+              cpf: formData.get("cpf"),
+              cep: formData.get("cep"),
+              address: formData.get("address"),
+              number: formData.get("number"),
+              district: formData.get("district"),
+              complement: formData.get("complement"),
+              city: formData.get("city"),
+              state: formData.get("state"),
+              password: formData.get("password")
+            })
+          });
+
+          setStatus(clientStatus, editingClientId ? "Cliente atualizado com sucesso." : "Cliente salvo com sucesso.");
+          closeModal(clientModal);
+          resetClientForm();
+          await loadDashboard();
+          await loadContracts();
+        } catch (error) {
+          setStatus(clientStatus, error.message, true);
+        }
+      });
+
+      driverForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(driverStatus, "Salvando...");
+
+        try {
+          const formData = new FormData(driverForm);
+          await adminFetch("/api/admin/drivers", {
+            method: editingDriverId ? "PUT" : "POST",
+            body: JSON.stringify({
+              id: editingDriverId,
+              fullName: formData.get("fullName"),
+              cpf: formData.get("cpf"),
+              cnh: formData.get("cnh"),
+              phone: formData.get("phone"),
+              email: formData.get("email"),
+              commercialAddress: formData.get("commercialAddress"),
+              photoUrl: driverPhotoBase64 || null,
+              status: formData.get("status"),
+              notes: formData.get("notes")
+            })
+          });
+
+          setStatus(driverStatus, editingDriverId ? "Motorista atualizado com sucesso." : "Motorista salvo com sucesso.");
+          closeModal(driverModal);
+          resetDriverForm();
+          await loadDashboard();
+          await loadContracts();
+        } catch (error) {
+          setStatus(driverStatus, error.message, true);
+        }
+      });
+
+      yardForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const yardStatus = document.getElementById("yardStatus");
+        setStatus(yardStatus, "Salvando...");
+
+        try {
+          const formData = new FormData(yardForm);
+          const fullAddress = [
+            formData.get("address"),
+            formData.get("number"),
+            formData.get("district"),
+            formData.get("city"),
+            formData.get("state"),
+            formData.get("cep")
+          ]
+            .map((value) => String(value || "").trim())
+            .filter(Boolean)
+            .join(", ");
+
+          await adminFetch("/api/admin/yards", {
+            method: yardForm.dataset.editId ? "PUT" : "POST",
+            body: JSON.stringify({
+              id: yardForm.dataset.editId || undefined,
+              name: formData.get("name"),
+              city: formData.get("city"),
+              state: formData.get("state"),
+              address: yardForm.dataset.editId ? String(formData.get("address") || "").trim() : fullAddress,
+              contactName: formData.get("contactName"),
+              contactPhone: formData.get("contactPhone"),
+              capacityInfo: formData.get("capacityInfo"),
+              notes: formData.get("notes")
+            })
+          });
+
+          resetYardEdit();
+          setStatus(yardStatus, "Pátio salvo com sucesso.");
+          await loadDashboard();
+        } catch (error) {
+          setStatus(yardStatus, error.message, true);
+        }
+      });
+
+      const syncTrackingVehicleMode = () => {
+        const manual = trackingForm.elements.vehicleMode.value === "manual";
+        document.getElementById("trackingCatalogField").classList.toggle("hidden", manual);
+        document.getElementById("trackingManualFields").classList.toggle("hidden", !manual);
+        trackingForm.elements.catalogItemId.required = !manual;
+        trackingForm.elements.manualVehicleName.required = manual;
+      };
+      document.getElementById("trackingVehicleMode").addEventListener("change", syncTrackingVehicleMode);
+      let trackingPhotoPreviewUrl;
+      trackingForm.elements.manualVehiclePhoto.addEventListener("change", () => {
+        if (trackingPhotoPreviewUrl) URL.revokeObjectURL(trackingPhotoPreviewUrl);
+        const file = trackingForm.elements.manualVehiclePhoto.files[0];
+        const preview = document.getElementById("trackingManualPreview");
+        preview.classList.toggle("hidden", !file);
+        if(file) { trackingPhotoPreviewUrl = URL.createObjectURL(file); preview.src = trackingPhotoPreviewUrl; }
+      });
+      trackingForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(trackingStatus, "Salvando...");
+
+        try {
+          const formData = new FormData(trackingForm);
+          const client = currentAdminData.users.find((user) => user.id === formData.get("clientUserId"));
+          const item = currentAdminData.catalogItems.find((catalogItem) => catalogItem.id === formData.get("catalogItemId"));
+          const selectedLocationYard =
+            currentAdminData.yards.find((yard) => yard.id === formData.get("currentLocationYardId")) ||
+            currentAdminData.yards.find((yard) => yard.id === formData.get("yardId"));
+          const destinationAddress = buildClientAddress(client);
+
+          const manual = formData.get("vehicleMode") === "manual";
+          const manualName = String(formData.get("manualVehicleName") || "").trim();
+          const photo = formData.get("manualVehiclePhoto");
+          if (!client || (manual ? !manualName : !item)) {
+            throw new Error("Selecione um cliente e um veículo válidos.");
+          }
+
+          await adminFetch("/api/admin/trackings", {
+            method: "POST",
+            body: JSON.stringify({
+              clientUserId: client.id,
+              clientName: client.full_name,
+              clientEmail: client.email,
+              catalogItemId: manual ? null : item.id,
+              itemName: manual ? manualName : item.title,
+              manualVehicleYear: manual ? formData.get("manualVehicleYear") : null,
+              manualVehicleDescription: manual ? formData.get("manualVehicleDescription") : null,
+              manualVehicleImage: manual && photo?.size ? await resizeImage(photo) : null,
+              driverId: formData.get("driverId") || null,
+              yardId: formData.get("yardId") || null,
+              trackingCode: formData.get("trackingCode"),
+              status: formData.get("status"),
+              alertMessage: formData.get("alertMessage"),
+              currentLocation: buildYardAddress(selectedLocationYard),
+              expectedDeliveryDate: formData.get("expectedDeliveryDate"),
+              notes: [destinationAddress ? `Destino final: ${destinationAddress}` : "", formData.get("notes")]
+                .filter(Boolean)
+                .join("\n")
+            })
+          });
+
+          trackingForm.reset();
+          syncTrackingVehicleMode();
+          document.getElementById("trackingManualPreview").classList.add("hidden");
+          renderTrackingSelects();
+          syncTrackingDestination();
+          setStatus(trackingStatus, "Rastreio salvo com sucesso.");
+          await loadDashboard();
+        } catch (error) {
+          setStatus(trackingStatus, error.message, true);
+        }
+      });
+
+      contractForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(contractStatus, "Gerando contrato...");
+
+        try {
+          const formData = new FormData(contractForm);
+          const response = await adminFetch("/api/admin?action=contracts", {
+            method: "POST",
+            body: JSON.stringify({
+              clientUserId: formData.get("clientUserId") || contractClientUserId.value || null,
+              clientName: formData.get("clientName"),
+              clientCpf: formData.get("clientCpf"),
+              clientAddress: formData.get("clientAddress"),
+              vehicleName: formData.get("vehicleName"),
+              vehicleModel: formData.get("vehicleModel"),
+              vehicleYear: formData.get("vehicleYear"),
+              vehicleDescription: formData.get("vehicleDescription"),
+              amountValue: parseBRL(formData.get("amountValue")),
+              amountText: formData.get("amountText"),
+              paymentMethod: formData.get("paymentMethod"),
+              paymentNotes: paymentSummary(),
+              deliveryDate: formData.get("deliveryDate"),
+              deliveryAddress: formData.get("deliveryAddress"),
+              contractType: "acquisition"
+            })
+          });
+
+          resetContractForm();
+          setStatus(contractStatus, "Contrato gerado com sucesso.");
+          setContractTab("status");
+          if (response?.contract) {
+            currentAdminData.contracts = [response.contract, ...(currentAdminData.contracts || [])];
+            renderContracts(currentAdminData.contracts);
+            await navigator.clipboard.writeText(clientLink("contrato", response.contract.publicToken, window.location.origin)).catch(() => {});
+          }
+
+          loadDashboard().catch((error) => {
+            console.warn("Falha ao atualizar o painel após gerar contrato:", error);
+          });
+          loadContracts().catch((error) => {
+            console.warn("Falha ao atualizar a lista de contratos após gerar contrato:", error);
+          });
+        } catch (error) {
+          setStatus(contractStatus, error.message, true);
+        }
+      });
+
+      invoiceForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(invoiceStatus, "Gerando fatura...");
+
+        try {
+          const formData = new FormData(invoiceForm);
+          const response = await adminFetch("/api/admin/invoices", {
+            method: "POST",
+            body: JSON.stringify({
+              clientUserId: formData.get("clientUserId"),
+              title: formData.get("title"),
+              amount: formData.get("amount"),
+              dueDate: formData.get("dueDate"),
+              description: formData.get("description")
+            })
+          });
+
+          resetInvoiceForm();
+          setStatus(invoiceStatus, "Fatura gerada com sucesso.");
+          activateTab("invoices");
+
+          if (response?.invoice) {
+            currentAdminData.invoices = [response.invoice, ...(currentAdminData.invoices || [])];
+            renderInvoices(currentAdminData.invoices);
+          }
+
+          loadDashboard().catch((error) => {
+            console.warn("Falha ao atualizar o painel após gerar fatura:", error);
+          });
+          loadInvoices().catch((error) => {
+            console.warn("Falha ao atualizar a lista de faturas após gerar fatura:", error);
+          });
+
+          if (response?.invoice?.paymentUrl) {
+            await navigator.clipboard.writeText(invoiceLink(response.invoice)).catch(() => {});
+          }
+        } catch (error) {
+          setStatus(invoiceStatus, error.message, true);
+        }
+      });
+
+      catalogForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setStatus(catalogStatus, "Salvando...");
+
+        try {
+          const formData = new FormData(catalogForm);
+          const payload = {
+            id: editingCatalogId,
+            title: formData.get("title"),
+            slug: slugify(formData.get("slug") || formData.get("title")),
+            category: formData.get("category"),
+            price: formData.get("price"),
+            location: formData.get("location"),
+            yearLabel: formData.get("yearLabel"),
+            imageUrl: selectedGalleryImages[0] || null,
+            galleryImages: selectedGalleryImages,
+            whatsapp: formData.get("whatsapp"),
+            badge: formData.get("badge"),
+            galleryCount: selectedGalleryImages.length || formData.get("galleryCount"),
+            description: formData.get("description"),
+            sections: formData.getAll("sections")
+          };
+
+          await adminFetch("/api/admin/catalog-items", {
+            method: editingCatalogId ? "PUT" : "POST",
+            body: JSON.stringify(payload)
+          });
+
+          const successMessage = editingCatalogId
+            ? "Veículo atualizado com sucesso."
+            : "Veículo salvo com sucesso.";
+
+          resetCatalogForm({ keepStatus: true });
+          setStatus(catalogStatus, successMessage);
+          closeModal(catalogModal);
+          await loadDashboard();
+        } catch (error) {
+          setStatus(catalogStatus, error.message, true);
+        }
+      });
+
+      renderImagePreview();
+      renderDriverPhotoPreview();
+      resetCatalogForm();
+
+      (async () => {
+        const auth = getAuth();
+        if (!auth || !auth.accessToken) {
+          showLogin();
+          return;
+        }
+
+        try {
+          showDashboard();
+          await loadDashboard();
+          await loadInvoices();
+          await loadContracts();
+        } catch (_error) {
+          clearAuth();
+          showLogin();
+        }
+      })();
+    </script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

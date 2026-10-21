@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Login</title>
+    <meta
+      name="description"
+      content="Acesse sua conta na RGOMES LEILÕES."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="login-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html">Catálogo</a>
+          <a href="./sobre.html">Sobre Nós</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./rastreio.html">Rastrear</a>
+          <a class="header-button" href="./cadastro.html">Criar Conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="register-section">
+        <div class="container register-layout">
+          <div class="register-copy">
+            <span class="register-eyebrow">Login</span>
+            <h1>Entre com sua conta para continuar</h1>
+            <p>
+              Use seu e-mail ou CPF e a senha cadastrada para acessar seu perfil na plataforma.
+            </p>
+          </div>
+
+          <div class="register-card">
+            <form class="register-form register-form--single" id="login-form">
+              <div class="form-field form-field--full">
+                <label for="login-identifier">E-mail ou CPF:*</label>
+                <input id="login-identifier" name="identifier" type="text" required />
+              </div>
+
+              <div class="form-field form-field--full">
+                <label for="login-password">Senha:*</label>
+                <input id="login-password" name="password" type="password" required />
+              </div>
+
+              <p class="form-status" id="login-status" aria-live="polite"></p>
+
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">Entrar</button>
+              </div>
+            </form>
+
+            <div class="account-summary" id="account-summary" hidden>
+              <div class="account-summary__head">
+                <h2>Conta conectada</h2>
+                <button class="account-summary__logout" id="logout-button" type="button">Sair</button>
+              </div>
+              <div class="account-summary__grid">
+                <div><span>Nome</span><strong id="summary-name">-</strong></div>
+                <div><span>E-mail</span><strong id="summary-email">-</strong></div>
+                <div><span>WhatsApp</span><strong id="summary-whatsapp">-</strong></div>
+                <div><span>CPF</span><strong id="summary-cpf">-</strong></div>
+                <div><span>Endereço</span><strong id="summary-address">-</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+            <a href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+            <a href="./sobre.html#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Categorias</h3>
+          <ul>
+            <li><a href="./catalogo.html">Tratores</a></li>
+            <li><a href="./catalogo.html">Semeadoras</a></li>
+            <li><a href="./catalogo.html">Pulverizadores</a></li>
+            <li><a href="./catalogo.html">Colheitadeiras</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./catalogo.html">Como funciona</a></li>
+            <li><a href="./catalogo.html">Política de privacidade</a></li>
+            <li><a href="./catalogo.html">Termos de uso</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav-item" href="./index.html">Início</a>
+      <a class="mobile-nav-item" href="./catalogo.html">Catálogo</a>
+      <a class="mobile-nav-item" href="./sobre.html">Sobre</a>
+      <a class="mobile-nav-item" href="./rastreio.html">Rastreio</a>
+      <a class="mobile-nav-item active" href="./login.html">Perfil</a>
+    </nav>
+
+    <script src="./mobile-access.js"></script>
+    <script>
+      const loginForm = document.querySelector("#login-form");
+      const loginStatus = document.querySelector("#login-status");
+      const accountSummary = document.querySelector("#account-summary");
+      const logoutButton = document.querySelector("#logout-button");
+      const identifierInput = document.querySelector("#login-identifier");
+
+      const onlyDigits = (value) => value.replace(/\D/g, "");
+      const ACCESS_TOKEN_KEY = "agro_access_token";
+      const REFRESH_TOKEN_KEY = "agro_refresh_token";
+      const CURRENT_USER_KEY = "agro_current_user";
+      const getCurrentUser = () => JSON.parse(localStorage.getItem(CURRENT_USER_KEY) || "null");
+      const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN_KEY);
+      const getRefreshToken = () => localStorage.getItem(REFRESH_TOKEN_KEY);
+
+      const fillSummary = (user) => {
+        document.querySelector("#summary-name").textContent = user.fullName;
+        document.querySelector("#summary-email").textContent = user.email;
+        document.querySelector("#summary-whatsapp").textContent = user.whatsapp;
+        document.querySelector("#summary-cpf").textContent = user.cpf;
+        document.querySelector("#summary-address").textContent =
+          `${user.address}, ${user.number}${user.complement ? `, ${user.complement}` : ""} - ${user.district}${user.city ? `, ${user.city}` : ""}${user.state ? `/${user.state}` : ""}`;
+      };
+
+      const setLoggedState = (user) => {
+        fillSummary(user);
+        accountSummary.hidden = false;
+        loginForm.hidden = true;
+      };
+
+      const setLoggedOutState = () => {
+        accountSummary.hidden = true;
+        loginForm.hidden = false;
+      };
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("registered") === "1") {
+        loginStatus.textContent = "Cadastro realizado com sucesso. Agora faça seu login.";
+      }
+
+      const refreshSession = async () => {
+        const refreshToken = getRefreshToken();
+        if (!refreshToken) {
+          return false;
+        }
+
+        const response = await fetch("/api/auth/refresh", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ refreshToken })
+        });
+
+        if (!response.ok) {
+          return false;
+        }
+
+        const data = await response.json();
+        localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+        localStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data.user));
+        setLoggedState(data.user);
+        return true;
+      };
+
+      const loadProfile = async () => {
+        const accessToken = getAccessToken();
+        const currentUser = getCurrentUser();
+
+        if (!accessToken || !currentUser) {
+          return;
+        }
+
+        const response = await fetch("/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data.user));
+          setLoggedState(data.user);
+          return;
+        }
+
+        const refreshed = await refreshSession();
+        if (!refreshed) {
+          localStorage.removeItem(ACCESS_TOKEN_KEY);
+          localStorage.removeItem(REFRESH_TOKEN_KEY);
+          localStorage.removeItem(CURRENT_USER_KEY);
+        }
+      };
+
+      loadProfile();
+
+      identifierInput.addEventListener("input", () => {
+        const value = identifierInput.value;
+        if (onlyDigits(value).length <= 11 && value.includes("@") === false) {
+          const digits = onlyDigits(value).slice(0, 11);
+          identifierInput.value = digits
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        }
+      });
+
+      loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        loginStatus.textContent = "Entrando...";
+
+        fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            identifier: loginForm.identifier.value.trim(),
+            password: loginForm.password.value
+          })
+        })
+          .then(async (response) => {
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.message || "Dados de acesso inválidos.");
+            }
+
+            localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+            localStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data.user));
+            loginStatus.textContent = "";
+            setLoggedState(data.user);
+          })
+          .catch((error) => {
+            loginStatus.textContent = error.message;
+          });
+      });
+
+      logoutButton.addEventListener("click", () => {
+        fetch("/api/auth/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            refreshToken: getRefreshToken()
+          })
+        }).finally(() => {
+          localStorage.removeItem(ACCESS_TOKEN_KEY);
+          localStorage.removeItem(REFRESH_TOKEN_KEY);
+          localStorage.removeItem(CURRENT_USER_KEY);
+          loginForm.reset();
+          loginStatus.textContent = "Voce saiu da conta.";
+          setLoggedOutState();
+        });
+      });
+    </script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

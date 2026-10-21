@@ -1,0 +1,21 @@
+.env
+.env.*
+.publicacao/
+backups/
+node_modules/
+OUTROS VEICULOS/
+veiculos/
+sql/
+public/agrosuri.png
+scripts/import-local-catalog.js
+COMO-RESTAURAR-SUPABASE.md
+docsigilo.txt
+*.pem
+*.key
+/*.pdf
+/*.exe
+/*.deb
+/*.mp4
+/*.jpg
+/*.jpeg
+/*.png

@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const admin=fs.readFileSync(new URL('../public/admin.html',import.meta.url),'utf8');
+const tracking=fs.readFileSync(new URL('../public/rastreio.html',import.meta.url),'utf8');
+const responsive=fs.readFileSync(new URL('../public/responsive.css',import.meta.url),'utf8');
+for(const html of [admin,tracking]) assert.match(html,/name="viewport" content="width=device-width, initial-scale=1\.0, viewport-fit=cover"/);
+for(const feature of ['data-tab-panel="staff"','id="staffForm"','id="staffList"','data-motion=','Ver como cliente','trackingStatusSuggestions']) assert(admin.includes(feature),feature);
+for(const feature of ['tracking-navigation-map','trackingDeliveryDetails','trackingDriverPhoto','trackingAnimationNotice','refreshTrackingMotion']) assert(tracking.includes(feature),feature);
+assert.match(responsive,/@media \(max-width: 920px\)/);assert.match(responsive,/@media \(max-width: 480px\)/);assert.match(responsive,/#staffList input/);assert.match(responsive,/\.tracking-navigation-map \.tracking-map/);
+console.log('PASS estrutura responsiva do painel e rastreio para celular e computador');

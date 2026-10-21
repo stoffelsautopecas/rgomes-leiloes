@@ -1,0 +1,95 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/auth/:action",
+      "destination": "/api/auth?action=:action"
+    },
+    {
+      "source": "/api/admin/invoices/:id/sync",
+      "destination": "/api/admin?action=invoices-sync&id=:id"
+    },
+    {
+      "source": "/api/admin/:action",
+      "destination": "/api/admin?action=:action"
+    },
+    {
+      "source": "/api/invoices/public/:token/sync",
+      "destination": "/api/invoices?action=public-sync&token=:token"
+    },
+    {
+      "source": "/api/invoices/public/:token",
+      "destination": "/api/invoices?action=public&token=:token"
+    },
+    {
+      "source": "/api/contracts/public/:token/sign",
+      "destination": "/api/contracts?action=sign&token=:token"
+    },
+    {
+      "source": "/api/contracts/public/:token",
+      "destination": "/api/contracts?action=public&token=:token"
+    },
+    {
+      "source": "/api/customer/:action",
+      "destination": "/api/customer?action=:action"
+    },
+    {
+      "source": "/api/catalog/items",
+      "destination": "/api/catalog?action=items"
+    },
+    {
+      "source": "/api/catalog/detail",
+      "destination": "/api/catalog?action=detail"
+    },
+    {
+      "source": "/api/catalog/contacts",
+      "destination": "/api/catalog?action=contacts"
+    },
+    {
+      "source": "/fatura",
+      "destination": "/fatura.html"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalogo",
+      "destination": "/catalogo.html"
+    },
+    {
+      "source": "/sobre",
+      "destination": "/sobre.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/cadastro",
+      "destination": "/cadastro.html"
+    },
+    {
+      "source": "/rastreio",
+      "destination": "/rastreio.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/contrato",
+      "destination": "/contrato.html"
+    },
+    {
+      "source": "/detalhe",
+      "destination": "/detalhe.html"
+    }
+  ]
+}

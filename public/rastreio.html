@@ -1,0 +1,1306 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Rastreio</title>
+    <meta
+      name="description"
+      content="Consulte o rastreio do seu veículo ou máquina na RGOMES LEILÕES."
+    />
+    <link rel="preconnect" href="https://viacep.com.br" />
+    <link rel="preconnect" href="https://photon.komoot.io" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="tracking-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html">Catálogo</a>
+          <a href="./sobre.html">Sobre Nós</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button is-active" href="./rastreio.html">Rastrear</a>
+          <a class="header-button" href="./cadastro.html">Criar Conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="tracking-access" id="trackingAccessSection">
+        <div class="container tracking-access__grid">
+          <div class="tracking-access__copy">
+            <span class="tracking-eyebrow">Acompanhamento</span>
+            <h1>Área do cliente para rastreio</h1>
+            <p>
+              Faça login com a conta que cadastramos para você e acompanhe sua entrega em tempo real, com mapa, entregador e dados do seu perfil.
+            </p>
+          </div>
+
+          <div class="tracking-access__card">
+            <h2>Entrar para rastrear</h2>
+            <form class="tracking-login-form" id="trackingLoginForm">
+              <label for="trackingIdentifier">E-mail ou CPF</label>
+              <input id="trackingIdentifier" name="identifier" type="text" required />
+
+              <label for="trackingPassword">Senha</label>
+              <input id="trackingPassword" name="password" type="password" required />
+
+              <p class="tracking-status" id="trackingLoginStatus" aria-live="polite"></p>
+
+              <button class="button button-primary" type="submit">Entrar no rastreio</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="tracking-dashboard hidden" id="trackingDashboardSection">
+        <div class="container tracking-dashboard__container">
+          <div class="tracking-dashboard__topbar">
+            <div class="tracking-breadcrumb" id="trackingBreadcrumb">Dashboard / <strong>Rastreio</strong></div>
+            <div class="tracking-userbar">
+              <span id="trackingUserName">Cliente</span>
+              <button class="tracking-logout" id="trackingLogoutButton" type="button">Sair</button>
+            </div>
+          </div>
+
+          <div class="tracking-dashboard__shell">
+            <aside class="tracking-sidebar">
+              <div class="tracking-sidebar__head">
+                <h2>Rastreamento</h2>
+                <p>Controle da sua entrega</p>
+              </div>
+
+              <nav class="tracking-sidebar__nav">
+                <button class="tracking-sidebar__tab is-active" type="button" data-tracking-tab="overview">Rastreio</button>
+                <button class="tracking-sidebar__tab" type="button" data-tracking-tab="driver">Entregador</button>
+                <button class="tracking-sidebar__tab" type="button" data-tracking-tab="profile">Meu Perfil</button>
+              </nav>
+
+              <div class="tracking-vehicle-list" id="trackingVehicleList"></div>
+            </aside>
+
+            <div class="tracking-main">
+              <div class="tracking-panel is-active" data-tracking-panel="overview">
+                <div class="tracking-summary-grid">
+                  <article class="tracking-summary-card">
+                    <span class="tracking-summary-card__label">Liberação / Andamento</span>
+                    <div class="tracking-progress">
+                      <div class="tracking-progress__bar">
+                        <div class="tracking-progress__fill" id="trackingProgressFill"></div>
+                      </div>
+                      <strong id="trackingProgressValue">0%</strong>
+                    </div>
+                  </article>
+
+                  <article class="tracking-alert-card" id="trackingAlertCard">
+                    <span class="tracking-alert-card__label">Alerta</span>
+                    <div class="tracking-alert-card__body">
+                      <span class="tracking-alert-card__icon">🔔</span>
+                      <strong id="trackingAlertText">Aguardando atualização</strong>
+                    </div>
+                  </article>
+                </div>
+
+                <article class="tracking-card tracking-delivery-details"><h2>Dados da entrega</h2><dl id="trackingDeliveryDetails" class="tracking-delivery-grid"></dl></article>
+                <div class="tracking-map-card">
+                  <div class="tracking-map-card__head">
+                    <div>
+                      <span class="tracking-map-card__eyebrow">Mapa da entrega</span>
+                      <h2 id="trackingItemTitle">Selecione um item</h2>
+                    </div>
+                    <div class="tracking-map-card__meta" id="trackingMapMeta">Sem rastreio carregado.</div>
+                  </div>
+                  <p class="tracking-animation-notice" id="trackingAnimationNotice" hidden><strong>Em rota</strong> <span class="tracking-demo-badge">Demonstrando</span></p>
+                  <div class="tracking-navigation-map">
+                    <div class="tracking-navigation-toolbar"><span id="trackingRouteLabel">Preparando trajeto…</span><button type="button" id="trackingRecenter">Ver percurso</button></div>
+                    <div class="tracking-map" id="trackingMap"></div>
+                    <div class="tracking-navigation-caption">Origem <span>● ━━━ ⚑</span> Destino</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tracking-panel" data-tracking-panel="driver">
+                <article class="tracking-card">
+                  <div class="tracking-card__head">
+                    <div>
+                      <span class="tracking-map-card__eyebrow">Dashboard / Entregador</span>
+                      <h2>Segurança na sua entrega</h2>
+                    </div>
+                    <div class="tracking-driver-status" id="trackingDriverStatus">Situação regular</div>
+                  </div>
+
+                  <div class="tracking-driver-grid">
+                    <div class="tracking-driver-copy" id="trackingDriverInfo"></div>
+                    <div class="tracking-driver-photo" id="trackingDriverPhoto"></div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="tracking-panel" data-tracking-panel="profile">
+                <article class="tracking-card">
+                  <div class="tracking-card__head">
+                    <div>
+                      <span class="tracking-map-card__eyebrow">Dashboard / Meu Perfil</span>
+                      <h2>Cadastro</h2>
+                    </div>
+                    <div class="tracking-driver-status">Cadastrado</div>
+                  </div>
+
+                  <div class="tracking-profile-layout">
+                    <div class="tracking-profile-aside">
+                      <div class="tracking-profile-avatar" id="trackingProfilePhotoPreview">AMI</div>
+                      <label class="tracking-profile-upload" for="trackingProfilePhoto">
+                        Alterar foto
+                      </label>
+                      <input id="trackingProfilePhoto" type="file" accept="image/*" hidden />
+                      <div class="tracking-profile-vehicles" id="trackingProfileVehicles"></div>
+                    </div>
+
+                    <form class="tracking-profile-form" id="trackingProfileForm">
+                      <div class="tracking-profile-form__grid">
+                        <div class="tracking-profile-field tracking-profile-field--full">
+                          <label for="trackingProfileFullName">Nome completo</label>
+                          <input id="trackingProfileFullName" name="fullName" type="text" required />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileEmail">E-mail</label>
+                          <input id="trackingProfileEmail" name="email" type="email" required />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileWhatsapp">WhatsApp</label>
+                          <input id="trackingProfileWhatsapp" name="whatsapp" type="tel" required />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileCpf">CPF</label>
+                          <input id="trackingProfileCpf" name="cpf" type="text" maxlength="14" required />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileCep">CEP</label>
+                          <input id="trackingProfileCep" name="cep" type="text" maxlength="9" required />
+                        </div>
+
+                        <div class="tracking-profile-field tracking-profile-field--full">
+                          <label for="trackingProfileAddress">Endereço</label>
+                          <input id="trackingProfileAddress" name="address" type="text" required />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileNumber">Número</label>
+                          <input id="trackingProfileNumber" name="number" type="text" required />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileDistrict">Bairro</label>
+                          <input id="trackingProfileDistrict" name="district" type="text" required />
+                        </div>
+
+                        <div class="tracking-profile-field tracking-profile-field--full">
+                          <label for="trackingProfileComplement">Complemento</label>
+                          <input id="trackingProfileComplement" name="complement" type="text" />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileCity">Cidade</label>
+                          <input id="trackingProfileCity" name="city" type="text" />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfileState">UF</label>
+                          <input id="trackingProfileState" name="state" type="text" maxlength="2" />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfilePassword">Nova senha</label>
+                          <input id="trackingProfilePassword" name="password" type="password" />
+                        </div>
+
+                        <div class="tracking-profile-field">
+                          <label for="trackingProfilePasswordConfirm">Confirmar nova senha</label>
+                          <input id="trackingProfilePasswordConfirm" name="passwordConfirm" type="password" />
+                        </div>
+                      </div>
+
+                      <p class="tracking-status" id="trackingProfileStatus" aria-live="polite"></p>
+
+                      <div class="tracking-profile-form__actions">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                      </div>
+                    </form>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+            <a href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+            <a href="./sobre.html#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Categorias</h3>
+          <ul>
+            <li><a href="./catalogo.html">Tratores</a></li>
+            <li><a href="./catalogo.html">Semeadoras</a></li>
+            <li><a href="./catalogo.html">Pulverizadores</a></li>
+            <li><a href="./catalogo.html">Colheitadeiras</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./catalogo.html">Como funciona</a></li>
+            <li><a href="./catalogo.html">Política de privacidade</a></li>
+            <li><a href="./catalogo.html">Termos de uso</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav-item" href="./index.html">Início</a>
+      <a class="mobile-nav-item" href="./catalogo.html">Catálogo</a>
+      <a class="mobile-nav-item" href="./sobre.html">Sobre</a>
+      <a class="mobile-nav-item active" href="./rastreio.html">Rastreio</a>
+      <a class="mobile-nav-item" href="./login.html">Perfil</a>
+    </nav>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./mobile-access.js"></script>
+    <script>
+      const previewId = new URLSearchParams(location.search).get("preview");
+      const ACCESS_TOKEN_KEY = "agro_access_token";
+      const REFRESH_TOKEN_KEY = "agro_refresh_token";
+      const CURRENT_USER_KEY = "agro_current_user";
+
+      const trackingAccessSection = document.getElementById("trackingAccessSection");
+      const trackingDashboardSection = document.getElementById("trackingDashboardSection");
+      const trackingLoginForm = document.getElementById("trackingLoginForm");
+      const trackingLoginStatus = document.getElementById("trackingLoginStatus");
+      const trackingUserName = document.getElementById("trackingUserName");
+      const trackingLogoutButton = document.getElementById("trackingLogoutButton");
+      const trackingBreadcrumb = document.getElementById("trackingBreadcrumb");
+      const trackingVehicleList = document.getElementById("trackingVehicleList");
+      const trackingTabs = Array.from(document.querySelectorAll("[data-tracking-tab]"));
+      const trackingPanels = Array.from(document.querySelectorAll("[data-tracking-panel]"));
+      const trackingProgressFill = document.getElementById("trackingProgressFill");
+      const trackingProgressValue = document.getElementById("trackingProgressValue");
+      const trackingAlertText = document.getElementById("trackingAlertText");
+      const trackingItemTitle = document.getElementById("trackingItemTitle");
+      const trackingMapMeta = document.getElementById("trackingMapMeta");
+      const trackingDriverInfo = document.getElementById("trackingDriverInfo");
+      const trackingDriverPhoto = document.getElementById("trackingDriverPhoto");
+      const trackingDriverStatus = document.getElementById("trackingDriverStatus");
+      const trackingProfileForm = document.getElementById("trackingProfileForm");
+      const trackingProfileStatus = document.getElementById("trackingProfileStatus");
+      const trackingProfilePhotoInput = document.getElementById("trackingProfilePhoto");
+      const trackingProfilePhotoPreview = document.getElementById("trackingProfilePhotoPreview");
+      const trackingProfileVehicles = document.getElementById("trackingProfileVehicles");
+
+      let dashboardState = { user: null, trackings: [] };
+      let selectedTrackingId = null;
+      let map;
+      let mapMarkers = [];
+      let mapRoute;
+      let routeBounds = null;
+      document.getElementById("trackingRecenter").addEventListener("click", () => {
+        if (map && routeBounds) map.fitBounds(routeBounds, {padding: [55, 75], maxZoom: 15});
+      });
+      // Store only resolved map data; addresses remain scoped to this browser.
+      const mapCacheKey = "agro_tracking_map_cache_v1";
+      const readMapCache = () => {
+        try {
+          const entries = JSON.parse(localStorage.getItem(mapCacheKey) || "[]");
+          return new Map(Array.isArray(entries) ? entries.filter(entry => Array.isArray(entry) && entry.length === 2
+            && entry[1]?.expires > Date.now()).slice(-30) : []);
+        } catch (_) { return new Map(); }
+      };
+      const savedMapCache = readMapCache();
+      const saveMapData = (key, value) => {
+        savedMapCache.delete(key);
+        savedMapCache.set(key, {value, expires: Date.now() + 7 * 86400000});
+        while (savedMapCache.size > 30) savedMapCache.delete(savedMapCache.keys().next().value);
+        try {
+          const entries = [...savedMapCache];
+          while (JSON.stringify(entries).length > 1500000 && entries.length > 1) entries.shift();
+          localStorage.setItem(mapCacheKey, JSON.stringify(entries));
+        } catch (_) { /* Map rendering also works without browser storage. */ }
+      };
+      const validMapPoint = point => Array.isArray(point) && point.length === 2
+        && Number.isFinite(point[0]) && Math.abs(point[0]) <= 90
+        && Number.isFinite(point[1]) && Math.abs(point[1]) <= 180;
+      const savedMapData = key => {
+        const entry = savedMapCache.get(key);
+        return entry?.expires > Date.now() ? entry.value : null;
+      };
+      const roadRouteCache = new Map();
+      const fetchRoadRoute = async (origin, destination) => {
+        const key = [origin, destination].map(point => `${point[1]},${point[0]}`).join(";");
+        if (roadRouteCache.has(key)) return roadRouteCache.get(key);
+        const saved = savedMapData(`route:${key}`);
+        if (Array.isArray(saved) && saved.length >= 2 && saved.every(validMapPoint)) {
+          roadRouteCache.set(key, saved);
+          return saved;
+        }
+        for (const service of ["https://router.project-osrm.org", "https://routing.openstreetmap.de/routed-car"]) {
+        try {
+          const response = await fetch(`${service}/route/v1/driving/${key}?overview=full&geometries=geojson`, {signal: AbortSignal.timeout(8000)});
+          if (!response.ok) continue;
+          const data = await response.json();
+          const coordinates = data.routes?.[0]?.geometry?.coordinates;
+          if (data.code !== "Ok" || !Array.isArray(coordinates) || coordinates.length < 2 || !coordinates.every(point => Array.isArray(point) && Number.isFinite(point[0]) && Number.isFinite(point[1]))) continue;
+          const route = coordinates.map(([lng, lat]) => [lat, lng]);
+          if (roadRouteCache.size >= 20) roadRouteCache.clear();
+          roadRouteCache.set(key, route);
+          if (JSON.stringify(route).length < 250000) saveMapData(`route:${key}`, route);
+          return route;
+        } catch (_) { /* Try the alternative road routing service. */ }
+        }
+        return null;
+      };
+      const routeInterpolator = coordinates => {
+        const lengths = [0];
+        for (let i = 1; i < coordinates.length; i++) lengths.push(lengths[i - 1] + L.latLng(coordinates[i - 1]).distanceTo(L.latLng(coordinates[i])));
+        const total = lengths[lengths.length - 1];
+        return progress => {
+          const distance = total * progress;
+          let i = 1;
+          while (i < lengths.length - 1 && lengths[i] < distance) i++;
+          const fraction = (distance - lengths[i - 1]) / (lengths[i] - lengths[i - 1] || 1);
+          return coordinates[i - 1].map((value, axis) => value + (coordinates[i][axis] - value) * fraction);
+        };
+      };
+      let mapRequest = 0;
+      let animationFrame = null;
+      // Server timestamps avoid depending on the clock or storage of each device.
+      const trackingTimeline = tracking => {
+        const stored = Math.max(0, Math.min(1, Number(tracking.animation_progress) || 0));
+        const serverNow = Date.parse(tracking.animation_server_time);
+        const started = Date.parse(tracking.animation_running_since);
+        const received = tracking.animation_received_at ?? performance.now();
+        const elapsed = Number.isFinite(serverNow) && Number.isFinite(started)
+          ? Math.max(0, serverNow - started + performance.now() - received) : 0;
+        return tracking.animation_paused === true ? stored : Math.min(1, stored + elapsed / 14400000);
+      };
+      const stampTimelines = data => {
+        data.trackings.forEach(tracking => { tracking.animation_received_at = performance.now(); });
+        return data;
+      };
+      const trackingStateSignature = trackings => JSON.stringify(trackings.map(({animation_server_time, animation_received_at, ...tracking}) => tracking));
+      let animationPaused = false;
+      let applyTrackingMotion = () => {};
+      const animationNotice = document.getElementById("trackingAnimationNotice");
+      let profilePhotoBase64 = "";
+      let requestedTrackingTab = new URLSearchParams(window.location.search).get("tab") || "overview";
+
+      const getCurrentUser = () => JSON.parse(localStorage.getItem(CURRENT_USER_KEY) || "null");
+      const getAccessToken = () => {
+        if (previewId) { try { return JSON.parse(localStorage.getItem("agro_admin_auth") || "null")?.accessToken; } catch { return null; } }
+        return localStorage.getItem(ACCESS_TOKEN_KEY);
+      };
+      const getRefreshToken = () => localStorage.getItem(REFRESH_TOKEN_KEY);
+      const onlyDigits = (value) => String(value || "").replace(/\D/g, "");
+      const buildUserAddress = (user) =>
+        [user?.address, user?.number, user?.complement, user?.district, user?.city, user?.state, user?.cep]
+          .map((value) => String(value || "").trim())
+          .filter(Boolean)
+          .join(", ");
+      const formatCep = (value) => onlyDigits(value).slice(0, 8).replace(/(\d{5})(\d{0,3})/, "$1-$2").replace(/-$/, "");
+      const formatCpf = (value) =>
+        onlyDigits(value)
+          .slice(0, 11)
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      const formatPhone = (value) => {
+        const digits = onlyDigits(value).slice(0, 11);
+        if (digits.length <= 10) {
+          return digits.replace(/(\d{2})(\d)/, "($1) $2").replace(/(\d{4})(\d)/, "$1-$2");
+        }
+        return digits.replace(/(\d{2})(\d)/, "($1) $2").replace(/(\d{5})(\d)/, "$1-$2");
+      };
+
+      const setLoggedInState = () => {
+        trackingAccessSection.classList.add("hidden");
+        trackingDashboardSection.classList.remove("hidden");
+        document.body.classList.add("is-dashboard-mode");
+      };
+
+      const setLoggedOutState = () => {
+        trackingDashboardSection.classList.add("hidden");
+        trackingAccessSection.classList.remove("hidden");
+        document.body.classList.remove("is-dashboard-mode");
+      };
+
+      const activateTrackingTab = (target) => {
+        requestedTrackingTab = ["overview", "driver", "profile"].includes(target) ? target : "overview";
+        trackingTabs.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.trackingTab === target);
+        });
+        trackingPanels.forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.trackingPanel === target);
+        });
+        const titles = {
+          overview: "Rastreio",
+          driver: "Entregador",
+          profile: "Meu Perfil"
+        };
+        trackingBreadcrumb.innerHTML = `Dashboard / <strong>${titles[target] || "Rastreio"}</strong>`;
+        const nextUrl = `${window.location.pathname}?tab=${requestedTrackingTab}${previewId ? "&preview=" + encodeURIComponent(previewId) : ""}`;
+        window.history.replaceState({}, "", nextUrl);
+        if (map && target === "overview") {
+          setTimeout(() => map.invalidateSize(), 120);
+        }
+      };
+
+      trackingTabs.forEach((button) => {
+        button.addEventListener("click", () => activateTrackingTab(button.dataset.trackingTab));
+      });
+
+      const apiFetch = async (url, options = {}) => {
+        const accessToken = getAccessToken();
+        const headers = {
+          ...(options.headers || {})
+        };
+
+        if (accessToken) {
+          headers.Authorization = `Bearer ${accessToken}`;
+        }
+
+        const response = await fetch(url, { cache: "no-store", ...options, headers });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.message || "Erro ao carregar dados.");
+        }
+        return data;
+      };
+
+      const refreshSession = async () => {
+        const refreshToken = getRefreshToken();
+        if (!refreshToken) {
+          return false;
+        }
+
+        const response = await fetch("/api/auth/refresh", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ refreshToken })
+        });
+
+        if (!response.ok) {
+          return false;
+        }
+
+        const data = await response.json();
+        localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+        localStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data.user));
+        return true;
+      };
+
+      const geocodeCache = new Map();
+      const approximateMapAddresses = new Set();
+      const normalizeMapText = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\bluiz\b/g, "luis").replace(/[^a-z0-9]+/g, " ").trim();
+      const normalizeMapStreet = value => normalizeMapText(value).replace(/\b(?:de|da|do|das|dos)\b/g, " ").replace(/\s+/g, " ").trim();
+      const geocodeAddress = async address => {
+        const key = String(address || "").trim();
+        if (!key) return null;
+        if (!geocodeCache.has(key)) {
+          const saved = savedMapData(`address:${key}`);
+          if (saved && validMapPoint(saved.coordinates)) {
+            if (saved.approximate) approximateMapAddresses.add(key);
+            geocodeCache.set(key, Promise.resolve(saved.coordinates));
+          } else {
+            geocodeCache.set(key, resolveMapAddress(key).then(result => {
+              if (!result) geocodeCache.delete(key);
+              else saveMapData(`address:${key}`, {coordinates: result, approximate: approximateMapAddresses.has(key)});
+              return result;
+            }));
+          }
+        }
+        return geocodeCache.get(key);
+      };
+      const resolveMapAddress = async (address) => {
+        const rawAddress = String(address || "").trim();
+        if (!rawAddress) {
+          return null;
+        }
+
+        const cleanAddress = rawAddress.replace(/\bCEP\s*/gi, "").replace(/,\s*São Paulo\s*-\s*SP$/i, "");
+        const baseCandidates = [cleanAddress, rawAddress];
+        const postalCode = rawAddress.match(/\b\d{5}-?\d{3}\b/);
+        let postalAddress = null;
+        if (postalCode) {
+          try {
+            const postal = await lookupCep(postalCode[0]);
+            postalAddress = postal;
+            baseCandidates.push([postal.logradouro, postal.bairro, postal.localidade, postal.uf, "Brasil"].filter(Boolean).join(", "));
+          } catch (_) { /* Keep searching the supplied address. */ }
+        }
+
+        // Postal data constrains the municipality: never accept a namesake in another city.
+        if (postalAddress?.logradouro && postalAddress?.localidade) {
+          const street = postalAddress.logradouro;
+          const city = postalAddress.localidade;
+          const variants = [...new Set([`${street} ${city}`, street, `${street.replace(/Luiz/gi, "Luis")} ${city}`])];
+          for (const query of variants) {
+            try {
+              const response = await fetch(`https://photon.komoot.io/api/?limit=10&q=${encodeURIComponent(query)}`, {signal: AbortSignal.timeout(6000)});
+              if (!response.ok) continue;
+              const data = await response.json();
+              const match = (data.features || []).find(feature => {
+                const props = feature.properties || {};
+                const coords = feature.geometry?.coordinates;
+                return props.countrycode === "BR" && normalizeMapText(props.city) === normalizeMapText(city)
+                  && normalizeMapStreet(props.street || props.name) === normalizeMapStreet(street)
+                  && ["street", "house"].includes(props.type) && coords?.length >= 2 && coords.every(Number.isFinite);
+              });
+              if (match) {
+                approximateMapAddresses.add(rawAddress);
+                return [match.geometry.coordinates[1], match.geometry.coordinates[0]];
+              }
+            } catch (_) { /* Retry another spelling of the same street. */ }
+          }
+          // A street can be absent from Photon. Keep all retries within the CEP's city.
+          const searches = [
+            {street, city, state: postalAddress.uf},
+            {postalcode: postalAddress.cep, city, state: postalAddress.uf}
+          ];
+          for (const search of searches) {
+            try {
+              const params = new URLSearchParams({...search, country: "Brasil", countrycodes: "br", format: "jsonv2", addressdetails: "1", limit: "5"});
+              const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {signal: AbortSignal.timeout(6000)});
+              if (!response.ok) continue;
+              const data = await response.json();
+              const match = Array.isArray(data) && data.find(point => {
+                const place = point.address || {};
+                const municipalities = [place.city, place.town, place.village, place.municipality];
+                return place.country_code === "br" && municipalities.some(value => normalizeMapText(value) === normalizeMapText(city))
+                  && Number.isFinite(Number(point.lat)) && Number.isFinite(Number(point.lon));
+              });
+              if (match) {
+                approximateMapAddresses.add(rawAddress);
+                return [Number(match.lat), Number(match.lon)];
+              }
+            } catch (_) { /* Retry within the same municipality. */ }
+          }
+          return null;
+        }
+
+        const candidates = [...new Set(baseCandidates.map((item) => item.trim()).filter(Boolean))];
+
+        for (const candidate of candidates) {
+          try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(candidate)}`, {signal: AbortSignal.timeout(6000)});
+            const data = await response.json();
+            if (Array.isArray(data) && data.length) {
+              return [Number(data[0].lat), Number(data[0].lon)];
+            }
+          } catch (_error) {
+            // Tenta a próxima variação do endereço.
+          }
+        }
+
+        return null;
+      };
+
+      const ensureMap = () => {
+        if (!map) {
+          map = L.map("trackingMap", { zoomControl: true }).setView([-23.5505, -46.6333], 6);
+          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+        }
+      };
+
+      const clearMapLayers = () => {
+        mapRequest += 1;
+        applyTrackingMotion = () => {};
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+        animationNotice.hidden = true;
+        routeBounds = null;
+        document.getElementById("trackingRouteLabel").textContent = "Preparando trajeto…";
+        animationPaused = false;
+        mapMarkers.forEach((marker) => marker.remove());
+        mapMarkers = [];
+        if (mapRoute) {
+          mapRoute.remove();
+          mapRoute = null;
+        }
+      };
+
+      const progressByStatus = (status, alertMessage) => {
+        const normalized = String(status || "").toLowerCase();
+        const alertNormalized = String(alertMessage || "").toLowerCase();
+        if (alertNormalized.includes("nota fiscal")) return 87;
+        if (normalized.includes("aguardando")) return 18;
+        if (normalized.includes("separ")) return 34;
+        if (normalized.includes("andamento") || normalized.includes("rota")) return 67;
+        if (normalized.includes("entreg")) return 100;
+        return 52;
+      };
+
+      const getTrackingItemImage = (tracking) => {
+        const gallery = Array.isArray(tracking.item_gallery_images) ? tracking.item_gallery_images : [];
+        return gallery.find(Boolean) || tracking.item_image_url || "";
+      };
+
+      const postalLookupCache = new Map();
+      const lookupCep = async (cep) => {
+        const key = onlyDigits(cep);
+        const saved = savedMapData(`postal:${key}`);
+        if (saved?.cep) return saved;
+        if (!postalLookupCache.has(key)) {
+          postalLookupCache.set(key, (async () => {
+            const response = await fetch(`https://viacep.com.br/ws/${key}/json/`, {signal: AbortSignal.timeout(6000)});
+            const data = await response.json();
+            if (!response.ok || data.erro) throw new Error("CEP não encontrado.");
+            saveMapData(`postal:${key}`, data);
+            return data;
+          })().catch(error => { postalLookupCache.delete(key); throw error; }));
+        }
+        return postalLookupCache.get(key);
+      };
+
+      const resizeImage = (file) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            const image = new Image();
+            image.onload = () => {
+              const maxWidth = 900;
+              const ratio = Math.min(1, maxWidth / image.width);
+              const canvas = document.createElement("canvas");
+              canvas.width = Math.round(image.width * ratio);
+              canvas.height = Math.round(image.height * ratio);
+              const context = canvas.getContext("2d");
+              context.drawImage(image, 0, 0, canvas.width, canvas.height);
+              resolve(canvas.toDataURL("image/jpeg", 0.84));
+            };
+            image.onerror = () => reject(new Error("Não foi possível processar a foto."));
+            image.src = reader.result;
+          };
+
+          reader.onerror = () => reject(new Error("Não foi possível ler a foto."));
+          reader.readAsDataURL(file);
+        });
+
+      const renderVehicleList = (trackings) => {
+        trackingVehicleList.innerHTML = trackings.length
+          ? trackings
+              .map(
+                (tracking) => {
+                  const image = getTrackingItemImage(tracking);
+                  const badge = String(tracking.item_name || "AMI")
+                    .split(" ")
+                    .filter(Boolean)
+                    .slice(0, 1)
+                    .join("")
+                    .toUpperCase();
+                  return `
+                  <button class="tracking-vehicle-card ${tracking.id === selectedTrackingId ? "is-active" : ""}" type="button" data-select-tracking="${tracking.id}">
+                    <div class="tracking-vehicle-card__row">
+                      <div class="tracking-vehicle-card__thumb">
+                        ${
+                          image
+                            ? `<img src="${image}" alt="${tracking.item_name || "Veículo"}" loading="lazy" />`
+                            : `<span>${badge}</span>`
+                        }
+                      </div>
+                      <div class="tracking-vehicle-card__copy">
+                        <strong>${tracking.item_name || "Veículo"}</strong>
+                        <span>Status: ${escapeTrackingText((tracking.alert_message || tracking.status || "Sem status").toUpperCase())}</span>
+                      </div>
+                      <div class="tracking-vehicle-card__arrow">&gt;</div>
+                    </div>
+                  </button>
+                `;
+                }
+              )
+              .join("")
+          : '<div class="tracking-sidebar__empty">Nenhum rastreio vinculado à sua conta.</div>';
+
+        trackingVehicleList.querySelectorAll("[data-select-tracking]").forEach((button) => {
+          button.addEventListener("click", () => {
+            selectedTrackingId = button.dataset.selectTracking;
+            renderDashboard();
+          });
+        });
+      };
+
+      const renderDriver = (tracking) => {
+        const initials = String(tracking.driver_name || "AMI")
+          .split(" ")
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((part) => part[0])
+          .join("")
+          .toUpperCase();
+
+        trackingDriverStatus.textContent = tracking.driver_status || "Situação regular";
+        trackingDriverInfo.innerHTML = [
+          ["Nome", tracking.driver_name || "Motorista não informado"],
+          ["E-mail", tracking.driver_email || "Não informado"],
+          ["Habilitação", tracking.driver_cnh || "Categoria D"],
+          [
+            "Endereço comercial",
+            tracking.driver_commercial_address ||
+              tracking.yard_address ||
+              "Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160"
+          ],
+          ["Observações", tracking.driver_notes || "Entregador vinculado ao seu rastreio com situação regular."]
+        ]
+          .map(
+            ([label, value]) => `
+              <div class="tracking-data-line">
+                <span>${label}</span>
+                <strong>${value}</strong>
+              </div>
+            `
+          )
+          .join("");
+
+        trackingDriverPhoto.innerHTML = tracking.driver_photo_url
+          ? `<img class="tracking-driver-photo__image" src="${tracking.driver_photo_url}" alt="${tracking.driver_name || "Motorista"}" />`
+          : `<div class="tracking-driver-avatar">${initials}</div>`;
+      };
+
+      const renderProfile = (user, trackings) => {
+        const vehicles = [...new Set(trackings.map((item) => item.item_name).filter(Boolean))];
+        trackingProfileForm.elements.fullName.value = user.fullName || "";
+        trackingProfileForm.elements.email.value = user.email || "";
+        trackingProfileForm.elements.whatsapp.value = formatPhone(user.whatsapp || "");
+        trackingProfileForm.elements.cpf.value = formatCpf(user.cpf || "");
+        trackingProfileForm.elements.cep.value = formatCep(user.cep || "");
+        trackingProfileForm.elements.address.value = user.address || "";
+        trackingProfileForm.elements.number.value = user.number || "";
+        trackingProfileForm.elements.district.value = user.district || "";
+        trackingProfileForm.elements.complement.value = user.complement || "";
+        trackingProfileForm.elements.city.value = user.city || "";
+        trackingProfileForm.elements.state.value = user.state || "";
+        trackingProfileForm.elements.password.value = "";
+        trackingProfileForm.elements.passwordConfirm.value = "";
+        profilePhotoBase64 = user.photoUrl || profilePhotoBase64 || "";
+        trackingProfilePhotoPreview.innerHTML = user.photoUrl
+          ? `<img src="${user.photoUrl}" alt="${user.fullName || "Cliente"}" />`
+          : `<span>${String(user.fullName || "AMI").split(" ").filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase()}</span>`;
+        trackingProfileVehicles.innerHTML = `
+          <div class="tracking-data-line tracking-data-line--profile">
+            <span>Veículos vinculados</span>
+            <strong>${vehicles.join(", ") || "Nenhum veículo vinculado"}</strong>
+          </div>
+        `;
+      };
+
+      const escapeTrackingText = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+      const waitingAtYard = tracking => String(tracking.status || "").toLowerCase().includes("aguardando nota fiscal");
+      const yardAddress = tracking => tracking.yard_address || "Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160";
+      const reportedLocation = tracking => tracking.current_location || `No pátio — ${tracking.yard_name || "RGOMES LEILÕES"}: ${yardAddress(tracking)}`;
+      const renderMap = async (tracking, user) => {
+        ensureMap();
+        clearMapLayers();
+        const request = mapRequest;
+
+        const startAddress = yardAddress(tracking);
+        const currentAddress = tracking.current_location || startAddress;
+        const profileAddress = buildUserAddress(user);
+        const destinationAddress = tracking.destination_address || profileAddress || "Destino final não informado";
+
+        const [startCoords, currentCoords, destinationCoords] = await Promise.all([
+          geocodeAddress(startAddress || "Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160"),
+          currentAddress ? geocodeAddress(currentAddress) : Promise.resolve(null),
+          geocodeAddress(destinationAddress)
+        ]);
+
+        if (request !== mapRequest) return;
+        if ([startAddress, currentAddress, destinationAddress].some(address => approximateMapAddresses.has(address))) {
+          trackingMapMeta.textContent += " Pontos aproximados pelo logradouro ou CEP; o mapa não confirmou os números dos imóveis.";
+        }
+        const points = [startCoords, currentCoords, destinationCoords].filter(Boolean);
+        if (!points.length) { map.setView([-23.5505, -46.6333], 6); return; }
+
+        const initials = String(tracking.driver_name || "AMI")
+          .split(" ")
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((part) => part[0])
+          .join("")
+          .toUpperCase();
+
+        const yardIcon = L.divIcon({
+          className: "",
+          html: '<div class="tracking-map-yard-marker"></div>',
+          iconSize: [18, 18],
+          iconAnchor: [9, 9]
+        });
+
+        const driverIcon = L.divIcon({
+          className: "",
+          html: tracking.driver_photo_url
+            ? `<div class="tracking-map-driver-marker"><img src="${tracking.driver_photo_url}" alt="${tracking.driver_name || "Entregador"}" /></div>`
+            : `<div class="tracking-map-driver-marker tracking-map-driver-marker--fallback">${initials}</div>`,
+          iconSize: [56, 56],
+          iconAnchor: [28, 28]
+        });
+
+        const destinationIcon = L.divIcon({
+          className: "",
+          html: '<div class="tracking-map-destination-marker"></div>',
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        });
+
+        if (startCoords) mapMarkers.push(L.marker(startCoords, { icon: yardIcon }).addTo(map).bindPopup("Base / Pátio"));
+        const delivered = String(tracking.status || "").trim().toLowerCase() === "entregue";
+        const driverPosition = delivered ? destinationCoords : currentCoords || startCoords;
+        let driverMarker = null;
+        if (driverPosition && tracking.driver_id) {
+          const popup = document.createElement("span");
+          popup.textContent = delivered ? "Entrega concluída • Destino final" : currentCoords ? `Última localização informada: ${reportedLocation(tracking)}` : "Motorista vinculado à entrega • Base de origem";
+          driverMarker = L.marker(driverPosition, { icon: driverIcon, zIndexOffset: 1100 }).addTo(map).bindPopup(popup);
+          mapMarkers.push(driverMarker);
+        }
+
+        if (destinationCoords) {
+          const destinationMarker = L.marker(destinationCoords, { icon: destinationIcon })
+            .addTo(map)
+            .bindPopup(destinationAddress);
+          mapMarkers.push(destinationMarker);
+        }
+
+        const routeOrigin = currentCoords || startCoords;
+        const savedRouteKey = routeOrigin && destinationCoords ? [routeOrigin, destinationCoords].map(point => `${point[1]},${point[0]}`).join(";") : "";
+        const cachedRoute = roadRouteCache.get(savedRouteKey) || savedMapData(`route:${savedRouteKey}`);
+        const initialRoadRoute = Array.isArray(cachedRoute) && cachedRoute.length >= 2 && cachedRoute.every(validMapPoint) ? cachedRoute : null;
+        let routePoints = initialRoadRoute || [routeOrigin, destinationCoords].filter(Boolean);
+        const roadRoutePromise = routeOrigin && destinationCoords ? fetchRoadRoute(routeOrigin, destinationCoords) : Promise.resolve(null);
+        const routeLabel = document.getElementById("trackingRouteLabel");
+        routeLabel.textContent = initialRoadRoute ? "Trajeto sugerido pelas vias" : routePoints.length >= 2 ? "Ligação ilustrativa entre endereços" : "Endereço do trajeto não localizado";
+        const drawRoute = (coordinates, road = false) => {
+          if (mapRoute) mapRoute.remove();
+          mapRoute = coordinates.length >= 2 ? L.layerGroup([
+            L.polyline(coordinates, {color: "#063d57", weight: 13, opacity: .95, lineCap: "round"}),
+            L.polyline(coordinates, {color: "#32d4f5", weight: 7, opacity: 1, lineCap: "round", dashArray: road ? undefined : "8 10"})
+          ]).addTo(map) : null;
+        };
+        drawRoute(routePoints, !!initialRoadRoute);
+        routeBounds = L.latLngBounds([...points, ...routePoints]);
+        map.fitBounds(routeBounds, {padding: [55, 75], maxZoom: 15});
+        const status = String(tracking.status || "").toLowerCase();
+        const moving = /andamento|em rota|em transito|em trânsito|a caminho/.test(status) && !/entregue|cancel|aguard|parad/.test(status);
+        const origin = currentCoords || startCoords;
+        const issues = [];
+        if (!tracking.driver_id) issues.push("Motorista ainda não vinculado a esta entrega.");
+        if (!destinationCoords) issues.push("Endereço de entrega não localizado no mapa.");
+        if (!origin) issues.push("Endereço de origem não localizado no mapa.");
+        if (issues.length) trackingMapMeta.textContent += " " + issues.join(" ");
+        let progress = trackingTimeline(tracking);
+        if (delivered) progress = 1;
+        let interpolate = routePoints.length >= 2 ? routeInterpolator(routePoints) : null;
+        if (!delivered && driverMarker && interpolate && progress > 0) {
+          driverMarker.setLatLng(interpolate(progress));
+          animationNotice.hidden = false;
+          driverMarker.getElement()?.querySelector(".tracking-map-driver-marker")?.classList.add("is-demo-waiting");
+        }
+        if (origin && destinationCoords && (origin[0] !== destinationCoords[0] || origin[1] !== destinationCoords[1])) {
+          const simulatedMarker = driverMarker || L.marker(origin, {icon: driverIcon, zIndexOffset: 1100}).addTo(map);
+          if (!driverMarker) mapMarkers.push(simulatedMarker);
+          simulatedMarker.bindPopup("Em rota · Demonstrando");
+          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+          const paintMotion = () => {
+            progress = trackingTimeline(tracking);
+            simulatedMarker.setLatLng(interpolate(progress));
+            animationNotice.hidden = progress >= 1 || !(progress > 0 || tracking.animation_running_since || tracking.animation_paused !== null && tracking.animation_paused !== undefined);
+            simulatedMarker.getElement()?.querySelector(".tracking-map-driver-marker")?.classList.toggle("is-demo-waiting", !animationNotice.hidden);
+          };
+          const animate = () => {
+            animationFrame = null;
+            if (request !== mapRequest) return;
+            if (!document.hidden) paintMotion();
+            if (!animationPaused && !reducedMotion.matches && tracking.animation_running_since && progress < 1) animationFrame = requestAnimationFrame(animate);
+          };
+          applyTrackingMotion = next => {
+            if (next.id !== tracking.id || request !== mapRequest) return;
+            if (Date.parse(next.updated_at) < Date.parse(tracking.updated_at)) return;
+            Object.assign(tracking, next);
+            animationPaused = tracking.animation_paused === true;
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+            paintMotion();
+            if (!animationPaused && !reducedMotion.matches && tracking.animation_running_since && progress < 1) animationFrame = requestAnimationFrame(animate);
+          };
+          applyTrackingMotion(tracking);
+        }
+        const roadRoute = await roadRoutePromise;
+        if (request !== mapRequest || !roadRoute) return;
+        routePoints = roadRoute;
+        interpolate = routeInterpolator(roadRoute);
+        drawRoute(roadRoute, true);
+        routeLabel.textContent = "Trajeto sugerido pelas vias";
+        trackingMapMeta.textContent = trackingMapMeta.textContent.replace("Linha tracejada: ligação entre os endereços.", "Trajeto sugerido pelas vias, sem dados de trânsito ao vivo.");
+        routeBounds = L.latLngBounds([...points, ...roadRoute]);
+        map.fitBounds(routeBounds, {padding: [55, 75], maxZoom: 15});
+        applyTrackingMotion(tracking);
+      };
+
+      const renderOverview = async (tracking, user) => {
+        const progress = progressByStatus(tracking.status, tracking.alert_message);
+        const destinationAddress = tracking.destination_address || buildUserAddress(user) || "Não informado";
+        trackingProgressFill.style.width = `${progress}%`;
+        trackingProgressValue.textContent = `${progress}%`;
+        trackingAlertText.textContent = String(tracking.alert_message || tracking.status || "Aguardando atualização").toUpperCase();
+        trackingItemTitle.textContent = tracking.item_name || "Rastreio";
+        const date = tracking.updated_at ? new Date(tracking.updated_at) : null;
+        const updated = date && !Number.isNaN(date.getTime()) ? date.toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}) + " (Brasília)" : "Não informada";
+        const delivery = tracking.expected_delivery_date ? String(tracking.expected_delivery_date).slice(0,10).split("-").reverse().join("/") : "A confirmar";
+        const details = [
+          ["Cliente", tracking.client_name || user.fullName],
+          ["E-mail", tracking.client_email || user.email],
+          ["Telefone", user.whatsapp],
+          ["Endereço do cliente", buildUserAddress(user)],
+          ["Endereço de entrega", destinationAddress],
+          ["Veículo", tracking.item_name],
+          ["Ano", tracking.item_year],
+          ["Dados do veículo", tracking.item_description],
+          ["Categoria", tracking.item_category],
+          ["Código de rastreio", tracking.tracking_code],
+          ["Previsão de entrega", delivery],
+          ["Motorista", tracking.driver_name],
+          ["Pátio de origem", tracking.yard_name],
+          ["Última localização informada", reportedLocation(tracking)],
+          ["Atualização do rastreio", updated]
+        ];
+        const list = document.getElementById("trackingDeliveryDetails");
+        list.replaceChildren();
+        for (const [label, value] of details) {
+          const row = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd");
+          dt.textContent = label; dd.textContent = value || "Não informado";
+          row.append(dt, dd); list.append(row);
+        }
+        trackingMapMeta.textContent = `Última localização informada: ${reportedLocation(tracking) || "Não informada"} • Atualização do rastreio: ${updated}. Linha tracejada: ligação entre os endereços.`;
+        await renderMap(tracking, user);
+      };
+
+      const renderDashboard = async () => {
+        const { user, trackings } = dashboardState;
+        trackingUserName.textContent = user.fullName || "Cliente";
+        renderVehicleList(trackings);
+        renderProfile(user, trackings);
+
+        const selectedTracking = trackings.find((item) => item.id === selectedTrackingId) || trackings[0];
+        if (!selectedTracking) {
+          document.getElementById("trackingDeliveryDetails").replaceChildren();
+          trackingItemTitle.textContent = "Nenhum rastreio disponível";
+          trackingMapMeta.textContent = "Sua conta ainda não possui rastreios vinculados.";
+          trackingAlertText.textContent = "AGUARDANDO VÍNCULO DE RASTREIO";
+          trackingDriverInfo.innerHTML = '<div class="tracking-empty-box">Nenhum entregador vinculado no momento.</div>';
+          trackingDriverPhoto.innerHTML = '<div class="tracking-driver-avatar">AMI</div>';
+          ensureMap();
+          clearMapLayers();
+          map.setView([-23.1896, -45.8841], 6);
+          return;
+        }
+
+        selectedTrackingId = selectedTracking.id;
+        await renderOverview(selectedTracking, user);
+        renderDriver(selectedTracking);
+        renderProfile(user, trackings);
+        renderVehicleList(trackings);
+      };
+
+      const loadDashboard = async () => {
+        try {
+          const data = await apiFetch(previewId ? `/api/admin?action=tracking-preview&id=${encodeURIComponent(previewId)}` : "/api/customer/tracking-dashboard");
+          if (previewId) data.trackings = data.trackings.filter(item => item.id === previewId);
+          dashboardState = stampTimelines(data);
+          selectedTrackingId = previewId || data.trackings[0]?.id || null;
+          setLoggedInState();
+          activateTrackingTab(requestedTrackingTab);
+          await renderDashboard();
+        } catch (error) {
+          if (previewId) {
+            setLoggedOutState();
+            trackingLoginForm.hidden = true;
+            const notice = document.getElementById("trackingPreviewNotice");
+            notice.textContent = error.message + " Abra novamente a prévia pelo painel administrativo.";
+            return;
+          }
+          const refreshed = await refreshSession();
+          if (refreshed) {
+            return loadDashboard();
+          }
+          localStorage.removeItem(ACCESS_TOKEN_KEY);
+          localStorage.removeItem(REFRESH_TOKEN_KEY);
+          localStorage.removeItem(CURRENT_USER_KEY);
+          setLoggedOutState();
+        }
+      };
+
+      document.getElementById("trackingIdentifier").addEventListener("input", (event) => {
+        const value = event.target.value;
+        if (onlyDigits(value).length <= 11 && value.includes("@") === false) {
+          const digits = onlyDigits(value).slice(0, 11);
+          event.target.value = digits
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        }
+      });
+
+      trackingLoginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        trackingLoginStatus.textContent = "Entrando...";
+
+        try {
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              identifier: trackingLoginForm.identifier.value.trim(),
+              password: trackingLoginForm.password.value
+            })
+          });
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Não foi possível entrar no rastreio.");
+          }
+
+          localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+          localStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data.user));
+          trackingLoginStatus.textContent = "";
+          await loadDashboard();
+        } catch (error) {
+          trackingLoginStatus.textContent = error.message;
+        }
+      });
+
+      trackingLogoutButton.addEventListener("click", () => {
+        if (previewId) { window.location.href = "./admin.html"; return; }
+        clearMapLayers();
+        fetch("/api/auth/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ refreshToken: getRefreshToken() })
+        }).finally(() => {
+          localStorage.removeItem(ACCESS_TOKEN_KEY);
+          localStorage.removeItem(REFRESH_TOKEN_KEY);
+          localStorage.removeItem(CURRENT_USER_KEY);
+          trackingLoginForm.reset();
+          trackingLoginStatus.textContent = "Você saiu da área de rastreio.";
+          setLoggedOutState();
+        });
+      });
+
+      trackingProfileForm.elements.whatsapp.addEventListener("input", () => {
+        trackingProfileForm.elements.whatsapp.value = formatPhone(trackingProfileForm.elements.whatsapp.value);
+      });
+
+      trackingProfileForm.elements.cpf.addEventListener("input", () => {
+        trackingProfileForm.elements.cpf.value = formatCpf(trackingProfileForm.elements.cpf.value);
+      });
+
+      trackingProfileForm.elements.cep.addEventListener("input", () => {
+        trackingProfileForm.elements.cep.value = formatCep(trackingProfileForm.elements.cep.value);
+      });
+
+      trackingProfileForm.elements.cep.addEventListener("blur", async () => {
+        const cep = trackingProfileForm.elements.cep.value;
+        if (onlyDigits(cep).length !== 8) {
+          return;
+        }
+
+        try {
+          const data = await lookupCep(cep);
+          trackingProfileForm.elements.address.value = data.logradouro || trackingProfileForm.elements.address.value;
+          trackingProfileForm.elements.district.value = data.bairro || trackingProfileForm.elements.district.value;
+          trackingProfileForm.elements.city.value = data.localidade || trackingProfileForm.elements.city.value;
+          trackingProfileForm.elements.state.value = data.uf || trackingProfileForm.elements.state.value;
+        } catch (error) {
+          trackingProfileStatus.textContent = error.message;
+        }
+      });
+
+      trackingProfilePhotoInput.addEventListener("change", async (event) => {
+        const file = event.target.files?.[0];
+        if (!file) {
+          return;
+        }
+
+        try {
+          profilePhotoBase64 = await resizeImage(file);
+          trackingProfilePhotoPreview.innerHTML = `<img src="${profilePhotoBase64}" alt="Foto de perfil" />`;
+          trackingProfileStatus.textContent = "";
+        } catch (error) {
+          trackingProfileStatus.textContent = error.message;
+        }
+      });
+
+      trackingProfileForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (previewId) return;
+
+        if (trackingProfileForm.elements.password.value !== trackingProfileForm.elements.passwordConfirm.value) {
+          trackingProfileStatus.textContent = "A confirmação da nova senha não confere.";
+          return;
+        }
+
+        trackingProfileStatus.textContent = "Salvando alterações...";
+
+        try {
+          const data = await apiFetch("/api/auth/profile", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              fullName: trackingProfileForm.elements.fullName.value.trim(),
+              email: trackingProfileForm.elements.email.value.trim(),
+              whatsapp: trackingProfileForm.elements.whatsapp.value.trim(),
+              cpf: trackingProfileForm.elements.cpf.value.trim(),
+              cep: trackingProfileForm.elements.cep.value.trim(),
+              address: trackingProfileForm.elements.address.value.trim(),
+              number: trackingProfileForm.elements.number.value.trim(),
+              district: trackingProfileForm.elements.district.value.trim(),
+              complement: trackingProfileForm.elements.complement.value.trim(),
+              city: trackingProfileForm.elements.city.value.trim(),
+              state: trackingProfileForm.elements.state.value.trim(),
+              password: trackingProfileForm.elements.password.value,
+              photoUrl: profilePhotoBase64 || dashboardState.user?.photoUrl || null
+            })
+          });
+
+          dashboardState.user = data.user;
+          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data.user));
+          trackingUserName.textContent = data.user.fullName || "Cliente";
+          renderProfile(data.user, dashboardState.trackings);
+          if (dashboardState.trackings.length) {
+            await renderOverview(
+              dashboardState.trackings.find((item) => item.id === selectedTrackingId) || dashboardState.trackings[0],
+              data.user
+            );
+          }
+          trackingProfileStatus.textContent = "Perfil atualizado com sucesso.";
+        } catch (error) {
+          trackingProfileStatus.textContent = error.message;
+        }
+      });
+
+      if (previewId) {
+        const notice = document.createElement("div");
+        notice.id = "trackingPreviewNotice";
+        notice.className = "tracking-animation-notice";
+        notice.textContent = "Prévia do cliente • Somente leitura • Acesso administrativo";
+        document.querySelector("main").prepend(notice);
+        trackingProfileForm.querySelectorAll("input, button, textarea, select").forEach(input => { input.disabled = true; });
+        trackingLogoutButton.textContent = "Voltar ao painel";
+      }
+      let refreshingMotion = false;
+      const refreshTrackingMotion = async () => {
+        if (refreshingMotion || document.hidden || !getAccessToken() || !dashboardState) return;
+        refreshingMotion = true;
+        try {
+          const url = previewId ? `/api/admin?action=tracking-preview&id=${encodeURIComponent(previewId)}&motion=1` : "/api/customer/tracking-dashboard?motion=1";
+          const data = stampTimelines(await apiFetch(url, {signal: AbortSignal.timeout(8000)}));
+          for (const next of data.trackings) {
+            const current = dashboardState.trackings.find(item => item.id === next.id);
+            if (!current || Date.parse(next.updated_at) < Date.parse(current.updated_at)) continue;
+            applyTrackingMotion(next);
+            Object.assign(current, next);
+          }
+        } catch {} finally { refreshingMotion = false; }
+      };
+      setInterval(refreshTrackingMotion, 1000);
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshTrackingMotion(); });
+      window.addEventListener("focus", refreshTrackingMotion);
+      let refreshingTracking = false;
+      setInterval(async () => {
+        if (refreshingTracking || document.hidden || !getAccessToken() || !dashboardState) return;
+        refreshingTracking = true;
+        try {
+          const data = await apiFetch(previewId ? `/api/admin?action=tracking-preview&id=${encodeURIComponent(previewId)}` : "/api/customer/tracking-dashboard");
+          if (previewId) data.trackings = data.trackings.filter(item => item.id === previewId);
+          if (trackingStateSignature(data.trackings) !== trackingStateSignature(dashboardState.trackings)) {
+            dashboardState = stampTimelines(data);
+            await renderDashboard();
+          }
+        } catch {} finally { refreshingTracking = false; }
+      }, 2000);
+      const currentUser = getCurrentUser();
+      if (previewId || (getAccessToken() && currentUser)) {
+        activateTrackingTab(requestedTrackingTab);
+        loadDashboard();
+      } else {
+        setLoggedOutState();
+      }
+    </script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

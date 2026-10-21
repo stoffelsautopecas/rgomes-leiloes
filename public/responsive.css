@@ -1,0 +1,116 @@
+/* Mobile-first application shell, shared by storefront, client and admin. */
+:root { --app-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+html { scroll-padding-bottom: 100px; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+.mobile-nav, .admin-app-nav {
+  position: fixed; inset: auto 0 0; z-index: 60; display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  padding: 5px max(6px, env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left));
+  background: #fff; border-top: 1px solid #dce5ed; box-shadow: 0 -5px 24px #102b4810;
+}
+.mobile-nav .mobile-nav-item, .admin-app-nav button {
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+  min-height: 62px; min-width: 0; padding: 6px 2px; border: 0; border-radius: 10px;
+  background: transparent; color: #607286; font: 600 10px/1.3 var(--font-body);
+  letter-spacing: 0; text-transform: none; cursor: pointer;
+}
+.mobile-nav svg, .admin-app-nav svg { width: 23px; height: 23px; flex-shrink: 0; }
+.mobile-nav .mobile-nav-item::before, .mobile-nav .mobile-nav-item::after { content: none; }
+.mobile-nav .mobile-nav-item.active, .admin-app-nav button.is-active { color: #007c32; background: #edf6f0; }
+body { padding-bottom: var(--app-bottom); }
+.admin-page { padding-bottom: 0; }
+main, .admin-content, .results-main, .tracking-main { min-width: 0; }
+input, select, textarea { max-width: 100%; }
+.admin-app-nav { z-index: 35; }
+@media (max-width: 920px) {
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea { font-size: 16px !important; min-height: 44px; }
+  button, .button, .header-button { min-height: 44px; }
+  .container { width: calc(100% - 28px); }
+  .section { padding-block: 40px; }
+  .site-header { position: sticky; top: 0; z-index: 35; background: #fff; }
+  .header-inner { min-height: 70px; padding-block: 8px; }
+  .brand-logo { height: 48px; }
+  .desktop-nav, .header-actions { display: none; }
+  .site-footer { padding-bottom: 28px; }
+  .floating-whatsapp { bottom: calc(var(--app-bottom) + 16px); right: 14px; }
+  .mobile-access-sheet__panel { padding-bottom: calc(24px + env(safe-area-inset-bottom)); max-height: 85dvh; overflow-y: auto; }
+  .admin-content { padding-bottom: calc(var(--app-bottom) + 24px); }
+  .admin-topbar { z-index: 30; }
+  .admin-form--grid, #contractInstallments, .invoice-layout, .tracking-profile-grid { grid-template-columns: 1fr; }
+  .admin-form label, .admin-form__full { min-width: 0; }
+  .admin-subtabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .admin-subtab { flex: 1 1 150px; }
+  .admin-table-wrap { overflow-x: auto; overscroll-behavior-inline: contain; max-width: 100%; }
+  .admin-modal { padding: 10px; z-index: 100; }
+  .admin-modal__dialog { max-height: calc(100dvh - 20px); overflow-y: auto; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  .admin-tracking-status-form button { width: 100%; }
+  .admin-list-item .button { white-space: normal; text-align: center; }
+  .invoice-actions, .admin-form__actions { flex-wrap: wrap; }
+  .invoice-actions > *, .admin-form__actions > button { flex: 1 1 180px; }
+  .tracking-dashboard__container { width: calc(100% - 20px); }
+  .tracking-map { height: 360px; min-height: 300px; }
+  .tracking-map-card__head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .tracking-map-card__meta { overflow-wrap: anywhere; }
+  .tracking-sidebar__nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tracking-sidebar__tab { flex: 1 1 90px; min-height: 44px; }
+  .contract-document { overflow-wrap: anywhere; }
+  .contract-signature-grid { grid-template-columns: 1fr; }
+  .contract-signature__line { font-size: 1.3rem; }
+}
+@media (max-width: 480px) {
+  .catalog-grid, .catalog-grid--results, .home-page .catalog-grid { grid-template-columns: 1fr; }
+  .product-media { aspect-ratio: 4 / 3; height: auto; }
+  .product-media img { height: 100%; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .invoice-summary-grid { grid-template-columns: 1fr 1fr; }
+  .invoice-card { padding: 20px 14px; }
+  .invoice-card__head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .invoice-qr img { max-width: 100%; height: auto; }
+  .contract-document { padding: 20px 14px; }
+  .contract-document__brand { flex-wrap: wrap; }
+  .contract-section p { text-indent: 0; text-align: left; }
+  .home-search__categories { display: grid; grid-template-columns: repeat(3,1fr); }
+  .home-search__category { justify-content: center; padding-inline: 4px; }
+}
+@media (min-width: 921px) {
+  body { padding-bottom: 0; }
+  .mobile-nav, .admin-app-nav { display: none; }
+}
+@media print {
+  body { padding-bottom: 0; }
+  .mobile-nav, .admin-app-nav { display: none !important; }
+  .contract-signature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 920px) {
+  .about-story-grid { grid-template-columns: minmax(0, 1fr); }
+  .about-story-copy, .about-story-media { min-width: 0; }
+  .about-story-copy h2 { overflow-wrap: anywhere; font-size: clamp(1.6rem, 6vw, 2.6rem); }
+}
+
+/* Navigation-inspired delivery map; photo and controls retain their real colors. */
+.tracking-navigation-map { position: relative; isolation: isolate; background: #172838; overflow: hidden; border-radius: 0 0 18px 18px; }
+.tracking-navigation-map .tracking-map { height: 560px; background: #172838; }
+.tracking-navigation-map .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) saturate(.55) brightness(.8) contrast(.9); }
+.tracking-navigation-toolbar { position: absolute; top: 16px; left: 16px; right: 16px; z-index: 500; display: flex; justify-content: space-between; align-items: center; gap: 12px; pointer-events: none; }
+.tracking-navigation-toolbar > * { pointer-events: auto; background: #102333; color: #72e5ff; border: 1px solid #36546b; border-radius: 12px; padding: 12px 16px; font-size: .8rem; box-shadow: 0 5px 20px #0003; }
+.tracking-navigation-toolbar button { cursor: pointer; color: #fff; font-weight: 600; }
+.tracking-navigation-caption { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 500; background: #102333ed; padding: 10px 18px; border: 1px solid #36546b; border-radius: 12px; color: #dbeefa; font-size: .75rem; white-space: nowrap; pointer-events: none; }
+.tracking-navigation-caption span { color: #32d4f5; padding: 0 16px; }
+.tracking-navigation-map .leaflet-top.leaflet-left { top: 76px; }
+.tracking-navigation-map .leaflet-control-zoom a { background: #102333; color: #e6f7ff; border-color: #36546b; }
+.tracking-navigation-map .tracking-map-driver-marker { border-color: #32d4f5; box-shadow: 0 0 0 5px #32d4f533, 0 6px 22px #0008; padding: 3px; }
+.tracking-navigation-map .tracking-map-destination-marker { width: 26px; height: 26px; margin: -3px; border: 3px solid #fff; border-radius: 6px; background: conic-gradient(#fff 25%, #152332 0 50%, #fff 0 75%, #152332 0) 0 0 / 10px 10px; box-shadow: 0 3px 12px #0006; }
+.tracking-navigation-map .tracking-map-yard-marker { background: #32d4f5; }
+@media (max-width: 640px) {
+ .tracking-navigation-map .tracking-map { height: 470px; }
+ .tracking-navigation-toolbar { top: 12px; left: 10px; right: 10px; gap: 8px; }
+ .tracking-navigation-toolbar > * { padding: 10px; font-size: .7rem; }
+ .tracking-navigation-toolbar span { max-width: 62%; }
+}
+
+/* Employee management */
+#staffForm .admin-form__actions > button { flex: 0 0 auto; min-height: 48px; }
+#staffList .admin-list-item { display: grid; gap: 12px; }
+#staffList input { width: 100%; padding: 12px; border: 1px solid #dce5ed; border-radius: 12px; }
+#adminAccountLabel { color: #607286; font-size: .9rem; margin-top: 8px; }

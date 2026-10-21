@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES | Catálogo</title>
+    <meta
+      name="description"
+      content="Catálogo completo de máquinas e veículos da RGOMES LEILÕES."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="catalog-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html">Início</a>
+          <a href="./catalogo.html" class="active">Catálogo</a>
+          <a href="./sobre.html">Sobre Nós</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./rastreio.html">Rastrear</a>
+          <a class="header-button" href="./cadastro.html">Criar Conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section-results" style="padding-top: 34px;">
+        <div class="container results-layout">
+          <aside class="filters-card">
+            <div class="filters-card__title">
+              <span class="filters-card__icon" aria-hidden="true">☰</span>
+              <h2>Filtros</h2>
+            </div>
+            <div class="filters-divider"></div>
+
+            <label class="filters-label" for="search-input">Busca por texto</label>
+            <div class="filters-search">
+              <span class="filters-search__icon" aria-hidden="true">⌕</span>
+              <input id="search-input" type="text" placeholder="Nome do veículo..." />
+            </div>
+
+            <label class="filters-label">Categoria</label>
+            <div class="category-list">
+              <button class="category-pill category-pill--active" type="button" data-category="all">Todas as Categorias</button>
+              <button class="category-pill" type="button" data-category="Caminhões">Caminhões</button>
+              <button class="category-pill" type="button" data-category="Picapes">Picapes</button>
+              <button class="category-pill" type="button" data-category="Carros">Carros</button>
+              <button class="category-pill" type="button" data-category="Motos">Motos</button>
+              <button class="category-pill" type="button" data-category="Utilitários">Utilitários</button>
+
+              <button class="category-pill" type="button" data-category="SUVs">SUVs</button>
+              <button class="category-pill" type="button" data-category="Implementos">Implementos</button>
+              <button class="category-pill" type="button" data-category="Tratores">Tratores</button>
+            </div>
+          </aside>
+
+          <div class="results-main">
+            <div class="results-head">
+              <h2>Resultados da Busca</h2>
+              <span class="results-count" id="resultsCount">44 ITENS</span>
+            </div>
+            <div class="results-divider"></div>
+
+            <div class="catalog-grid catalog-grid--results" id="catalogResultsGrid">
+              <div class="catalog-loading">Carregando itens do catálogo...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+            <a href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+            <a href="./sobre.html#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./catalogo.html">Catálogo</a></li>
+            <li><a href="./sobre.html#contato">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Atendimento</h3>
+          <ul>
+            <li>Segunda a sexta</li>
+            <li>08h às 18h</li>
+            <li>Atendimento comercial e pós-venda</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="./sobre.html#contato" aria-label="Ver contato"><img src="./whatsapp1.png" alt="" width="58" height="58" /></a>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav-item" href="./index.html">Início</a>
+      <a class="mobile-nav-item active" href="./catalogo.html">Catálogo</a>
+      <a class="mobile-nav-item" href="./sobre.html">Sobre</a>
+      <a class="mobile-nav-item" href="./rastreio.html">Rastreio</a>
+      <a class="mobile-nav-item" href="./login.html">Perfil</a>
+    </nav>
+
+    <script src="./mobile-access.js"></script>
+    <script src="./catalog-search.js"></script>
+    <script>
+      const searchInput = document.getElementById("search-input");
+      const categoryButtons = Array.from(document.querySelectorAll(".category-pill"));
+      const resultsCount = document.getElementById("resultsCount");
+      const catalogResultsGrid = document.getElementById("catalogResultsGrid");
+
+      let catalogItems = [];
+      const initialFilters = new URLSearchParams(window.location.search);
+      let selectedCategory = categoryButtons.some((button) => button.dataset.category === initialFilters.get("category"))
+        ? initialFilters.get("category") : "all";
+      searchInput.value = initialFilters.get("q") || "";
+      categoryButtons.forEach((button) => button.classList.toggle("category-pill--active", button.dataset.category === selectedCategory));
+
+      const formatCurrency = (value) =>
+        Number(value || 0) > 0
+          ? Number(value).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            })
+          : "Sob consulta";
+
+      const getItemImage = (item) => {
+        const galleryImages = Array.isArray(item.gallery_images) ? item.gallery_images : [];
+        return galleryImages[0] || item.image_url || "";
+      };
+
+      const createProductCard = (item) => {
+        const photoCount = Array.isArray(item.gallery_images) && item.gallery_images.length
+          ? item.gallery_images.length
+          : Number(item.gallery_count || 1);
+        const image = getItemImage(item);
+
+        return `
+          <article class="product-card" data-detail="./detalhe.html?slug=${item.slug}">
+            <div class="product-media">
+              ${image ? `<img src="${image}" alt="${item.title}" loading="lazy" />` : '<div class="product-media__placeholder">Sem foto</div>'}
+              <div class="product-tag">${item.badge || item.category || "Catálogo"}</div>
+              <button class="favorite-btn" type="button" aria-label="Favoritar">♡</button>
+              <span class="photo-count">1/${photoCount}</span>
+            </div>
+            <div class="product-body">
+              <h3>${item.title}</h3>
+              <div class="product-divider"></div>
+              <div class="product-footer">
+                <div class="price-block"><strong>${formatCurrency(item.price)}</strong></div>
+                <div class="product-card-actions">
+                <a class="product-view-lot" href="./detalhe.html?slug=${encodeURIComponent(item.slug)}">VER LOTE</a>
+                <button class="whatsapp-btn" type="button" data-staff-contact data-vehicle="${encodeURIComponent(item.title || "")}" data-price="${encodeURIComponent(formatCurrency(item.price))}" data-description="${encodeURIComponent(item.description || "")}" data-image="${encodeURIComponent(image)}" aria-label="Escolher funcionário para conversar pelo WhatsApp"><img src="./whatsapp1.png" alt="" width="36" height="36" loading="lazy" /></button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      };
+
+      const bindProductCards = () => {
+        document.querySelectorAll(".product-card").forEach((card) => {
+          const detailUrl = card.dataset.detail || "./detalhe.html";
+          card.tabIndex = 0;
+          card.addEventListener("click", (event) => {
+            if (event.target.closest("a, button")) {
+              return;
+            }
+            window.location.href = detailUrl;
+          });
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              window.location.href = detailUrl;
+            }
+          });
+        });
+      };
+
+      const renderCatalog = () => {
+        const filteredItems = catalogItems.filter((item) => window.rgomesCatalogMatches(item, selectedCategory, searchInput.value));
+
+        resultsCount.textContent = `${filteredItems.length} VEÍCULOS`;
+
+        if (!filteredItems.length) {
+          catalogResultsGrid.innerHTML = '<div class="catalog-empty">Nenhum veículo encontrado com esse filtro.</div>';
+          return;
+        }
+
+        catalogResultsGrid.innerHTML = filteredItems.map(createProductCard).join("");
+        bindProductCards();
+      };
+
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          categoryButtons.forEach((item) => item.classList.remove("category-pill--active"));
+          button.classList.add("category-pill--active");
+          selectedCategory = button.dataset.category || "all";
+          renderCatalog();
+        });
+      });
+
+      searchInput.addEventListener("input", renderCatalog);
+
+      fetch("/api/catalog/items?section=catalogo")
+        .then((response) => response.json())
+        .then((data) => {
+          if (Array.isArray(data.items) && data.items.length) {
+            catalogItems = data.items;
+            renderCatalog();
+          } else {
+            bindProductCards();
+          }
+        })
+        .catch(() => bindProductCards());
+
+      bindProductCards();
+    </script>
+  <script src="./staff-contact.js" defer></script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>

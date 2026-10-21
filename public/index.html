@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>RGOMES LEILÕES</title>
+    <meta
+      name="description"
+      content="RGOMES LEILÕES: encontre oportunidades em veículos, máquinas e equipamentos. Explore o catálogo e fale com nossa equipe."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/jpeg" href="./logorgomes.jpeg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="theme-color" content="#061e43" />
+    <link rel="stylesheet" href="./responsive.css" />
+  </head>
+  <body class="home-page">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="RGOMES LEILÕES">
+          <img class="brand-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="./index.html" class="active">Início</a>
+          <a href="./catalogo.html">Catálogo</a>
+          <a href="./sobre.html">Sobre Nós</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="header-button" href="./rastreio.html">Rastrear</a>
+          <a class="header-button" href="./cadastro.html">Criar Conta</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-media">
+          <img
+            src="./hero-rgomes.jpg"
+            alt="Trator disponível no catálogo da RGOMES LEILÕES"
+          />
+          <div class="hero-overlay"></div>
+          <div class="hero-gradient"></div>
+        </div>
+
+        <div class="container hero-content">
+          <div class="hero-copy">
+          <h1>
+            Veículos e máquinas<br /><span>para o seu negócio.</span>
+          </h1>
+          <p>
+            Consulte nosso catálogo de veículos e maquinários, compare as opções disponíveis
+            e acompanhe sua negociação em um só lugar.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./catalogo.html">Explorar oportunidades →</a>
+          </div>
+          <div><a class="safra-home-link" href="./plano-safra.html">PLANO SAFRA <span aria-hidden="true">→</span></a></div>
+          <a class="edital-home-link" href="./edital.html">Entenda como funciona o <strong>EDITAL DE PARTICIPAÇÃO</strong><span aria-hidden="true"> →</span></a>
+          </div>
+        </div>
+      </section>
+      <section class="container home-search-section" aria-label="Buscar veículos">
+          <form class="home-search home-search--wide" action="./catalogo.html" method="get" aria-labelledby="homeSearchTitle">
+            <div class="home-search__top"><span>ENCONTRE SEU LOTE</span><span class="home-search__status">Catálogo aberto</span></div>
+            <h2 id="homeSearchTitle">Qual oportunidade você procura?</h2>
+            <div class="home-search__categories" role="group" aria-label="Categorias de veículos">
+              <button type="button" class="home-search__category" data-category="all" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18M8 3v6M16 9v6M8 15v6"/></svg>Todos</button>
+              <button type="button" class="home-search__category" data-category="Caminhões" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 5h11v12H3zM14 10h4l3 4v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Caminhões</button>
+              <button type="button" class="home-search__category" data-category="Picapes" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 10h8V6h5l4 5h3v7H2z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Picapes</button>
+              <button type="button" class="home-search__category" data-category="SUVs" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m4 11 2-6h12l2 6M3 11h18v8H3zM6 15h2m8 0h2M5 19v2m14-2v2"/></svg>SUVs</button>
+              <button type="button" class="home-search__category" data-category="Implementos" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h15v8H3zM18 12h4M6 4v3m8-3v3"/><circle cx="7" cy="18" r="3"/><circle cx="16" cy="18" r="2"/></svg>Implementos</button>
+              <button type="button" class="home-search__category" data-category="Tratores" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="17" r="4"/><circle cx="19" cy="18" r="2"/><path d="M4 5h8v9h8v2M9 5v8m7-4v5M2 5h12"/></svg>Tratores</button>
+              <button type="button" class="home-search__category" data-category="Carros" aria-pressed="false">Carros</button>
+              <button type="button" class="home-search__category" data-category="Motos" aria-pressed="false">Motos</button>
+              <button type="button" class="home-search__category" data-category="Utilitários" aria-pressed="false">Utilitários</button>
+            </div>
+            <div class="home-search__fields"><div>
+            <label for="homeCategory">Categoria</label>
+            <select id="homeCategory" name="category">
+              <option value="all">Todas as categorias</option>
+              <option>Carros</option><option>Motos</option><option>Utilitários</option><option>Caminhões</option><option>Picapes</option><option>SUVs</option><option>Implementos</option><option>Tratores</option>
+            </select>
+            </div><div>
+            <label for="homeQuery">Marca ou modelo</label>
+            <div class="home-search__input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="homeQuery" name="q" type="search" placeholder="Digite o que você procura" maxlength="120" /></div>
+            </div>
+            <button class="home-search__submit" type="submit"><span>Ver veículos <span id="homeSearchCount" aria-live="polite"></span></span><span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+      </section>
+      <div class="home-benefits container" aria-label="Como encontrar sua oportunidade">
+        <div><span>01</span><p><strong>Explore o catálogo</strong>Veículos, máquinas e equipamentos</p></div>
+        <div><span>02</span><p><strong>Conheça os detalhes</strong>Fotos e informações de cada item</p></div>
+        <div><span>03</span><p><strong>Conheça a RGOMES LEILÕES</strong>Veja os dados da empresa</p></div>
+      </div>
+
+      <section class="section section-catalogo" aria-label="Destaques do catálogo">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Oportunidades em <span>destaque</span></h2>
+              <p>
+                Conheça os destaques do nosso catálogo e encontre a oportunidade
+                que combina com o que você procura.
+              </p>
+            </div>
+            <a class="section-link" href="./catalogo.html">Ver catálogo completo →</a>
+          </div>
+
+          <div class="catalog-grid" id="homeFeaturedGrid">
+            <div class="catalog-loading">Carregando destaques...</div>
+          </div>
+
+          <div class="catalog-more">
+            <a class="more-button" href="./catalogo.html">Ver todas as oportunidades</a>
+          </div>
+        </div>
+      </section>
+      <section class="home-trust container" aria-labelledby="homeTrustTitle">
+        <div class="home-trust__security">
+          <div class="home-trust__heading"><span>INFORMAÇÕES EM CADA ETAPA</span><h2 id="homeTrustTitle">Acompanhe sua <em>jornada.</em></h2></div>
+          <div class="home-trust__grid"><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6z"/><path d="m8 12 3 3 5-6"/></svg></span><div><h3>Confira os dados</h3><p>Consulte fotos e informações dos itens</p></div></div><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="m8 12-2 9 6-3 6 3-2-9M10 8l1.5 1.5L14 7"/></svg></span><div><h3>Transparência total</h3><p>Informações claras</p></div></div><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></svg></span><div><h3>Suas faturas</h3><p>Consulte valores e condições na sua conta</p></div></div><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-3a8 8 0 0 1 16 0v3M20 17v1a3 3 0 0 1-3 3h-4"/><rect x="2" y="11" width="4" height="7" rx="2"/><rect x="18" y="11" width="4" height="7" rx="2"/></svg></span><div><h3>Acompanhamento</h3><p>Rastreios e contratos na área do cliente</p></div></div></div>
+        </div>
+        <div class="home-trust__advantages"><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 4 7 7m-9-5 7-7m-2 9 7-7m-4 8 8 8m-6-2h8v4H9"/></svg></span><div><h3>Grandes oportunidades</h3><p>Compare as opções disponíveis no catálogo.</p></div></div><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M8 11h8m-8 5 2 2 5-5"/></svg></span><div><h3>Processo simples e ágil</h3><p>Consulte detalhes e acompanhe sua conta.</p></div></div><div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3 3h4v4l3 3-3 3v4h-4l-3 3-3-3H5v-4l-3-3 3-3V5h4zM8 16l8-8"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg></span><div><h3>Condições da negociação</h3><p>Consulte valores e prazos antes de prosseguir.</p></div></div></div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="./logorgomes.jpeg" alt="RGOMES LEILÕES" />
+          </div>
+          <p>RGOMES LEILÕES. Oportunidades em veículos e máquinas para o seu próximo passo.</p>
+          <div class="social-row">
+            <a href="#contato" aria-label="Facebook">FB</a>
+            <a href="#contato" aria-label="Instagram">IG</a>
+            <a href="#contato" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Categorias</h3>
+          <ul>
+            <li><a href="./catalogo.html">Tratores</a></li>
+            <li><a href="./catalogo.html">Semeadoras</a></li>
+            <li><a href="./catalogo.html">Pulverizadores</a></li>
+            <li><a href="./catalogo.html">Colheitadeiras</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Institucional</h3>
+          <ul>
+            <li><a href="./sobre.html">Sobre Nós</a></li>
+            <li><a href="./catalogo.html">Como funciona</a></li>
+            <li><a href="./catalogo.html">Política de privacidade</a></li>
+            <li><a href="./catalogo.html">Termos de uso</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Atendimento</h3>
+          <ul>
+            <li>Segunda a sexta</li>
+            <li>08h às 18h</li>
+            <li>Atendimento comercial e pós-venda</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contato</h3>
+          <ul class="contact-list">
+            <li><a href="./sobre.html#contato">Endereço e dados da empresa</a></li>
+            <li>ENDEREÇO DA EMPRESA E DO PÁTIO</li>
+            <li>Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</li>
+            <li>RICARDO FERREIRA GOMES LEILOEIRO OFICIAL - ME</li>
+            <li>CNPJ: 41.624.184/0001-48</li>
+            <li>Desde 19/04/2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>2026 RGOMES LEILÕES. Todos os direitos reservados.</p>
+        <p>CNPJ: 41.624.184/0001-48 | Endereço da empresa e do pátio: Rua Figueira, nº 570, bairro Santa Rita I, Londrina - PR, CEP 86072-160</p>
+      </div>
+    </footer>
+
+    <button class="floating-whatsapp" type="button" data-staff-contact aria-label="Conversar pelo WhatsApp"><img src="./whatsapp1.png" alt="" width="58" height="58" /></button>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a class="mobile-nav-item active" href="./index.html">Início</a>
+      <a class="mobile-nav-item" href="./catalogo.html">Catálogo</a>
+      <a class="mobile-nav-item" href="./sobre.html">Sobre</a>
+      <a class="mobile-nav-item" href="./rastreio.html">Rastreio</a>
+      <a class="mobile-nav-item" href="./login.html">Perfil</a>
+    </nav>
+
+    <script src="./mobile-access.js"></script>
+    <script src="./catalog-search.js"></script>
+    <script src="./home-search.js" defer></script>
+    <script>
+      const homeFeaturedGrid = document.getElementById("homeFeaturedGrid");
+
+      const formatCurrency = (value) =>
+        Number(value || 0) > 0
+          ? Number(value).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            })
+          : "Sob consulta";
+
+      const getItemImage = (item) => {
+        const galleryImages = Array.isArray(item.gallery_images) ? item.gallery_images : [];
+        return galleryImages[0] || item.image_url || "";
+      };
+
+      const createProductCard = (item) => {
+        const image = getItemImage(item);
+        const photoCount = Array.isArray(item.gallery_images) && item.gallery_images.length
+          ? item.gallery_images.length
+          : Number(item.gallery_count || 1);
+
+        return `
+          <article class="product-card" data-detail="./detalhe.html?slug=${item.slug}">
+            <div class="product-media">
+              ${image ? `<img src="${image}" alt="${item.title}" loading="lazy" />` : '<div class="product-media__placeholder">Sem foto</div>'}
+              <div class="product-tag">${item.badge || item.category || "Catálogo"}</div>
+              <button class="favorite-btn" type="button" aria-label="Favoritar">♡</button>
+              <span class="photo-count">1/${photoCount}</span>
+            </div>
+            <div class="product-body">
+              <h3>${item.title}</h3>
+              <div class="product-divider"></div>
+              <div class="product-footer">
+                <div class="price-block">
+                  <strong>${formatCurrency(item.price)}</strong>
+                </div>
+                <div class="product-card-actions">
+                <a class="product-view-lot" href="./detalhe.html?slug=${encodeURIComponent(item.slug)}">VER LOTE</a>
+                <button class="whatsapp-btn" type="button" data-staff-contact data-vehicle="${encodeURIComponent(item.title || "")}" data-price="${encodeURIComponent(formatCurrency(item.price))}" data-description="${encodeURIComponent(item.description || "")}" data-image="${encodeURIComponent(image)}" aria-label="Escolher funcionário para conversar pelo WhatsApp"><img src="./whatsapp1.png" alt="" width="36" height="36" loading="lazy" /></button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      };
+
+      const bindProductCards = (scope = document) => {
+        scope.querySelectorAll(".product-card[data-detail]").forEach((card) => {
+          card.tabIndex = 0;
+          card.addEventListener("click", (event) => {
+            if (event.target.closest("a, button")) {
+              return;
+            }
+            window.location.href = card.dataset.detail;
+          });
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              window.location.href = card.dataset.detail;
+            }
+          });
+        });
+      };
+
+      fetch("/api/catalog/items?section=destaques&limit=12")
+        .then((response) => response.json())
+        .then((data) => {
+          if (Array.isArray(data.items) && data.items.length) {
+            homeFeaturedGrid.innerHTML = data.items.map(createProductCard).join("");
+          }
+        })
+        .catch(() => null)
+        .finally(() => bindProductCards());
+    </script>
+  <script src="./staff-contact.js" defer></script>
+  <script src="./app-navigation.js" defer></script>
+  </body>
+</html>
